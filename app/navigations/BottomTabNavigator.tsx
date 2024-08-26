@@ -3,9 +3,9 @@ import { RootStackParamList } from '../assets/Types';
 import { StyleSheet } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import HomeScreen from "../screens/menu/HomeScreen"
-import ItineraryScreen from "../screens/menu/ItineraryScreen";
-import BudgetExpensesScreen from "../screens/menu/BudgetExpensesScreen";
+import HomeScreen from "../screens/mainMenu/HomeScreen"
+import ItineraryScreen from "../screens/mainMenu/ItineraryScreen";
+import BudgetExpensesScreen from "../screens/mainMenu/BudgetExpensesScreen";
 
 import ProfileStackNavigator from "./StackNavigator";
 

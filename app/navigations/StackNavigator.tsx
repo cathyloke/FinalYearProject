@@ -4,7 +4,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 
 import { createStackNavigator } from "@react-navigation/stack";
 
-import AccountScreen from "../screens/menu/AccountScreen";
+import AccountScreen from "../screens/mainMenu/AccountScreen";
 
 import AboutScreen from "../screens/accountMenu/AboutScreen";
 import HelpCentreScreen from '../screens/accountMenu/HelpCentreScreen';

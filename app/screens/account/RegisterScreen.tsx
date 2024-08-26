@@ -2,8 +2,8 @@ import React, {useState} from "react";
 import { TouchableOpacity, TextInput, Text, View, StyleSheet } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from '../../assets/Types';
-// import { CheckBox } from 'react-native-elements';
-
+//import { CheckBox } from 'react-native-elements';
+import CheckBox from "expo-checkbox";
 type RegisterScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Register'>;
 
 type Props = {
@@ -21,39 +21,37 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-        <Text style={styles.header}>Hi, Ferianto!!</Text>
-        <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}>Email</Text>
-            <TextInput keyboardType='email-address' placeholder='Enter your email' placeholderTextColor="#C37BC3" style={styles.inputBox}></TextInput>
-            <Text style={styles.inputLabel}>Password</Text>
-            <TextInput keyboardType='visible-password' placeholder='Enter your password' placeholderTextColor="#C37BC3" style={styles.inputBox}></TextInput>
-            <Text style={styles.inputLabel}>Re-Password</Text>
-            <TextInput keyboardType='visible-password' placeholder='Re-Enter your password' placeholderTextColor="#C37BC3" style={styles.inputBox}></TextInput>
-        </View>
+            <Text style={styles.header}>Hi, Ferianto!!</Text>
+            <View style={styles.inputContainer}>
+                <Text style={styles.inputLabel}>Email</Text>
+                <TextInput keyboardType='email-address' placeholder='Enter your email' placeholderTextColor="#C37BC3" style={styles.inputBox}></TextInput>
+                <Text style={styles.inputLabel}>Password</Text>
+                <TextInput keyboardType='visible-password' placeholder='Enter your password' placeholderTextColor="#C37BC3" style={styles.inputBox}></TextInput>
+                <Text style={styles.inputLabel}>Re-Password</Text>
+                <TextInput keyboardType='visible-password' placeholder='Re-Enter your password' placeholderTextColor="#C37BC3" style={styles.inputBox}></TextInput>
+            </View>
             <TouchableOpacity
                 style={styles.button}
                 onPress={() => navigation.navigate('Menu')}
             >
                 <Text style={styles.buttonText}>Register</Text>
             </TouchableOpacity>
-            <Text>Already have an account?</Text>
+            <Text style={{fontFamily: 'Itim-Regular'}}>Already have an account?</Text>
             <TouchableOpacity 
                 onPress={() => navigation.navigate('Login')}
             >
-                <Text style={{textDecorationLine: 'underline'}}>Log in now!</Text>
+                <Text style={[{textDecorationLine: 'underline'}, {fontFamily: 'Itim-Regular'}]}>Log in now!</Text>
             </TouchableOpacity>
 
-            <CheckBox
-                title="I had read the terms and conditions"
-                checked={isChecked}
-                onPress={handleCheckBoxChange}
-                containerStyle={styles.checkboxContainer}
-                textStyle={styles.checkboxText}
-                checkedColor="#C8A1E0"
-                uncheckedColor="grey"
-                checkedIcon="check-circle"
-                uncheckedIcon="circle" 
-            />
+            <View style={styles.checkboxContainer}>
+                <CheckBox
+                    value={isChecked}
+                    onValueChange={handleCheckBoxChange}
+                    color={isChecked ? '#C8A1E0': 'grey'}
+                >   
+                </CheckBox>
+                <Text style={styles.checkboxText}>I had read the <Text style={{textDecorationLine: 'underline'}} onPress={handleCheckBoxChange}>terms and conditions</Text></Text>
+            </View>
         </View>
     );
 }
@@ -63,8 +61,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#F7EFE5',
         alignItems: 'center',
-        justifyContent: 'center',
-        
+        justifyContent: 'center',  
     },
     header:{
         fontSize: 40,
@@ -97,10 +94,10 @@ const styles = StyleSheet.create({
     button:{
         alignItems: 'center', 
         justifyContent: 'center',
-        backgroundColor: '#F7EFE5',
-        width: 270, 
+        backgroundColor: '#C37BC3',
+        width: 250, 
         height: 65,
-        marginBottom: 20,
+        marginBottom: 18,
         borderRadius: 40,
         borderWidth: 2,                 
         elevation: 15,                          //android
@@ -112,16 +109,19 @@ const styles = StyleSheet.create({
     buttonText:{
         fontFamily: 'Itim-Regular',
         justifyContent: 'center',
-        color: 'black',
+        color: 'white',
         alignSelf: 'center',
-        fontSize: 40,
+        fontSize: 30,
     },
     checkboxContainer: {
-        backgroundColor: 'transparent',
-        borderColor: 'transparent',
+        // backgroundColor: 'transparent',
+        // borderColor: 'transparent',
+        flexDirection: 'row',
     },
     checkboxText: {
+        paddingLeft: 5,
         fontSize: 15, 
+        fontFamily: 'Itim-Regular',
         color: 'black', 
     },
 });

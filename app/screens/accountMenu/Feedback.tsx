@@ -61,7 +61,6 @@ const styles = StyleSheet.create({
     content:{
       alignItems: 'center',
       justifyContent: 'center',
-        
     },
     feedbackHeader:{
       marginTop: 10,
@@ -73,6 +72,7 @@ const styles = StyleSheet.create({
       fontFamily: 'Itim-Regular',
       fontSize: 18,
       marginTop: 10,
+      paddingTop: 10,
       paddingLeft: 10,
       borderWidth: 1.5,
       borderRadius: 8,

@@ -11,15 +11,15 @@ export default function App() {
     'Itim-Regular': require('./app/assets/fonts/Itim-Regular.ttf'),
   });
 
+  if(!fontsLoaded) {
+    return null;
+  }
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex:1}}>
       <NavigationContainer>
         <AppNavigator></AppNavigator>
       </NavigationContainer>
-      
-      <Text style={{fontFamily: 'Itim-Regular'}}>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
 
     </SafeAreaView>
   );
