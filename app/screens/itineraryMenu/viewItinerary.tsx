@@ -10,16 +10,16 @@ import UpperTab from "../../components/UpperTab";
 
 import { Entypo } from "@expo/vector-icons";
 
-type DeleteItineraryNavigationProp = StackNavigationProp<RootStackParamList, 'DeleteItinerary'>;
+type ViewItineraryNavigationProp = StackNavigationProp<RootStackParamList, 'ViewItinerary'>;
 
 type Props = {
-  navigation: DeleteItineraryNavigationProp;
+  navigation: ViewItineraryNavigationProp;
 };
 
-const DeleteItinerary: React.FC<Props> = ({ navigation }) => {    //add routes
+const ViewItinerary: React.FC<Props> = ({ navigation }) => {    //add routes
   return (
     <View>
-        <Text>Delete Itinerary</Text>
+        <Text>View Itinerary</Text>
     </View>
   );
 }
@@ -84,4 +84,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default DeleteItinerary;
+export default ViewItinerary;

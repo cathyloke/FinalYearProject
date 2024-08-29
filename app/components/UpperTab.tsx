@@ -19,7 +19,7 @@ const UpperTab: React.FC<UpperTabProps> = ({ navigation }) => {
           </TouchableOpacity>
           
           <TouchableOpacity onPress={() => navigation.navigate('Logout')}>
-              <MaterialCommunityIcons name="logout" size={45} color="black" />
+              <MaterialCommunityIcons name="logout" size={30} color="black" />
           </TouchableOpacity>
         </View>
     );
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       padding: 15, 
       backgroundColor: '#E2BFD9',
-      height: 85,      
+      height: 65,      
       elevation: 20, 
       shadowColor: '#000',
       shadowOffset: { width: 0, height: 2 },
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
       shadowRadius: 3,
     },
     greetingText:{
-      fontSize: 48,
+      fontSize: 30,
       color: 'black', 
       fontFamily: 'Itim-Regular',
     },

@@ -12,11 +12,11 @@ import FeedbackScreen from "../screens/accountMenu/Feedback";
 import PrivacyAgreementScreen from "../screens/accountMenu/PrivacyAgreement";
 import UserAgreementScreen from "../screens/accountMenu/UserAgreement";
 
-const ProfileStack = createStackNavigator<RootStackParamList>();
+const Stack = createStackNavigator<RootStackParamList>();
 
-const ProfileStackNavigator = () => {
+const AccountNavigator = () => {
     return (
-      <ProfileStack.Navigator
+      <Stack.Navigator
         screenOptions={{
           headerShown: true,
           headerStyle: {
@@ -28,7 +28,7 @@ const ProfileStackNavigator = () => {
               fontSize: 25,
           },
         }}>
-          <ProfileStack.Screen
+          <Stack.Screen
             name="Account"
             component={AccountScreen}
             options={{
@@ -36,35 +36,35 @@ const ProfileStackNavigator = () => {
               headerShown: false,
             }}
           />
-          <ProfileStack.Screen
+          <Stack.Screen
             name="AboutUs"
             component={AboutScreen}
             options={{
               title: 'About Us',
             }}
           />
-          <ProfileStack.Screen
+          <Stack.Screen
             name="Feedback"
             component={FeedbackScreen}
             options={{
               title: 'Feedback',
             }}
           />
-          <ProfileStack.Screen
+          <Stack.Screen
             name="HelpCentre"
             component={HelpCentreScreen}
             options={{
               title: 'Help Centre',
             }}
           />
-          <ProfileStack.Screen
+          <Stack.Screen
             name="PrivacyAgreement"
             component={PrivacyAgreementScreen}
             options={{
               title: 'Privacy Agreement',
             }}
           />
-          <ProfileStack.Screen
+          <Stack.Screen
             name="UserAgreement"
             component={UserAgreementScreen}
             options={{
@@ -72,8 +72,8 @@ const ProfileStackNavigator = () => {
             }}
           />
   
-      </ProfileStack.Navigator>
+      </Stack.Navigator>
     );
   }
 
-  export default ProfileStackNavigator;
+  export default AccountNavigator;

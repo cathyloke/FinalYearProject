@@ -4,10 +4,10 @@ import { StyleSheet } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "../screens/mainMenu/HomeScreen"
-import ItineraryScreen from "../screens/mainMenu/ItineraryScreen";
+import ItineraryMenu from "./ItineraryNavigator";
 import BudgetExpensesScreen from "../screens/mainMenu/BudgetExpensesScreen";
 
-import ProfileStackNavigator from "./StackNavigator";
+import AccountNavigator from "./AccountNavigator";
 
 const BottomTab = createBottomTabNavigator<RootStackParamList>();
 
@@ -18,7 +18,7 @@ const BottomTabNavigator = () => {
           tabBarActiveBackgroundColor: '#C37BC3',
           tabBarStyle: {
             backgroundColor: '#E2BFD9',
-            height: 80,
+            height: 65,
             borderTopLeftRadius: 30,
             borderTopRightRadius: 30,
           },
@@ -36,16 +36,16 @@ const BottomTabNavigator = () => {
             component={HomeScreen}
             options={{ 
               tabBarIcon: ({focused}) => (            
-                <MaterialCommunityIcons name='home' size={50} color={focused ? '#F7EFE5': 'black'}/>
+                <MaterialCommunityIcons name='home' size={40} color={focused ? '#F7EFE5': 'black'}/>
               ),
             }}
           />
           <BottomTab.Screen
-            name="Itinerary"
-            component={ItineraryScreen}
+            name="ItineraryMenu"
+            component={ItineraryMenu}
             options={{ 
               tabBarIcon: ({focused}) => (            
-                <MaterialCommunityIcons name='note' size={50} color={focused ? '#F7EFE5': 'black'}/>
+                <MaterialCommunityIcons name='note' size={35} color={focused ? '#F7EFE5': 'black'}/>
               ),
             }}
           />
@@ -54,16 +54,16 @@ const BottomTabNavigator = () => {
             component={BudgetExpensesScreen}
             options={{ 
               tabBarIcon: ({focused}) => (            
-                <MaterialCommunityIcons name='cash' size={50} color={focused ? '#F7EFE5': 'black'}/>
+                <MaterialCommunityIcons name='cash' size={40} color={focused ? '#F7EFE5': 'black'}/>
               ),
             }}
           />
           <BottomTab.Screen
             name="ProfileMenu"
-            component={ProfileStackNavigator}
+            component={AccountNavigator}
             options={{ 
               tabBarIcon: ({focused}) => (            
-                <MaterialCommunityIcons name='account' size={50} color={focused ? '#F7EFE5': 'black'}/>
+                <MaterialCommunityIcons name='account' size={40} color={focused ? '#F7EFE5': 'black'}/>
               ),
             }}
           />

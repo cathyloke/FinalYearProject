@@ -12,7 +12,12 @@ export type RootStackParamList = {
     Account: undefined;
     Home: undefined;
     BudgetExpenses: undefined;
-    Itinerary: undefined;
+    
+    ItineraryMenu: undefined;
+    CreateItinerary: undefined;
+    ViewItinerary: undefined;
+    UpdateItinerary: undefined;
+    DeleteItinerary: undefined;
     
 
     ProfileMenu:undefined;
@@ -21,5 +26,7 @@ export type RootStackParamList = {
     HelpCentre: undefined;
     PrivacyAgreement: undefined;
     UserAgreement: undefined;
+
+
 };
   

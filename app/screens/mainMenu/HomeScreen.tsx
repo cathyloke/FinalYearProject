@@ -98,26 +98,26 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
           <TouchableNativeFeedback>
             <View style={styles.bookingOptionWrapper}>
               <MaterialCommunityIcons name='airplane' size={50} color='black'/>
-              <Text style={styles.bookingOption}>Book a flight</Text>
+              <Text style={styles.bookingOption}>Flight</Text>
             </View>
           </TouchableNativeFeedback>
           <TouchableNativeFeedback>
             <View style={styles.bookingOptionWrapper}>
               <MaterialCommunityIcons name='bed-queen' size={50} color='black'/>
-              <Text style={styles.bookingOption}>Book a stay</Text>
+              <Text style={styles.bookingOption}>Stay</Text>
             </View>
           </TouchableNativeFeedback>
           <TouchableNativeFeedback>
             <View style={styles.bookingOptionWrapper}>
               <MaterialCommunityIcons name='ticket' size={50} color='black'/>
-              <Text style={styles.bookingOption}>Book a ticket</Text>
+              <Text style={styles.bookingOption}>Ticket</Text>
             </View>
           </TouchableNativeFeedback>
         </View>
 
         {/* Recommended activities */}
         <Text style= {styles.sectionHeader} >Recommended</Text>
-        <View style={styles.OptionContainer}>
+        <View style={styles.imageContainer}>
           <TouchableNativeFeedback>
             <View style={styles.activitiesOptionWrapper}>
               <Image
@@ -137,7 +137,26 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
             </View>
           </TouchableNativeFeedback>
         </View>
-
+        <View style={styles.imageContainer}>
+          <TouchableNativeFeedback>
+            <View style={styles.activitiesOptionWrapper}>
+              <Image
+                source={require('../../assets/images/HomeImage/Trip2.jpg')}
+                style={styles.backgroundImage}
+              />
+              <Text style={styles.activitiesOption}>Malaysia</Text>
+            </View>
+          </TouchableNativeFeedback>
+          <TouchableNativeFeedback>
+            <View style={styles.activitiesOptionWrapper}>
+              <Image
+                source={require('../../assets/images/HomeImage/Trip3.jpg')}
+                style={styles.backgroundImage}
+              />
+              <Text style={styles.activitiesOption}>Thailand</Text>
+            </View>
+          </TouchableNativeFeedback>
+        </View>
         <Text>Homepage other stuff</Text>
         <Text>Homepage other stuff</Text>
         <Text>Homepage other stuff</Text>
@@ -190,9 +209,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: 'center',
     marginHorizontal: 5,
-    borderWidth: 2,
-    borderRadius: 15,
-    backgroundColor: '#C37BC3',
+    borderWidth: 1,
+    borderColor: 'grey',
+    borderRadius: 30,
+    backgroundColor: '#E2BFD9',
     elevation: 15,                          //android
     shadowColor: '#000',                    //ios
     shadowOffset: { width: 0, height: 2 },
@@ -205,8 +225,12 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     color: 'black',
   },
+  imageContainer: {
+    flexDirection: "row",
+    marginBottom: 20,
+  },
   activitiesOptionWrapper: {
-    width: 200,
+    width: 180,
     height: 150, 
     justifyContent: 'flex-start',
     alignItems: 'flex-start',

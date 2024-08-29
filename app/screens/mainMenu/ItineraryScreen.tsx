@@ -1,12 +1,16 @@
-import React, {useState} from "react";
-import { TouchableOpacity, TextInput, Text, View, Image, StyleSheet } from "react-native";
+import React from "react";
+import { Text, View, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from '../../assets/Types';
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { ScrollView } from "react-native-gesture-handler";
+
+import { MenuProvider, Menu, MenuOptions, MenuOption, MenuTrigger} from 'react-native-popup-menu'
+
 import UpperTab from "../../components/UpperTab";
 
-type ItineraryScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Itinerary'>;
+import { Entypo } from "@expo/vector-icons";
+
+type ItineraryScreenNavigationProp = StackNavigationProp<RootStackParamList, 'ItineraryMenu'>;
 
 type Props = {
   navigation: ItineraryScreenNavigationProp;
@@ -14,20 +18,86 @@ type Props = {
 
 const ItineraryScreen: React.FC<Props> = ({ navigation }) => {
   return (
-    <View style={styles.container}>
-      <UpperTab navigation={navigation}></UpperTab>
-      <ScrollView >  
-        <View style={styles.content}>
+    <MenuProvider backHandler={false} customStyles={{ backdrop: { backgroundColor: 'rgba(0, 0, 0, 0.5)' } }}>   
+      <View style={styles.container}>
+        <UpperTab navigation={navigation}></UpperTab>
+        <ScrollView >  
+          <Text style = {styles.header}>My Trips</Text>
 
+          {/* List of trips in database */}
+          {/* replace with flatlist, data from database */}
+          <View style={styles.content}>
+            
+            <Image style={styles.image} source={require('../../assets/images/HomeImage/Trip1.jpg')} />
+            <TouchableOpacity onPress={() => navigation.navigate('ViewItinerary')}>
+              <View style= {styles.infoContainer}>
+                <Text style= {styles.info}>Perak Trip</Text>
+                <Text style= {styles.info}>15 - 25 December</Text>
+              </View>
+            </TouchableOpacity>
+                
+            <View>
+              <Menu>
+                <MenuTrigger>
+                  <Entypo name="dots-three-horizontal" size={24} color="black" />
+                </MenuTrigger>
+                <MenuOptions customStyles={optionsStyle}>
+                  {/* change to function */}
+                  <MenuOption onSelect={() => alert('Edit')} text="Edit Trip" /> 
+                  <MenuOption onSelect={() => alert('Delete')} text="Delete Trip" />
+                </MenuOptions>
+              </Menu>
+            </View> 
 
+          </View>
 
-          <Text>Itinerary</Text>
-        </View>
-      </ScrollView>
-    </View>
+          {/* second trip */}
+          <View style={styles.content}>
+            
+            <Image style={styles.image} source={require('../../assets/images/HomeImage/Trip1.jpg')} />
+            <View style= {styles.infoContainer}>
+              <Text style= {styles.info}>Pahang Trip</Text>
+              <Text style= {styles.info}>15 - 25 December</Text>
+            </View>
+                
+            <View>
+              <Menu>
+                <MenuTrigger>
+                  <Entypo name="dots-three-horizontal" size={24} color="black" />
+                </MenuTrigger>
+                <MenuOptions customStyles={optionsStyle}>
+                  {/* change to function */}
+                  <MenuOption onSelect={() => alert('Edit Trip')} text="Edit Trip" /> 
+                  <MenuOption onSelect={() => alert('Delete')} text="Delete Trip" />
+                </MenuOptions>
+              </Menu>
+            </View> 
+
+          </View>
+
+        </ScrollView>
+      </View>
+    </MenuProvider>
   );
 }
 
+
+const optionsStyle = {
+  optionsContainer: {
+    backgroundColor: '#f2f2f2',
+    padding: 5,
+    borderRadius: 15,
+  },
+  optionWrapper: {
+    padding: 10,
+  },
+  optionText: {
+    color: 'black',
+    fontFamily: 'Itim-Regular',
+    fontSize: 18,
+  },
+
+}
 const styles = StyleSheet.create({
     container:{
       flex: 1,
@@ -41,21 +111,32 @@ const styles = StyleSheet.create({
       backgroundColor: '#E2BFD9',
       height: 85,
     },
-    greetingText:{
-      fontSize: 48,
-      color: 'black', 
-      fontFamily: 'Itim-Regular',
+    content:{     
+      flexDirection: 'row',
+      margin: 20,
+      justifyContent: 'space-between'
     },
-
-    content:{
-      alignItems: 'center',
-      justifyContent: 'center',
-        
+    image: {
+      width: 125,
+      height: 125,
+      borderRadius: 30,
     },
     header:{
-        fontSize: 40,
-        fontFamily: 'Itim-Regular',
-        color: 'black',
+      fontSize: 28,
+      padding:5,
+      margin: 10,
+      fontFamily: 'Itim-Regular',
+      color: 'black',
+      borderBottomWidth:1,
+      borderBottomColor: 'grey'
+    },
+    infoContainer: {
+      justifyContent: 'flex-start',
+    },
+    info: {
+      fontFamily: 'Itim-Regular',
+      color: 'black',
+      fontSize: 20,
     },
 
 });

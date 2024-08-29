@@ -6,7 +6,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import { ScrollView } from "react-native-gesture-handler";
 import UpperTab from "../../components/UpperTab";
 import CustomButton from "../../components/CustomButton";
-import DrawerNavigator from "../../navigations/StackNavigator";
+import DrawerNavigator from "../../navigations/AccountNavigator";
 
 type AccountScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Account'>;
 
@@ -82,7 +82,13 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
             }}  
           >
           </CustomButton>
-
+          <CustomButton 
+            title= {'Terms and Cnditions'}
+            onPress={() => {
+              navigation.navigate('TNC')
+            }}  
+          >
+          </CustomButton>
 
         </View>
 
