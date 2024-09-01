@@ -25,8 +25,8 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
         >
             <Text style={styles.buttonText}>Log in</Text>
         </TouchableOpacity>
-        <Text>Don't have an account?</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('Register')}><Text style={{textDecorationLine: 'underline'}}>Register now!</Text></TouchableOpacity>
+        <Text style={{fontFamily: 'Itim-Regular'}}>Don't have an account?</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Register')}><Text style={{textDecorationLine: 'underline', fontFamily: 'Itim-Regular'}}>Register now!</Text></TouchableOpacity>
 
         
     </View>
@@ -72,12 +72,11 @@ const styles = StyleSheet.create({
     button:{
         alignItems: 'center', 
         justifyContent: 'center',
-        backgroundColor: '#F7EFE5',
-        width: 270, 
+        backgroundColor: '#C37BC3',
+        width: 250, 
         height: 65,
         marginBottom: 20,
-        borderRadius: 40,
-        borderWidth: 2,                 
+        borderRadius: 40,               
         elevation: 15,                          //android
         shadowColor: '#000',                    //ios
         shadowOffset: { width: 0, height: 2 },
@@ -87,9 +86,9 @@ const styles = StyleSheet.create({
     buttonText:{
         fontFamily: 'Itim-Regular',
         justifyContent: 'center',
-        color: 'black',
+        color: 'white',
         alignSelf: 'center',
-        fontSize: 40,
+        fontSize: 30,
     },
     
 });

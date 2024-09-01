@@ -23,7 +23,7 @@ const FeedbackScreen: React.FC<Props> = ({ navigation }) => {
             multiline= {true}
             keyboardType='email-address' 
             placeholder='Write your comment' 
-            placeholderTextColor="#C37BC3" 
+            placeholderTextColor="grey" 
             selectionColor={'#C37BC3'}
             style={styles.feedbackInput}
           ></TextInput>
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     button:{
       alignItems: 'center', 
       justifyContent: 'center',
-      backgroundColor: '#F7EFE5',
+      backgroundColor: '#C37BC3',
       width: 200, 
       height: 50,
       marginTop: 20,
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     buttonText:{
       fontFamily: 'Itim-Regular',
       justifyContent: 'center',
-      color: 'black',
+      color: 'white',
       alignSelf: 'center',
       fontSize: 20,
     },

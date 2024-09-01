@@ -3,11 +3,13 @@ import { RootStackParamList } from '../assets/Types';
 import { StyleSheet } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
 import HomeScreen from "../screens/mainMenu/HomeScreen"
 import ItineraryMenu from "./ItineraryNavigator";
 import BudgetExpensesScreen from "../screens/mainMenu/BudgetExpensesScreen";
 
 import AccountNavigator from "./AccountNavigator";
+import ItineraryNavigator from "./ItineraryNavigator";
 
 const BottomTab = createBottomTabNavigator<RootStackParamList>();
 
@@ -42,7 +44,7 @@ const BottomTabNavigator = () => {
           />
           <BottomTab.Screen
             name="ItineraryMenu"
-            component={ItineraryMenu}
+            component={ItineraryNavigator}
             options={{ 
               tabBarIcon: ({focused}) => (            
                 <MaterialCommunityIcons name='note' size={35} color={focused ? '#F7EFE5': 'black'}/>

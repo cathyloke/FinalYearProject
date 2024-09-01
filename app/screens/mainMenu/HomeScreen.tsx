@@ -157,15 +157,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
             </View>
           </TouchableNativeFeedback>
         </View>
-        <Text>Homepage other stuff</Text>
-        <Text>Homepage other stuff</Text>
-        <Text>Homepage other stuff</Text>
-        <Text>Homepage other stuff</Text>
-        <Text>Homepage other stuff</Text>
-        <Text>Homepage other stuff</Text>
-        <Text>Homepage other stuff</Text>
-        <Text>Homepage other stuff</Text>
-        <Text>Homepage other stuff</Text>
+
      
         </View>
       </ScrollView>

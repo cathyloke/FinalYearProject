@@ -9,7 +9,6 @@ import ItineraryScreen from "../screens/mainMenu/ItineraryScreen";
 import CreateItinerary from '../screens/itineraryMenu/createItinerary';
 import ViewItinerary from "../screens/itineraryMenu/viewItinerary";
 import UpdateItinerary from "../screens/itineraryMenu/updateItinerary";
-import DeleteItinerary from "../screens/itineraryMenu/deleteItinerary";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -28,7 +27,7 @@ const ItineraryNavigator = () => {
           },
         }}>
           <Stack.Screen
-            name="ItineraryMenu"
+            name="Itinerary"
             component={ItineraryScreen}
             options={{
               title: 'Profile',
@@ -56,13 +55,7 @@ const ItineraryNavigator = () => {
               title: 'Update Itinerary',
             }}
           />
-          <Stack.Screen
-            name="DeleteItinerary"
-            component={DeleteItinerary}
-            options={{
-              title: 'Delete Itinerary',
-            }}
-          />
+        
   
       </Stack.Navigator>
     );

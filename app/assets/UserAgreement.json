@@ -1,0 +1,20 @@
+{
+    "userAgreement" : {
+        "Effective Date": "2024-08-29",
+        "1. Acceptance of Terms": "By downloading, installing, or using the App, you agree to comply with and be bound by this User Agreement. If you do not agree to this Agreement, do not use the App.",
+        "2. Use of the App": {
+          "Eligibility": "You must be at least 13 years old to use the App. By using the App, you represent that you meet this requirement.",
+          "Account Registration": "You may be required to create an account to access the application. You agree to provide accurate and complete information and to keep your account information updated.",
+          "Prohibited Conduct": "You agree not to use the App for any unlawful purpose or in a manner that could damage, disable, overburden, or impair the App."
+        },
+        "3. Intellectual Property": "All content and materials within the App, including text, graphics, logos, and software, are the property of Your Company Name and are protected by intellectual property laws. You agree not to reproduce, distribute, or create derivative works from any part of the App without prior written permission.",
+        "4. Payments": "Certain features of the App may require payment. You agree to provide accurate payment information and authorize us to charge your payment method for any fees due.",
+        "5. Refunds": "All payments are non-refundable unless otherwise stated in this Agreement or required by law.",
+        "6. AI Recommendations": "The App uses AI to provide personalized travel recommendations and itinerary planning. You acknowledge that these recommendations are based on algorithms and may not always be accurate or suitable for your specific needs. You agree to use your discretion when following these recommendations.",
+        "7. Limitation of liability": "To the fullest extent permitted by law, Your Company Name shall not be liable for any indirect, incidental, special, or consequential damages arising out of or in connection with your use of the App.",
+        "8. Termination": "We may suspend or terminate your access to the App at any time, with or without cause, and with or without notice. Upon termination, all rights granted to you under this Agreement will cease immediately.",
+        "9. Changes to Agreement": "We may update this User Agreement from time to time. We will notify you of any changes by posting the new agreement on the App and updating the effective date.",
+        "10. Governing Law": "This Agreement shall be governed by and construed in accordance with the laws of Your Jurisdiction, without regard to its conflict of law principles.",
+        "11. Contact Us": "If you have any questions about this User Agreement, please contact us at support@yourcompany.com."
+    }
+}

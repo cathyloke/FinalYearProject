@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { TouchableNativeFeedback, TextInput, Text, View, Image, StyleSheet, Dimensions } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-const CustomButton = ( props : any ) => {
+export const AcountMenuButton = ( props : any ) => {
     return (
         <TouchableNativeFeedback
             onPress={props.onPress}
@@ -37,4 +37,3 @@ const styles = StyleSheet.create({
     
 });
 
-export default CustomButton;

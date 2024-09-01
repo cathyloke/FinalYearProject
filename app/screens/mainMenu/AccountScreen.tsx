@@ -5,7 +5,7 @@ import { RootStackParamList } from '../../assets/Types';
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { ScrollView } from "react-native-gesture-handler";
 import UpperTab from "../../components/UpperTab";
-import CustomButton from "../../components/CustomButton";
+import { AcountMenuButton } from "../../components/CustomButton";
 import DrawerNavigator from "../../navigations/AccountNavigator";
 
 type AccountScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Account'>;
@@ -47,48 +47,48 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
 
         <Text style = {styles.header}>About Ferio</Text>
         <View style={styles.options}>
-          <CustomButton 
+          <AcountMenuButton 
             title= {'About Us'}
             onPress={() => {
               navigation.navigate('AboutUs')
             }}  
           >
-          </CustomButton> 
-          <CustomButton 
+          </AcountMenuButton> 
+          <AcountMenuButton 
             title= {'Privacy Agreement'}
             onPress={() => {
               navigation.navigate('PrivacyAgreement')
             }}  
           >
-          </CustomButton>
-          <CustomButton 
+          </AcountMenuButton>
+          <AcountMenuButton 
             title= {'User Agreement'}
             onPress={() => {
               navigation.navigate('UserAgreement')
             }}  
           >
-          </CustomButton>
-          <CustomButton 
+          </AcountMenuButton>
+          <AcountMenuButton 
             title= {'Help Centre'}
             onPress={() => {
               navigation.navigate('HelpCentre')
             }}  
           >
-          </CustomButton>
-          <CustomButton 
+          </AcountMenuButton>
+          <AcountMenuButton 
             title= {'Feedback'}
             onPress={() => {
               navigation.navigate('Feedback')
             }}  
           >
-          </CustomButton>
-          <CustomButton 
+          </AcountMenuButton>
+          <AcountMenuButton 
             title= {'Terms and Cnditions'}
             onPress={() => {
               navigation.navigate('TNC')
             }}  
           >
-          </CustomButton>
+          </AcountMenuButton>
 
         </View>
 

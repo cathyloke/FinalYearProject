@@ -13,47 +13,58 @@ type Props = {
 };
 
 const UserAgreementScreen: React.FC<Props> = ({ navigation }) => {
-    return (
-        <View style={styles.container}>
-          <ScrollView >  
-            <View style={styles.content}>
-              <Text>User Agreement</Text>
-            </View>
-          </ScrollView>
-        </View>
-      );
-}
+  const userAgreement = require('../../assets/UserAgreement.json');
+
+  const renderPolicySection = (sectionTitle: string, sectionContent: any) => {
+    return (      
+      <View key={sectionTitle} >
+        {Object.entries(sectionContent).map(([key, value]) => (
+          <View key={key} style={styles.objectContent}>
+            <Text style={styles.title}>{key}:</Text>
+            <Text style={styles.text}>
+              {typeof value === 'string' ? value : JSON.stringify(value)}
+            </Text>
+          </View>
+        ))}
+      </View>
+    );
+  };
+
+  return (
+    <ScrollView style={styles.container}>
+      <View style={styles.content}>
+        {Object.entries(userAgreement).map(([key, value]) => {
+            return renderPolicySection(key, value);
+        })}
+      </View>
+    </ScrollView>
+  );
+};
 
 const styles = StyleSheet.create({
-    container:{
-      flex: 1,
-      backgroundColor: '#F7EFE5', 
-    },
-    upperTab:{
-      flexDirection: 'row',
-      justifyContent: 'space-between', 
-      alignItems: 'center',
-      padding: 15, 
-      backgroundColor: '#E2BFD9',
-      height: 85,
-    },
-    greetingText:{
-      fontSize: 48,
-      color: 'black', 
-      fontFamily: 'Itim-Regular',
-    },
+  container: {
+    flex: 1,
+    backgroundColor: '#F7EFE5',
+    padding: 20,
+  },
+  content: {
+    marginBottom: 20,
+  },
+  title: {
+    fontFamily: 'Itim-Regular',
+    fontSize: 25,
+    color: 'black'
 
-    content:{
-      alignItems: 'center',
-      justifyContent: 'center',
-        
-    },
-    header:{
-        fontSize: 40,
-        fontFamily: 'Itim-Regular',
-        color: 'black',
-    },
-
+  },
+  text: {
+    fontFamily: 'Itim-Regular',
+    fontSize: 15,
+    color: 'black',
+    textAlign: 'justify',
+  },
+  objectContent: {
+    marginBottom: 20, 
+  },
 });
 
 export default UserAgreementScreen;

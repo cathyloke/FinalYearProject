@@ -24,63 +24,8 @@ const UpdateItinerary: React.FC<Props> = ({ navigation }) => {    //add routes
   );
 }
 
-
-const optionsStyle = {
-  optionsContainer: {
-    backgroundColor: '#f2f2f2',
-    padding: 5,
-    borderRadius: 15,
-  },
-  optionWrapper: {
-    padding: 10,
-  },
-  optionText: {
-    color: 'black',
-    fontFamily: 'Itim-Regular',
-    fontSize: 18,
-  },
-
-}
 const styles = StyleSheet.create({
-    container:{
-      flex: 1,
-      backgroundColor: '#F7EFE5', 
-    },
-    upperTab:{
-      flexDirection: 'row',
-      justifyContent: 'space-between', 
-      alignItems: 'center',
-      padding: 15, 
-      backgroundColor: '#E2BFD9',
-      height: 85,
-    },
-    content:{     
-      flexDirection: 'row',
-      margin: 20,
-      justifyContent: 'space-between'
-    },
-    image: {
-      width: 125,
-      height: 125,
-      borderRadius: 30,
-    },
-    header:{
-      fontSize: 28,
-      padding:5,
-      margin: 10,
-      fontFamily: 'Itim-Regular',
-      color: 'black',
-      borderBottomWidth:1,
-      borderBottomColor: 'grey'
-    },
-    infoContainer: {
-      justifyContent: 'flex-start',
-    },
-    info: {
-      fontFamily: 'Itim-Regular',
-      color: 'black',
-      fontSize: 20,
-    },
+  
 
 });
 

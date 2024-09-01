@@ -97,9 +97,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#C37BC3',
         width: 250, 
         height: 65,
-        marginBottom: 18,
-        borderRadius: 40,
-        borderWidth: 2,                 
+        marginBottom: 20,
+        borderRadius: 40,             
         elevation: 15,                          //android
         shadowColor: '#000',                    //ios
         shadowOffset: { width: 0, height: 2 },
@@ -114,8 +113,6 @@ const styles = StyleSheet.create({
         fontSize: 30,
     },
     checkboxContainer: {
-        // backgroundColor: 'transparent',
-        // borderColor: 'transparent',
         flexDirection: 'row',
     },
     checkboxText: {

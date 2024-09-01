@@ -11,7 +11,7 @@ type Props = {
 
 type TermsAndConditions = {
     [section: string]: {
-      text: string | string[];
+        text: string | string[];
     };
 };
 
@@ -25,7 +25,6 @@ const TNC: React.FC<Props> = ({ navigation }) => {
         <ScrollView style={styles.container}>
             <View style={styles.content}>
                 {Object.entries(termsData).map(([section, { text }]) => (
-                    
                         <View key={section} style={styles.section}>
                             <Text style={styles.header}>{section}</Text>
                             {Array.isArray(text) ? (
@@ -56,7 +55,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     header:{
-        fontSize: 30,
+        fontSize: 25,
         fontFamily: 'Itim-Regular',
         color: 'black',
     },

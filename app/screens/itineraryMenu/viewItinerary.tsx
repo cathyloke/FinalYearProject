@@ -18,69 +18,88 @@ type Props = {
 
 const ViewItinerary: React.FC<Props> = ({ navigation }) => {    //add routes
   return (
-    <View>
-        <Text>View Itinerary</Text>
-    </View>
+    <ScrollView style={styles.container}>
+        <View style={{borderBottomWidth: 1, borderBottomColor:'grey'}}>
+          <View style={styles.headerSection}>
+            <Text style={styles.header}>Pahang Trip</Text>
+            <Text style={styles.header}>15 - 25 December</Text>
+          </View>
+        </View>
+        <View>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.dateContainer}>
+            {['15/12', '16/12', '17/12', '18/12', '19/12', '20/12'].map((date, index) => (
+              <TouchableOpacity key={index} style={styles.date}>
+                <Text style={styles.dateText}>{date}</Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        </View>
+
+        {/* Change to flat list */}
+        <View style={{margin:10}}>
+            <Text style={{fontFamily: 'Itim-Regular', fontSize: 30}}>Day 1</Text>
+            <Text style={{fontFamily: 'Itim-Regular', fontSize: 20}}>anything related to Day 1</Text>
+            <Text style={{fontFamily: 'Itim-Regular', fontSize: 20}}>anything related to Day 1</Text>
+            <Text style={{fontFamily: 'Itim-Regular', fontSize: 20}}>anything related to Day 1</Text>
+        </View>
+        <View style={{margin:10}}>
+            <Text style={{fontFamily: 'Itim-Regular', fontSize: 30}}>Day 2</Text>
+            <Text style={{fontFamily: 'Itim-Regular', fontSize: 20}}>anything related to Day 2</Text>
+            <Text style={{fontFamily: 'Itim-Regular', fontSize: 20}}>anything related to Day 2</Text>
+            <Text style={{fontFamily: 'Itim-Regular', fontSize: 20}}>anything related to Day 2</Text>
+        </View>
+
+
+    </ScrollView>
   );
 }
 
-
-const optionsStyle = {
-  optionsContainer: {
-    backgroundColor: '#f2f2f2',
-    padding: 5,
-    borderRadius: 15,
-  },
-  optionWrapper: {
-    padding: 10,
-  },
-  optionText: {
-    color: 'black',
-    fontFamily: 'Itim-Regular',
-    fontSize: 18,
-  },
-
-}
 const styles = StyleSheet.create({
-    container:{
-      flex: 1,
-      backgroundColor: '#F7EFE5', 
-    },
-    upperTab:{
-      flexDirection: 'row',
-      justifyContent: 'space-between', 
-      alignItems: 'center',
-      padding: 15, 
-      backgroundColor: '#E2BFD9',
-      height: 85,
-    },
-    content:{     
-      flexDirection: 'row',
-      margin: 20,
-      justifyContent: 'space-between'
-    },
-    image: {
-      width: 125,
-      height: 125,
-      borderRadius: 30,
-    },
-    header:{
-      fontSize: 28,
-      padding:5,
-      margin: 10,
-      fontFamily: 'Itim-Regular',
-      color: 'black',
-      borderBottomWidth:1,
-      borderBottomColor: 'grey'
-    },
-    infoContainer: {
-      justifyContent: 'flex-start',
-    },
-    info: {
-      fontFamily: 'Itim-Regular',
-      color: 'black',
-      fontSize: 20,
-    },
+  container:{
+    flex: 1,
+    backgroundColor: '#F7EFE5', 
+  },
+  headerSection:{
+    borderWidth: 2,
+    borderRadius: 10,
+    width: '85%',
+    height: 150,
+    alignSelf: 'center',
+    margin: 30,
+    justifyContent: 'center',
+    backgroundColor: '#E2BFD9'
+  },
+  header: {
+    fontFamily: 'Itim-Regular',
+    fontSize: 30,
+    alignSelf:'center'
+
+  },
+  image: {
+    width: 300,
+    height: 200,
+    borderRadius: 30,
+    alignSelf:'center'
+  },
+  dateContainer: {
+    flexDirection: 'row',
+    marginVertical: 10,
+  },
+  date: {
+    borderWidth: 1,
+    borderRadius: 5,
+    marginHorizontal: 10,
+    width: 60,
+    height: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#E2BFD9'
+  },
+  dateText: {
+    textAlign: 'center',
+    fontFamily: 'Itim-Regular',
+    fontSize: 18
+  }
 
 });
 
