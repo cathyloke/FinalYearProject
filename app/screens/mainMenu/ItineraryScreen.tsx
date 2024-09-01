@@ -7,8 +7,6 @@ import { Entypo } from "@expo/vector-icons";
 import { MenuProvider, Menu, MenuOptions, MenuOption, MenuTrigger} from 'react-native-popup-menu'
 
 import UpperTab from "../../components/UpperTab";
-import CreateItinerary from "../itineraryMenu/createItinerary";
-
 
 type ItineraryScreenNavigationProp = StackNavigationProp<RootStackParamList, 'ItineraryMenu'>;
 
