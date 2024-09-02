@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import AppNavigator from './app/navigations/AppNavigator';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFonts } from 'expo-font';
+import { MenuProvider } from 'react-native-popup-menu';
 
 export default function App() {
 
@@ -17,9 +18,11 @@ export default function App() {
 
   return (
     <SafeAreaView style={{flex:1}}>
-      <NavigationContainer>
-        <AppNavigator></AppNavigator>
-      </NavigationContainer>
+      <MenuProvider>
+        <NavigationContainer>
+          <AppNavigator></AppNavigator>
+        </NavigationContainer>
+      </MenuProvider>
 
     </SafeAreaView>
   );

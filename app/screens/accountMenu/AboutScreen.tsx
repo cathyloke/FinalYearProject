@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { TouchableOpacity, TextInput, Text, View, Image, StyleSheet } from "react-native";
+import { Dimensions, TouchableOpacity, TextInput, Text, View, Image, StyleSheet } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from '../../assets/Types';
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -15,14 +15,34 @@ type Props = {
 const AboutScreen: React.FC<Props> = ({ navigation }) => {
     return (
         <View style={styles.container}>
-          <ScrollView >  
+          <ScrollView > 
             <View style={styles.content}>
-              <Text>About Us</Text>
-            </View>
+              <Image
+                style={styles.image}
+                source={require('../../assets/images/Ferio.png')}
+              />  
+              <Text style={styles.info}>
+                Ferio is a holiday planner app that revolutionizes travel planning by leveraging artificial intelligence to 
+                provide itineraries, accommodation recommendations, activity suggestions and budget management features.
+              </Text>
+              
+              <Text style={{marginTop: 40, marginBottom: 20}}>
+                Created by Loke Weng Yan, a Final Year Project Software Engineering student at University Tunku Abdul Rahman Sungai Long campus.
+              </Text>
+              <Text>
+                Version 1.0
+              </Text>
+              <Text>
+                © 2024, LOKE WENG YAN. All right reserved.
+              </Text>
+            </View> 
+            
           </ScrollView>
         </View>
       );
 }
+
+const screenHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
     container:{
@@ -42,17 +62,25 @@ const styles = StyleSheet.create({
       color: 'black', 
       fontFamily: 'Itim-Regular',
     },
-
     content:{
       alignItems: 'center',
       justifyContent: 'center',
         
     },
-    header:{
-        fontSize: 40,
-        fontFamily: 'Itim-Regular',
-        color: 'black',
+    info:{
+      fontSize: 20,
+      fontFamily: 'Itim-Regular',
+      color: 'black',
+      textAlign: 'justify',
+      margin: 20,
     },
+    image:{
+      width: '50%',
+      height: screenHeight * 0.25,
+      borderRadius: 60,
+      marginTop: 20,
+      
+  }
 
 });
 

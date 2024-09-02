@@ -1,22 +1,22 @@
 import React, {useState} from "react";
 import { Alert, TextInput, Text, View, Platform, StyleSheet, TouchableOpacity } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from '../../assets/Types';
+import { RootStackParamList } from '../../../assets/Types';
 import { ScrollView } from "react-native-gesture-handler";
 import { Entypo } from "@expo/vector-icons";
 import { MenuProvider, Menu, MenuOptions, MenuOption, MenuTrigger} from 'react-native-popup-menu'
 
-import UpperTab from "../../components/UpperTab";
+import UpperTab from "../../../components/UpperTab";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Picker } from '@react-native-picker/picker';
 import {Dropdown} from 'react-native-element-dropdown';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Ionicons } from '@expo/vector-icons';
 
-type AddExpensesNavigationProp = StackNavigationProp<RootStackParamList, 'AddExpenses'>;
+type UpdateExpensesNavigationProp = StackNavigationProp<RootStackParamList, 'UpdateExpenses'>;
 
 type Props = {
-  navigation: AddExpensesNavigationProp;
+  navigation: UpdateExpensesNavigationProp;
 };
 
 const categories = [
@@ -29,14 +29,13 @@ const categories = [
   { label: 'Other', value: 'Other' },
 ];
 
-const AddExpenses: React.FC<Props> = ({ navigation }) => {
+const UpdateExpenses: React.FC<Props> = ({ navigation }) => {
   const [category, setCategory] = useState(null);
   const [date, setDate] = useState(new Date());
   const onChangeDate = (event: any, selectedDate: any) => {
     const currentDate = selectedDate || date;
     setDate(currentDate);
   };
-
 
   const DatePickerOS = () => {
     if (Platform.OS === 'ios'){
@@ -57,23 +56,16 @@ const AddExpenses: React.FC<Props> = ({ navigation }) => {
           </TextInput>
         </View>
       )
-    }
-      
+    }   
+  }
+
+  const handleUpdateExpenses = () => {
+    Alert.alert('Expenses Updated')
+    navigation.navigate('CategoryDetails')
   }
 
   return (
-    <ScrollView style={styles.container}>
-      <SafeAreaView >
-        <View style={styles.actionContainer}>
-          <View style={styles.action}>
-            <Text style={styles.actionText}>Cancel</Text>
-          </View>
-          <View style={styles.action}>
-            <Text style={styles.actionText}>Done</Text>
-          </View>
-        </View>
-
-        
+    <ScrollView style={styles.container}>      
         <View style={[styles.inputContainer,{marginTop: 40}]}>
           <View style={styles.headerBox}>
             <Text style={styles.header}>Category</Text>
@@ -83,7 +75,7 @@ const AddExpenses: React.FC<Props> = ({ navigation }) => {
             data={categories}
             labelField="label"
             valueField="value"
-            placeholder="Select Category"
+            placeholder="Flights"                                           //value from database
             value={category}
             onChange={item => {
               setCategory(item.value);
@@ -97,7 +89,7 @@ const AddExpenses: React.FC<Props> = ({ navigation }) => {
           <View style={styles.headerBox}>
             <Text style={styles.header}>Pay by</Text>
           </View>
-          <TextInput style={styles.input} placeholderTextColor={'#C37BC3'} placeholder='Enter payer name' >
+          <TextInput style={styles.input} placeholderTextColor={'#C37BC3'} placeholder='Cathy Loke' >
           </TextInput>
         </View>
 
@@ -115,7 +107,10 @@ const AddExpenses: React.FC<Props> = ({ navigation }) => {
           <Ionicons name="add" size={40} color="black" style={{marginLeft: 10}} />
         </View>
 
-      </SafeAreaView>
+        <TouchableOpacity style={styles.button} onPress={handleUpdateExpenses}>
+            <Text style={styles.buttonText}>Update Expenses</Text>
+        </TouchableOpacity>
+
     </ScrollView>
   );
 }
@@ -126,29 +121,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F7EFE5', 
   },
-  actionContainer: {
-    flexDirection: 'row',
-    alignSelf: 'center',
-  },
-  action: {
-    borderWidth: 1,
-    marginHorizontal: 30,
-    borderRadius: 10,
-    width: 120,
-    height: 40,
-    backgroundColor: '#E2BFD9',
-    justifyContent: 'center',
-    alignItems: 'center',
-    elevation: 15,                          //android
-    shadowColor: '#000',                    //ios
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 3.84,
-  },
-  actionText: {
-    fontFamily: 'Itim-Regular',
-    fontSize: 20
-  },
+ 
   dropdown: {
     height: 40,
     borderColor: 'black',
@@ -191,7 +164,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: 180,
     height: 40,
-    backgroundColor: '#D7CFCF',
+    backgroundColor: '#F1E4E4',
     textAlign:'center',
   },
   fileContainer:{
@@ -202,10 +175,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 20
-  }
+  },
+  button: {
+    borderWidth: 1,
+    borderRadius: 10,
+    width: 180,
+    height: 50,
+    backgroundColor: '#E2BFD9',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  buttonText: {
+    fontFamily: 'Itim-Regular',
+    fontSize: 20
+  },
   
  
 
 });
 
-export default AddExpenses;
+export default UpdateExpenses;

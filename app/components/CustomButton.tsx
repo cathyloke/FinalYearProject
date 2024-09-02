@@ -4,15 +4,16 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 
 export const AcountMenuButton = ( props : any ) => {
     return (
-        <TouchableNativeFeedback
-            onPress={props.onPress}
-        >
-            <View style={styles.button}>
-                <Text style={styles.buttonText}>{props.title}</Text>
-                <MaterialCommunityIcons name='arrow-right' size={30} color='grey'/>
-            </View>
-        </TouchableNativeFeedback>
-
+        <View style={{paddingHorizontal:10}}>
+            <TouchableNativeFeedback
+                onPress={props.onPress}
+            >
+                <View style={styles.button}>
+                    <Text style={styles.buttonText}>{props.title}</Text>
+                    <MaterialCommunityIcons name='arrow-right' size={30} color='grey'/>
+                </View>
+            </TouchableNativeFeedback>
+        </View>
     );
 }
 
@@ -20,12 +21,12 @@ const styles = StyleSheet.create({
     button:{
         alignItems: 'center', 
         justifyContent: 'space-between',
-        paddingLeft: 20,
-        paddingRight: 20,
+        paddingHorizontal: 10,
         flexDirection: 'row', 
         height: 50,
-        borderWidth: 0.5,
+        borderBottomWidth: 0.5,
         borderColor: 'grey',
+        
     },
     buttonText:{
         fontFamily: 'Itim-Regular',

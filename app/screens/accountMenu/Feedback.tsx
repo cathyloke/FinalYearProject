@@ -1,10 +1,8 @@
-import React, {useState} from "react";
+import React from "react";
 import { TouchableOpacity, TextInput, Text, View, Image, StyleSheet, TouchableNativeFeedback } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from '../../assets/Types';
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { ScrollView } from "react-native-gesture-handler";
-import UpperTab from "../../components/UpperTab";
 
 type FeedbackScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Feedback'>;
 
@@ -14,28 +12,27 @@ type Props = {
 
 const FeedbackScreen: React.FC<Props> = ({ navigation }) => {
   return (
-    <View style={styles.container}>
-      <ScrollView >  
-        <View style={styles.content}>
-          <Text style={styles.feedbackHeader}>What's your Feedback?</Text>
-          <Text style={[styles.feedbackHeader, {fontSize: 20}]}>Write it down!</Text>
-          <TextInput 
-            multiline= {true}
-            keyboardType='email-address' 
-            placeholder='Write your comment' 
-            placeholderTextColor="grey" 
-            selectionColor={'#C37BC3'}
-            style={styles.feedbackInput}
-          ></TextInput>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigation.navigate('Account')}
-          >
-            <Text style={styles.buttonText}>Submit Feedback</Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
-    </View>
+    <ScrollView style={styles.container}>  
+      <View style={styles.content}>
+        <Text style={styles.feedbackHeader}>What's your Feedback?</Text>
+        <Text style={[styles.feedbackHeader, {fontSize: 20}]}>Write it down!</Text>
+        <TextInput 
+          multiline= {true}
+          keyboardType='email-address' 
+          placeholder='Write your comment' 
+          placeholderTextColor="grey" 
+          selectionColor={'#C37BC3'}
+          style={styles.feedbackInput}
+        ></TextInput>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate('Account')}
+        >
+          <Text style={styles.buttonText}>Submit Feedback</Text>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
+  
   );
 }
 

@@ -46,7 +46,10 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
           </View>
         </View>
 
-        <Text style = {styles.header}>About Ferio</Text>
+        
+        <Text style = {styles.header}>What's about Ferio?</Text>
+      
+        
         <View style={styles.options}>
           <AcountMenuButton 
             title= {'About Us'}
@@ -84,7 +87,7 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
           >
           </AcountMenuButton>
           <AcountMenuButton 
-            title= {'Terms and Cnditions'}
+            title= {'Terms and Conditions'}
             onPress={() => {
               navigation.navigate('TNC')
             }}  
@@ -154,6 +157,7 @@ const styles = StyleSheet.create({
     },
     options:{
       paddingBottom: 20,
+      marginTop : 10
     }
 
 });

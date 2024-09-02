@@ -10,7 +10,6 @@ type UpperTabProps = {
     navigation: StackNavigationProp<RootStackParamList>;
 };
 
-  
 const UpperTab: React.FC<UpperTabProps> = ({ navigation }) => {
     return (
         <View style={styles.upperTab}>

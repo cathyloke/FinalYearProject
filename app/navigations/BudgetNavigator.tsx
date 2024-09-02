@@ -1,15 +1,16 @@
 import React from "react";
 import { RootStackParamList } from '../assets/Types';
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 import { createStackNavigator } from "@react-navigation/stack";
 
 import BudgetExpensesScreen from "../screens/mainMenu/BudgetExpensesScreen";
 
-import BudgetDetails from "../screens/budgetMenu/BudgetDetails";
-import CreateBudget from "../screens/budgetMenu/CreateBudget";
-import CategoryDetails from "../screens/budgetMenu/CategoryDetails";
-import AddExpenses from "../screens/budgetMenu/AddExpenses";
+import BudgetDetails from "../screens/budgetExpensesMenu/BudgetDetails";
+import CreateBudget from "../screens/budgetExpensesMenu/budget/CreateBudget";
+import UpdateBudget from "../screens/budgetExpensesMenu/budget/UpdateBudget";
+import CategoryDetails from "../screens/budgetExpensesMenu/CategoryDetails";
+import AddExpenses from "../screens/budgetExpensesMenu/expenses/AddExpenses";
+import UpdateExpenses from "../screens/budgetExpensesMenu/expenses/UpdateExpenses";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -19,13 +20,14 @@ const BudgetNavigator = () => {
         screenOptions={{
           headerShown: true,
           headerStyle: {
-            backgroundColor: '#C8A1E0', 
+            backgroundColor: '#E2BFD9', 
           },
           headerTintColor: '#fff',
           headerTitleStyle: {
               fontFamily: 'Itim-Regular',
               fontSize: 25,
           },
+          headerBackTitleVisible: false
         }}>
           <Stack.Screen
             name="BudgetExpenses"
@@ -49,6 +51,20 @@ const BudgetNavigator = () => {
             }}
           />
           <Stack.Screen
+            name="UpdateBudget"
+            component={UpdateBudget}
+            options={{
+              title: 'Update Budget',
+            }}
+          />
+          <Stack.Screen
+            name="CategoryDetails"
+            component={CategoryDetails}
+            options={{
+              title: 'Expenses Details',
+            }}
+          />
+          <Stack.Screen
             name="AddExpenses"
             component={AddExpenses}
             options={{
@@ -56,9 +72,13 @@ const BudgetNavigator = () => {
             }}
           />
           <Stack.Screen
-            name="CategoryDetails"
-            component={CategoryDetails}
+            name="UpdateExpenses"
+            component={UpdateExpenses}
+            options={{
+              title: 'Update Expenses',
+            }}
           />
+          
           
         
   

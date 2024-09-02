@@ -47,15 +47,16 @@ const AppNavigator = () => {
             component={TNCScreen}
             options={{ 
                 headerShown: true,
-                title: 'Terms and Conditions',
+                title: 'Terms & Conditions',
                 headerStyle: {
-                    backgroundColor: '#C8A1E0', 
+                    backgroundColor: '#E2BFD9', 
                 },
                 headerTintColor: '#fff',
                 headerTitleStyle: {
                     fontFamily: 'Itim-Regular',
                     fontSize: 25,
                 },
+                headerBackTitleVisible: false
             }}
             />
             <Stack.Screen

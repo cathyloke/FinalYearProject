@@ -18,9 +18,9 @@ const CreateItinerary: React.FC<Props> = ({ navigation, route }) => {
   const { type } = route.params;
   
   if (type === 'Manual') {
-    return <ManualItinerary />;
+    return <ManualItinerary navigation={navigation} />;
   } else if (type === 'AI') {
-    return <AIItinerary />;
+    return <AIItinerary navigation={navigation} />;
   } else {
     return (
       <View>
@@ -31,7 +31,7 @@ const CreateItinerary: React.FC<Props> = ({ navigation, route }) => {
 };
 
 
-const ManualItinerary = () => {
+const ManualItinerary = ({ navigation }: { navigation: CreateItineraryNavigationProp }) => {
 
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -116,7 +116,10 @@ const ManualItinerary = () => {
         
         <TouchableOpacity
             style={styles.button}
-            onPress={() => Alert.alert('Generate Trip')}    //navigate to create itinerary details
+            onPress={() => {
+              Alert.alert('Trip Generated Successfully');
+              navigation.goBack();
+            }}
           >
             <Text style={styles.buttonText}>Generate Trip</Text>
         </TouchableOpacity>
@@ -127,8 +130,8 @@ const ManualItinerary = () => {
   )
 }
 
-const AIItinerary = () => {
-
+const AIItinerary = ({ navigation }: { navigation: CreateItineraryNavigationProp }) => {
+ 
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [showStart, setShowStart] = useState(false);
@@ -204,13 +207,13 @@ const AIItinerary = () => {
 
       <Text style={[styles.inputLabel, {marginTop: 20}]}>Location</Text>
       <TextInput keyboardType='email-address' placeholder='Destination City' placeholderTextColor="#C37BC3" style={styles.inputBox} />
-      
 
-      
-      
       <TouchableOpacity
           style={styles.button}
-          onPress={() => Alert.alert('Generate Trip')}    //navigate to create itinerary details
+          onPress={() => {
+            Alert.alert('Trip Generated Successfully');
+            navigation.goBack();
+          }}
         >
           <Text style={styles.buttonText}>Generate Trip</Text>
       </TouchableOpacity>
@@ -248,7 +251,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Itim-Regular',
     color: '#C37BC3',
     fontSize: 18,
-
+    backgroundColor: '#F1E4E4',
     textAlign: 'center',
     borderColor: 'black',
     borderRadius: 10,
@@ -268,6 +271,7 @@ const styles = StyleSheet.create({
     width: 170,
     height: 50,
     lineHeight: 50,
+    backgroundColor: '#F1E4E4',
   },
   descriptionBox:{
     textAlignVertical: 'top',

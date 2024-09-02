@@ -1,64 +1,53 @@
 import React, {useState} from "react";
 import { Alert, TextInput, Text, View, Platform, StyleSheet, TouchableOpacity, Button } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from '../../assets/Types';
+import { RootStackParamList } from '../../../assets/Types';
 import { ScrollView } from "react-native-gesture-handler";
 import { Entypo } from "@expo/vector-icons";
 import { MenuProvider, Menu, MenuOptions, MenuOption, MenuTrigger} from 'react-native-popup-menu'
 
-import UpperTab from "../../components/UpperTab";
+import UpperTab from "../../../components/UpperTab";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Picker } from '@react-native-picker/picker';
 import {Dropdown} from 'react-native-element-dropdown';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Ionicons } from '@expo/vector-icons';
 
-type CreateBudgetNavigationProp = StackNavigationProp<RootStackParamList, 'CreateBudget'>;
+type UpdateBudgetNavigationProp = StackNavigationProp<RootStackParamList, 'UpdateBudget'>;
 
 type Props = {
-  navigation: CreateBudgetNavigationProp;
+  navigation: UpdateBudgetNavigationProp;
 };
 
-const categories = [
-  { label: 'Flights', value: 'Flights' },
-  { label: 'Food and Beverage', value: 'Food and Beverage' },
-  { label: 'Accommodation', value: 'Accommodation' },
-  { label: 'Souvenir', value: 'Souvenir' },
-  { label: 'Snacks', value: 'Snacks' },
-  { label: 'Petrol', value: 'Petrol' },
-  { label: 'Other', value: 'Other' },
-];
+const UpdateBudget: React.FC<Props> = ({ navigation }) => {
+    const handleUpdateBudget = () => {
+        Alert.alert('Budget Updated')
+        navigation.navigate('BudgetExpenses')
+    }
 
-const CreateBudget: React.FC<Props> = ({ navigation }) => {
-
-  const handleBudgetCreation = () => {
-    Alert.alert('Budget created');
-    navigation.navigate("BudgetExpenses");
-  }
-
-  return (
-    <ScrollView style={styles.container}>
-      <View style={styles.inputContainer}>
-        <View style={styles.headerBox}>
-          <Text style={styles.header}>Budget Name</Text>
+    return (
+        <ScrollView style={styles.container}>
+        <View style={styles.inputContainer}>
+            <View style={styles.headerBox}>
+            <Text style={styles.header}>Budget Name</Text>
+            </View>
+            <TextInput style={styles.input} placeholderTextColor={'#C37BC3'} placeholder='Flights' >
+            </TextInput>
         </View>
-        <TextInput style={styles.input} placeholderTextColor={'#C37BC3'} placeholder='Enter budget name' >
-        </TextInput>
-      </View>
-      <View style={styles.inputContainer}>
-        <View style={styles.headerBox}>
-          <Text style={styles.header}>Budget Amount</Text>
+        <View style={styles.inputContainer}>
+            <View style={styles.headerBox}>
+            <Text style={styles.header}>Budget Amount</Text>
+            </View>
+            <TextInput style={styles.input} placeholderTextColor={'#C37BC3'} placeholder='RM50.00' >
+            </TextInput>
         </View>
-        <TextInput style={styles.input} placeholderTextColor={'#C37BC3'} placeholder='Enter amount' >
-        </TextInput>
-      </View>
 
-      <TouchableOpacity style={styles.button} onPress={handleBudgetCreation}>
-        <Text style={styles.buttonText}>Create Budget</Text>
-      </TouchableOpacity>
-        
-    </ScrollView>
-  );
+        <TouchableOpacity style={styles.button} onPress={handleUpdateBudget}>
+            <Text style={styles.buttonText}>Update Budget</Text>
+        </TouchableOpacity>
+            
+        </ScrollView>
+    );
 }
 
 
@@ -90,7 +79,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: 180,
     height: 40,
-    backgroundColor: '#D7CFCF',
+    backgroundColor: '#F1E4E4',
     textAlign:'center',
   },
   button: {
@@ -114,4 +103,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default CreateBudget;
+export default UpdateBudget;

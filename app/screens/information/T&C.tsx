@@ -25,16 +25,16 @@ const TNC: React.FC<Props> = ({ navigation }) => {
         <ScrollView style={styles.container}>
             <View style={styles.content}>
                 {Object.entries(termsData).map(([section, { text }]) => (
-                        <View key={section} style={styles.section}>
-                            <Text style={styles.header}>{section}</Text>
-                            {Array.isArray(text) ? (
-                                text.map((line, index) => (
-                                    <Text key={index} style={styles.text}>{line}</Text>
-                                ))
-                            ) : (
-                                <Text style={styles.text}>{text}</Text>
-                            )}
-                        </View>
+                    <View key={section} style={styles.section}>
+                        <Text style={styles.header}>{section}</Text>
+                        {Array.isArray(text) ? (
+                            text.map((line, index) => (
+                                <Text key={index} style={styles.text}>{line}</Text>
+                            ))
+                        ) : (
+                            <Text style={styles.text}>{text}</Text>
+                        )}
+                    </View>
                     
                 ))}
             </View>

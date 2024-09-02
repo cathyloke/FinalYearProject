@@ -16,7 +16,9 @@ type Props = {
 };
 
 const ItineraryScreen: React.FC<Props> = ({ navigation }) => {
-
+  const handleUpdateTrip = () => {
+    navigation.navigate('UpdateItinerary');
+  }
   const handleDeleteTrip = () => {
     Alert.alert(
       'Are you sure to delete this trip?', 
@@ -42,83 +44,83 @@ const ItineraryScreen: React.FC<Props> = ({ navigation }) => {
   }
 
   return (
-    <MenuProvider backHandler={false} customStyles={{ backdrop: { backgroundColor: 'rgba(0, 0, 0, 0.5)' } }}>   
-      <SafeAreaView style={styles.container}>
-        <UpperTab navigation={navigation}></UpperTab>
-        <ScrollView >  
-          <View style={styles.headerBar}>
-            <Text style = {styles.header}>My Trips</Text>
-            <View style={{ alignSelf: 'center'}}>
-              <Menu>
-                <MenuTrigger>
-                  <Entypo name="plus" size={35} color="black"/>
-                </MenuTrigger>
-                <MenuOptions customStyles={optionsStyle}>
-                  {renderMenuOption('Create Manually', 'Manual')}
-                  {renderMenuOption('Create through AI', 'AI')}
-                </MenuOptions>
-              </Menu>
-            </View>
-            
+    <SafeAreaView style={styles.container}>
+      <UpperTab navigation={navigation}></UpperTab>
+      <ScrollView >  
+        <View style={styles.headerBar}>
+          <Text style = {styles.header}>My Trips</Text>
+          <View style={{ alignSelf: 'center'}}>
+            <Menu>
+              <MenuTrigger>
+                <Entypo name="plus" size={35} color="black"/>
+              </MenuTrigger>
+              <MenuOptions customStyles={optionsStyle}>
+                {renderMenuOption('Create Manually', 'Manual')}
+                {renderMenuOption('Create through AI', 'AI')}
+              </MenuOptions>
+            </Menu>
           </View>
           
+        </View>
+        
 
-          {/* List of trips in database */}
-          {/* replace with flatlist, data from database */}
-          <View style={styles.content}>
-            
-            <Image style={styles.image} source={require('../../assets/images/HomeImage/Trip1.jpg')} />
-            <TouchableOpacity onPress={() => navigation.navigate('ViewItinerary')}>
-              <View style= {styles.infoContainer}>
-                <Text style= {styles.info}>Perak Trip</Text>
-                <Text style= {styles.info}>15 - 25 December</Text>
-              </View>
-            </TouchableOpacity>
-                
-            <View>
-              <Menu>
-                <MenuTrigger>
-                  <Entypo name="dots-three-horizontal" size={24} color="black" />
-                </MenuTrigger>
-                <MenuOptions customStyles={optionsStyle}>
-                  {/* change to function */}
-                  <MenuOption onSelect={() => alert('Edit')} text="Edit Trip" /> 
-                  <MenuOption onSelect={handleDeleteTrip} text="Delete Trip" /> 
-                </MenuOptions>
-              </Menu>
-            </View> 
+        {/* List of trips in database */}
+        {/* replace with flatlist, data from database */}
+        <View style={styles.content}>
+          
+          <Image style={styles.image} source={require('../../assets/images/HomeImage/Trip1.jpg')} />
+          <TouchableOpacity onPress={() => navigation.navigate('ViewItinerary')}>
+            <View style= {styles.infoContainer}>
+              <Text style= {styles.info}>Perak Trip</Text>
+              <Text style= {styles.info}>15 - 25 December</Text>
+            </View>
+          </TouchableOpacity>
+              
+          <View>
+            <Menu>
+              <MenuTrigger>
+                <Entypo name="dots-three-horizontal" size={24} color="black" />
+              </MenuTrigger>
+              <MenuOptions customStyles={optionsStyle}>
+                {/* change to function */}
+                <MenuOption onSelect={handleUpdateTrip} text="Edit Trip" /> 
+                <MenuOption onSelect={handleDeleteTrip} text="Delete Trip" /> 
+              </MenuOptions>
+            </Menu>
+          </View> 
 
-          </View>
+        </View>
 
-          {/* second trip */}
-          <View style={styles.content}>
-            
-            <Image style={styles.image} source={require('../../assets/images/HomeImage/Trip1.jpg')} />
-            <TouchableOpacity onPress={() => navigation.navigate('ViewItinerary')}>
-              <View style= {styles.infoContainer}>
-                <Text style= {styles.info}>Pahang Trip</Text>
-                <Text style= {styles.info}>15 - 25 December</Text>
-              </View>
-            </TouchableOpacity>
-                
-            <View>
-              <Menu>
-                <MenuTrigger>
-                  <Entypo name="dots-three-horizontal" size={24} color="black" />
-                </MenuTrigger>
-                <MenuOptions customStyles={optionsStyle}>
-                  {/* change to function */}
-                  <MenuOption onSelect={() => alert('Edit Trip')} text="Edit Trip"  /> 
-                  <MenuOption onSelect={handleDeleteTrip} text="Delete Trip" />
-                </MenuOptions>
-              </Menu>
-            </View> 
+        {/* second trip */}
+        <View style={styles.content}>
+          
+          <Image style={styles.image} source={require('../../assets/images/HomeImage/Trip1.jpg')} />
+          <TouchableOpacity onPress={() => navigation.navigate('ViewItinerary')}>
+            <View style= {styles.infoContainer}>
+              <Text style= {styles.info}>Pahang Trip</Text>
+              <Text style= {styles.info}>15 - 25 December</Text>
+            </View>
+          </TouchableOpacity>
+              
+          <View>
+            <Menu>
+              <MenuTrigger>
+                <Entypo name="dots-three-horizontal" size={24} color="black" />
+              </MenuTrigger>
+              <MenuOptions customStyles={optionsStyle}>
+                {/* change to function */}
+                <MenuOption onSelect={handleUpdateTrip} text="Edit Trip" /> 
+                <MenuOption onSelect={handleDeleteTrip} text="Delete Trip" /> 
+              </MenuOptions>
+            </Menu>
+          </View> 
 
-          </View>
+        </View>
 
-        </ScrollView>
-      </SafeAreaView>
-    </MenuProvider>
+
+      </ScrollView>
+    </SafeAreaView>
+ 
   );
 }
 

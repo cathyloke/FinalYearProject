@@ -1,6 +1,5 @@
 import React from "react";
 import { RootStackParamList } from '../assets/Types';
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -18,13 +17,14 @@ const ItineraryNavigator = () => {
         screenOptions={{
           headerShown: true,
           headerStyle: {
-            backgroundColor: '#C8A1E0', 
+            backgroundColor: '#E2BFD9', 
           },
           headerTintColor: '#fff',
           headerTitleStyle: {
               fontFamily: 'Itim-Regular',
               fontSize: 25,
           },
+          headerBackTitleVisible: false
         }}>
           <Stack.Screen
             name="Itinerary"
@@ -45,6 +45,7 @@ const ItineraryNavigator = () => {
             component={ViewItinerary}
             options={{
               title: 'View Itinerary',
+              headerBackTitleVisible: false
             }}
           />
           <Stack.Screen

@@ -5,7 +5,6 @@ export type RootStackParamList = {
     Cover2: undefined;
     Login: undefined;
     Register: undefined;
-
     Logout: undefined;
 
     //Information
@@ -18,7 +17,6 @@ export type RootStackParamList = {
     BudgetMenu: undefined;
     ProfileMenu:undefined;
     
-
     // Itinerary
     Itinerary: undefined;
     CreateItinerary: { type: 'Manual' | 'AI' };
@@ -30,7 +28,9 @@ export type RootStackParamList = {
     BudgetDetails: undefined;
     CategoryDetails: undefined;
     CreateBudget: undefined;
+    UpdateBudget: undefined;
     AddExpenses: undefined;
+    UpdateExpenses: undefined;
 
     //Account Profile
     Account: undefined;
@@ -39,7 +39,6 @@ export type RootStackParamList = {
     HelpCentre: undefined;
     PrivacyAgreement: undefined;
     UserAgreement: undefined;
-
 
 };
   
