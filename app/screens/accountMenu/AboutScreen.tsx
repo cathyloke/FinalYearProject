@@ -26,7 +26,7 @@ const AboutScreen: React.FC<Props> = ({ navigation }) => {
                 provide itineraries, accommodation recommendations, activity suggestions and budget management features.
               </Text>
               
-              <Text style={{marginTop: 40, marginBottom: 20}}>
+              <Text style={{marginTop: 40, marginBottom: 20, marginHorizontal: 10}}>
                 Created by Loke Weng Yan, a Final Year Project Software Engineering student at University Tunku Abdul Rahman Sungai Long campus.
               </Text>
               <Text>

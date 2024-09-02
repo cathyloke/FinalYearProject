@@ -35,8 +35,9 @@ const AddExpenses: React.FC<Props> = ({ navigation }) => {
   const onChangeDate = (event: any, selectedDate: any) => {
     const currentDate = selectedDate || date;
     setDate(currentDate);
+    setShowAndroidCalendar(false);
   };
-
+  const [showAndroidCalendar, setShowAndroidCalendar] = useState(false);
 
   const DatePickerOS = () => {
     if (Platform.OS === 'ios'){
@@ -53,8 +54,20 @@ const AddExpenses: React.FC<Props> = ({ navigation }) => {
     } else {
       return(
         <View>
-          <TextInput style={styles.input} placeholderTextColor={'#C37BC3'} placeholder='Enter payer name' >{date.toDateString()}
-          </TextInput>
+          <TouchableOpacity onPress={() => {setShowAndroidCalendar(true);}}>
+            <TextInput style={styles.input} placeholderTextColor={'#C37BC3'} placeholder='Enter date' editable={false} >
+              <Text>{date.toDateString()}</Text>
+            </TextInput>
+          </TouchableOpacity>
+          {showAndroidCalendar && (
+            <DateTimePicker
+              value={date}
+              mode="date"
+              display="default"
+              onChange={onChangeDate}
+            />
+          )}
+          
         </View>
       )
     }
@@ -120,7 +133,6 @@ const AddExpenses: React.FC<Props> = ({ navigation }) => {
     </ScrollView>
   );
 }
-
 
 const styles = StyleSheet.create({
   container:{
@@ -194,6 +206,7 @@ const styles = StyleSheet.create({
     height: 40,
     backgroundColor: '#F1E4E4',
     textAlign:'center',
+    color: '#C37BC3'
   },
   fileContainer:{
     borderWidth:1,
@@ -204,9 +217,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 20
   }
-  
- 
-
 });
 
 export default AddExpenses;
