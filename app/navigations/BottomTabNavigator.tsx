@@ -5,8 +5,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import HomeScreen from "../screens/mainMenu/HomeScreen"
-import ItineraryMenu from "./ItineraryNavigator";
-import BudgetExpensesScreen from "../screens/mainMenu/BudgetExpensesScreen";
+import BudgetNavigator from "./BudgetNavigator";
 
 import AccountNavigator from "./AccountNavigator";
 import ItineraryNavigator from "./ItineraryNavigator";
@@ -52,8 +51,8 @@ const BottomTabNavigator = () => {
             }}
           />
           <BottomTab.Screen
-            name="BudgetExpenses"
-            component={BudgetExpensesScreen}
+            name="BudgetMenu"
+            component={BudgetNavigator}
             options={{ 
               tabBarIcon: ({focused}) => (            
                 <MaterialCommunityIcons name='cash' size={40} color={focused ? '#F7EFE5': 'black'}/>

@@ -48,7 +48,7 @@ const ItineraryScreen: React.FC<Props> = ({ navigation }) => {
         <ScrollView >  
           <View style={styles.headerBar}>
             <Text style = {styles.header}>My Trips</Text>
-            <View style={{ alignContent: 'center',alignSelf: 'center'}}>
+            <View style={{ alignSelf: 'center'}}>
               <Menu>
                 <MenuTrigger>
                   <Entypo name="plus" size={35} color="black"/>
@@ -165,9 +165,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderBottomWidth:1,
     borderBottomColor: 'grey',
-    marginLeft: 20,
-    marginRight: 20,
-    justifyContent: 'space-between'
+    marginHorizontal:20,
+    justifyContent: 'space-between',
   },
   header:{
     fontSize: 25,
