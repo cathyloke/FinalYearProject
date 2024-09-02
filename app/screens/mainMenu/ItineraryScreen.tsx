@@ -7,6 +7,7 @@ import { Entypo } from "@expo/vector-icons";
 import { MenuProvider, Menu, MenuOptions, MenuOption, MenuTrigger} from 'react-native-popup-menu'
 
 import UpperTab from "../../components/UpperTab";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type ItineraryScreenNavigationProp = StackNavigationProp<RootStackParamList, 'ItineraryMenu'>;
 
@@ -42,7 +43,7 @@ const ItineraryScreen: React.FC<Props> = ({ navigation }) => {
 
   return (
     <MenuProvider backHandler={false} customStyles={{ backdrop: { backgroundColor: 'rgba(0, 0, 0, 0.5)' } }}>   
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <UpperTab navigation={navigation}></UpperTab>
         <ScrollView >  
           <View style={styles.headerBar}>
@@ -116,7 +117,7 @@ const ItineraryScreen: React.FC<Props> = ({ navigation }) => {
           </View>
 
         </ScrollView>
-      </View>
+      </SafeAreaView>
     </MenuProvider>
   );
 }

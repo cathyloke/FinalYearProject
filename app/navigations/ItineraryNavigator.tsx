@@ -30,7 +30,6 @@ const ItineraryNavigator = () => {
             name="Itinerary"
             component={ItineraryScreen}
             options={{
-              title: 'Profile',
               headerShown: false,
             }}
           />

@@ -5,6 +5,7 @@ import { RootStackParamList } from '../../assets/Types';
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import UpperTab from "../../components/UpperTab";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
@@ -77,91 +78,92 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
 	};
 
   return (
-    <View style={styles.container}>
-      <UpperTab navigation={navigation} />
-      <ScrollView>
-        <View style={styles.content}>
-        <FlatList
-          data={carouselData}
-          ref={flatlistRef}
-          getItemLayout={getItemLayout}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-          horizontal={true}
-          pagingEnabled={true}
-          onScroll={handleScroll}
-        />
+    <SafeAreaView style={styles.container}>
+        <UpperTab navigation={navigation} />
+        <ScrollView>
+          <View style={styles.content}>
+          <FlatList
+            data={carouselData}
+            ref={flatlistRef}
+            getItemLayout={getItemLayout}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id}
+            horizontal={true}
+            pagingEnabled={true}
+            onScroll={handleScroll}
+          />
 
-        {/* Booking service */}
-        <Text style= {styles.sectionHeader} >Booking</Text>
-        <View style={styles.OptionContainer}>
-          <TouchableNativeFeedback>
-            <View style={styles.bookingOptionWrapper}>
-              <MaterialCommunityIcons name='airplane' size={50} color='black'/>
-              <Text style={styles.bookingOption}>Flight</Text>
-            </View>
-          </TouchableNativeFeedback>
-          <TouchableNativeFeedback>
-            <View style={styles.bookingOptionWrapper}>
-              <MaterialCommunityIcons name='bed-queen' size={50} color='black'/>
-              <Text style={styles.bookingOption}>Stay</Text>
-            </View>
-          </TouchableNativeFeedback>
-          <TouchableNativeFeedback>
-            <View style={styles.bookingOptionWrapper}>
-              <MaterialCommunityIcons name='ticket' size={50} color='black'/>
-              <Text style={styles.bookingOption}>Ticket</Text>
-            </View>
-          </TouchableNativeFeedback>
-        </View>
+          {/* Booking service */}
+          <Text style= {styles.sectionHeader} >Booking</Text>
+          <View style={styles.OptionContainer}>
+            <TouchableNativeFeedback>
+              <View style={styles.bookingOptionWrapper}>
+                <MaterialCommunityIcons name='airplane' size={50} color='black'/>
+                <Text style={styles.bookingOption}>Flight</Text>
+              </View>
+            </TouchableNativeFeedback>
+            <TouchableNativeFeedback>
+              <View style={styles.bookingOptionWrapper}>
+                <MaterialCommunityIcons name='bed-queen' size={50} color='black'/>
+                <Text style={styles.bookingOption}>Stay</Text>
+              </View>
+            </TouchableNativeFeedback>
+            <TouchableNativeFeedback>
+              <View style={styles.bookingOptionWrapper}>
+                <MaterialCommunityIcons name='ticket' size={50} color='black'/>
+                <Text style={styles.bookingOption}>Ticket</Text>
+              </View>
+            </TouchableNativeFeedback>
+          </View>
 
-        {/* Recommended activities */}
-        <Text style= {styles.sectionHeader} >Recommended</Text>
-        <View style={styles.imageContainer}>
-          <TouchableNativeFeedback>
-            <View style={styles.activitiesOptionWrapper}>
-              <Image
-                source={require('../../assets/images/HomeImage/Trip2.jpg')}
-                style={styles.backgroundImage}
-              />
-              <Text style={styles.activitiesOption}>Malaysia</Text>
-            </View>
-          </TouchableNativeFeedback>
-          <TouchableNativeFeedback>
-            <View style={styles.activitiesOptionWrapper}>
-              <Image
-                source={require('../../assets/images/HomeImage/Trip3.jpg')}
-                style={styles.backgroundImage}
-              />
-              <Text style={styles.activitiesOption}>Thailand</Text>
-            </View>
-          </TouchableNativeFeedback>
-        </View>
-        <View style={styles.imageContainer}>
-          <TouchableNativeFeedback>
-            <View style={styles.activitiesOptionWrapper}>
-              <Image
-                source={require('../../assets/images/HomeImage/Trip2.jpg')}
-                style={styles.backgroundImage}
-              />
-              <Text style={styles.activitiesOption}>Malaysia</Text>
-            </View>
-          </TouchableNativeFeedback>
-          <TouchableNativeFeedback>
-            <View style={styles.activitiesOptionWrapper}>
-              <Image
-                source={require('../../assets/images/HomeImage/Trip3.jpg')}
-                style={styles.backgroundImage}
-              />
-              <Text style={styles.activitiesOption}>Thailand</Text>
-            </View>
-          </TouchableNativeFeedback>
-        </View>
+          {/* Recommended activities */}
+          <Text style= {styles.sectionHeader} >Recommended</Text>
+          <View style={styles.imageContainer}>
+            <TouchableNativeFeedback>
+              <View style={styles.activitiesOptionWrapper}>
+                <Image
+                  source={require('../../assets/images/HomeImage/Trip2.jpg')}
+                  style={styles.backgroundImage}
+                />
+                <Text style={styles.activitiesOption}>Malaysia</Text>
+              </View>
+            </TouchableNativeFeedback>
+            <TouchableNativeFeedback>
+              <View style={styles.activitiesOptionWrapper}>
+                <Image
+                  source={require('../../assets/images/HomeImage/Trip3.jpg')}
+                  style={styles.backgroundImage}
+                />
+                <Text style={styles.activitiesOption}>Thailand</Text>
+              </View>
+            </TouchableNativeFeedback>
+          </View>
+          <View style={styles.imageContainer}>
+            <TouchableNativeFeedback>
+              <View style={styles.activitiesOptionWrapper}>
+                <Image
+                  source={require('../../assets/images/HomeImage/Trip2.jpg')}
+                  style={styles.backgroundImage}
+                />
+                <Text style={styles.activitiesOption}>Malaysia</Text>
+              </View>
+            </TouchableNativeFeedback>
+            <TouchableNativeFeedback>
+              <View style={styles.activitiesOptionWrapper}>
+                <Image
+                  source={require('../../assets/images/HomeImage/Trip3.jpg')}
+                  style={styles.backgroundImage}
+                />
+                <Text style={styles.activitiesOption}>Thailand</Text>
+              </View>
+            </TouchableNativeFeedback>
+          </View>
 
-     
-        </View>
-      </ScrollView>
-    </View>
+      
+          </View>
+        </ScrollView>
+    
+    </SafeAreaView>
   );
 };
 

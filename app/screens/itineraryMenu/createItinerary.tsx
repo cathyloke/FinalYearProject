@@ -76,7 +76,8 @@ const ManualItinerary = () => {
               <TouchableOpacity onPress={showStartDatepicker}>
                 <Ionicons name="calendar" size={25} color="black" style={{marginLeft: 10}} />
               </TouchableOpacity>
-              {showStart && (
+            </View>
+            {showStart && (
                 <DateTimePicker
                   value={startDate}
                   mode="date"
@@ -84,19 +85,17 @@ const ManualItinerary = () => {
                   onChange={onChangeStartDate}
                 />
               )}
-            </View>
             <Text style={styles.dateInput}>{startDate.toDateString()}</Text>
 
           </View>
           <View style={{alignItems: 'center'}}>
             <View style={{flexDirection: 'row'}}>
-                
-                <Text style={styles.inputLabel}>End Date</Text>
-                <TouchableOpacity onPress={showEndDatepicker}>
-                  <Ionicons name="calendar" size={25} color="black" style={{marginLeft: 10}} />
-                </TouchableOpacity>
-   
-              {showEnd && (
+              <Text style={styles.inputLabel}>End Date</Text>
+              <TouchableOpacity onPress={showEndDatepicker}>
+                <Ionicons name="calendar" size={25} color="black" style={{marginLeft: 10}} />
+              </TouchableOpacity>
+            </View>
+            {showEnd && (
                 <DateTimePicker
                   value={endDate}
                   mode="date"
@@ -104,7 +103,6 @@ const ManualItinerary = () => {
                   onChange={onChangeEndDate}
                 />
               )}
-            </View>
             <Text style={styles.dateInput}>{endDate.toDateString()}</Text>
           </View>
         </View>
@@ -166,14 +164,15 @@ const AIItinerary = () => {
       <Text style={styles.inputLabel}>Trip Name</Text>
       <TextInput keyboardType='email-address' placeholder='Example: Trip to Malaysia' placeholderTextColor="#C37BC3" style={styles.inputBox} />
       
-      <View style={{flexDirection: 'row', marginTop: 20}}>
+      <View style={{ flexDirection: 'row', marginTop: 20}}>
         <View style={{alignItems: 'center'}}>
           <View style={{flexDirection: 'row'}}>
             <Text style={styles.inputLabel}>Start Date</Text>
             <TouchableOpacity onPress={showStartDatepicker}>
               <Ionicons name="calendar" size={25} color="black" style={{marginLeft: 10}} />
             </TouchableOpacity>
-            {showStart && (
+          </View>
+          {showStart && (
               <DateTimePicker
                 value={startDate}
                 mode="date"
@@ -181,19 +180,17 @@ const AIItinerary = () => {
                 onChange={onChangeStartDate}
               />
             )}
-          </View>
           <Text style={styles.dateInput}>{startDate.toDateString()}</Text>
 
           </View>
           <View style={{alignItems: 'center'}}>
             <View style={{flexDirection: 'row'}}>
-                
-                <Text style={styles.inputLabel}>End Date</Text>
-                <TouchableOpacity onPress={showEndDatepicker}>
-                  <Ionicons name="calendar" size={25} color="black" style={{marginLeft: 10}} />
-                </TouchableOpacity>
-   
-              {showEnd && (
+              <Text style={styles.inputLabel}>End Date</Text>
+              <TouchableOpacity onPress={showEndDatepicker}>
+                <Ionicons name="calendar" size={25} color="black" style={{marginLeft: 10}} />
+              </TouchableOpacity>
+            </View>
+            {showEnd && (
                 <DateTimePicker
                   value={endDate}
                   mode="date"
@@ -201,7 +198,6 @@ const AIItinerary = () => {
                   onChange={onChangeEndDate}
                 />
               )}
-            </View>
             <Text style={styles.dateInput}>{endDate.toDateString()}</Text>
           </View>
         </View>

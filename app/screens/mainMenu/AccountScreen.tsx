@@ -7,6 +7,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import UpperTab from "../../components/UpperTab";
 import { AcountMenuButton } from "../../components/CustomButton";
 import DrawerNavigator from "../../navigations/AccountNavigator";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type AccountScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Account'>;
 
@@ -23,7 +24,7 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
 
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <UpperTab navigation={navigation}></UpperTab>
       
       <ScrollView >  
@@ -93,7 +94,7 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
         </View>
 
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -152,7 +153,7 @@ const styles = StyleSheet.create({
       justifyContent: 'space-between'
     },
     options:{
-      marginBottom: 20,
+      paddingBottom: 20,
     }
 
 });

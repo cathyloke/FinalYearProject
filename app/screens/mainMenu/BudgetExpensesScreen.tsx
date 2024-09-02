@@ -5,6 +5,7 @@ import { RootStackParamList } from '../../assets/Types';
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { ScrollView } from "react-native-gesture-handler";
 import UpperTab from "../../components/UpperTab";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type BudgetExpensesScreenNavigationProp = StackNavigationProp<RootStackParamList, 'BudgetExpenses'>;
 
@@ -14,7 +15,7 @@ type Props = {
 
 const BudgetExpensesScreen: React.FC<Props> = ({ navigation }) => {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <UpperTab navigation={navigation}></UpperTab>
       <ScrollView >  
         <View style={styles.content}>
@@ -24,7 +25,7 @@ const BudgetExpensesScreen: React.FC<Props> = ({ navigation }) => {
           <Text>Expenses Tracking</Text>
         </View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 
