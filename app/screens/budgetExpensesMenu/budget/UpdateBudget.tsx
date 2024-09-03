@@ -3,15 +3,6 @@ import { Alert, TextInput, Text, View, Platform, StyleSheet, TouchableOpacity, B
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from '../../../assets/Types';
 import { ScrollView } from "react-native-gesture-handler";
-import { Entypo } from "@expo/vector-icons";
-import { MenuProvider, Menu, MenuOptions, MenuOption, MenuTrigger} from 'react-native-popup-menu'
-
-import UpperTab from "../../../components/UpperTab";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { Picker } from '@react-native-picker/picker';
-import {Dropdown} from 'react-native-element-dropdown';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import { Ionicons } from '@expo/vector-icons';
 
 type UpdateBudgetNavigationProp = StackNavigationProp<RootStackParamList, 'UpdateBudget'>;
 
@@ -87,7 +78,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: 180,
     height: 50,
-    backgroundColor: '#E2BFD9',
+    backgroundColor: '#C37BC3',
     alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center',
@@ -95,12 +86,9 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontFamily: 'Itim-Regular',
-    fontSize: 20
-  },
-
-  
- 
-
+    fontSize: 20,
+    color: 'white'
+  }
 });
 
 export default UpdateBudget;

@@ -164,12 +164,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: 180,
     height: 40,
-    backgroundColor: '#F1E4E4',
     textAlign:'center',
+    color: 'black'
   },
   fileContainer:{
     borderWidth:1,
-    backgroundColor: '#F1E4E4',
     margin:20,
     height: 200,
     alignItems: 'center',
@@ -181,7 +180,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: 180,
     height: 50,
-    backgroundColor: '#E2BFD9',
+    backgroundColor: '#C37BC3',
     alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center',
@@ -189,7 +188,8 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontFamily: 'Itim-Regular',
-    fontSize: 20
+    fontSize: 20,
+    color: 'white'
   },
   
  

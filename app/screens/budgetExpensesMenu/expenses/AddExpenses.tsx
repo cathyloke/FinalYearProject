@@ -142,6 +142,7 @@ const styles = StyleSheet.create({
   actionContainer: {
     flexDirection: 'row',
     alignSelf: 'center',
+    marginTop: 20,
   },
   action: {
     borderWidth: 1,
@@ -204,13 +205,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: 180,
     height: 40,
-    backgroundColor: '#F1E4E4',
     textAlign:'center',
-    color: '#C37BC3'
+    color: 'black'
   },
   fileContainer:{
     borderWidth:1,
-    backgroundColor: '#F1E4E4',
     margin:20,
     height: 200,
     alignItems: 'center',

@@ -54,13 +54,13 @@ const BudgetExpensesScreen: React.FC<Props> = ({ navigation }) => {
   
         {/* Flatlist */}
         <View style={styles.itineraryContainer}>
-
-          <View style={styles.infoContainer}>
-            <TouchableOpacity  onPress={() => {navigation.navigate('BudgetDetails')}}>
-                <Text style={styles.info}>Trip 1</Text>
-                <Text style={styles.info}>Budget: RM50.00</Text>
-                <Text style={styles.info}>Expenses: RM40.00</Text>
-            </TouchableOpacity>
+          
+          <TouchableOpacity style={styles.infoContainer} onPress={() => {navigation.navigate('BudgetDetails')}}>
+            <View >
+              <Text style={styles.info}>Trip 1</Text>
+              <Text style={styles.info}>Budget: RM50.00</Text>
+              <Text style={styles.info}>Expenses: RM40.00</Text>
+            </View>
             <View>
               <Menu>
                 <MenuTrigger>
@@ -73,14 +73,14 @@ const BudgetExpensesScreen: React.FC<Props> = ({ navigation }) => {
                 </MenuOptions>
               </Menu>
             </View> 
-          </View>
+          </TouchableOpacity>
 
-          <View style={styles.infoContainer}>
-            <TouchableOpacity  onPress={() => {navigation.navigate('BudgetDetails')}}>  
-                <Text style={styles.info}>Trip 2</Text>
-                <Text style={styles.info}>Budget: RM50.00</Text>
-                <Text style={styles.info}>Expenses: RM40.00</Text>
-            </TouchableOpacity>
+          <TouchableOpacity style={styles.infoContainer} onPress={() => {navigation.navigate('BudgetDetails')}}>
+            <View >
+              <Text style={styles.info}>Trip 2</Text>
+              <Text style={styles.info}>Budget: RM50.00</Text>
+              <Text style={styles.info}>Expenses: RM40.00</Text>
+            </View>
             <View>
               <Menu>
                 <MenuTrigger>
@@ -93,14 +93,14 @@ const BudgetExpensesScreen: React.FC<Props> = ({ navigation }) => {
                 </MenuOptions>
               </Menu>
             </View> 
-          </View>
+          </TouchableOpacity>
 
-          <View style={styles.infoContainer}>
-            <TouchableOpacity  onPress={() => {navigation.navigate('BudgetDetails')}}>
-                <Text style={styles.info}>Trip 3</Text>
-                <Text style={styles.info}>Budget: RM50.00</Text>
-                <Text style={styles.info}>Expenses: RM40.00</Text>
-            </TouchableOpacity>
+          <TouchableOpacity style={styles.infoContainer} onPress={() => {navigation.navigate('BudgetDetails')}}>
+            <View >
+              <Text style={styles.info}>Trip 3</Text>
+              <Text style={styles.info}>Budget: RM50.00</Text>
+              <Text style={styles.info}>Expenses: RM40.00</Text>
+            </View>
             <View>
               <Menu>
                 <MenuTrigger>
@@ -113,7 +113,7 @@ const BudgetExpensesScreen: React.FC<Props> = ({ navigation }) => {
                 </MenuOptions>
               </Menu>
             </View> 
-          </View>
+          </TouchableOpacity>
 
         </View>
 

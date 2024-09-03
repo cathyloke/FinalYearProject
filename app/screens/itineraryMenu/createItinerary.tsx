@@ -4,8 +4,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from '../../assets/Types';
 import { RouteProp } from "@react-navigation/native";
 import { ScrollView } from "react-native-gesture-handler";
-import DateTimePicker from '@react-native-community/datetimepicker';
-import { Ionicons } from '@expo/vector-icons';
+import { CustomStartEndDatePicker } from "../../components/CustomDatePicker";
 
 type CreateItineraryNavigationProp = StackNavigationProp<RootStackParamList, 'CreateItinerary'>;
 
@@ -32,32 +31,6 @@ const CreateItinerary: React.FC<Props> = ({ navigation, route }) => {
 
 
 const ManualItinerary = ({ navigation }: { navigation: CreateItineraryNavigationProp }) => {
-
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
-  const [showStart, setShowStart] = useState(false);
-  const [showEnd, setShowEnd] = useState(false);
-
-  const onChangeStartDate = (event: any, selectedDate: any) => {
-    const currentDate = selectedDate || startDate;
-    setShowStart(Platform.OS === 'ios');
-    setStartDate(currentDate);
-  };
-
-  const onChangeEndDate = (event: any, selectedDate: any) => {
-    const currentDate = selectedDate || endDate;
-    setShowEnd(Platform.OS === 'ios');
-    setEndDate(currentDate);
-  };
-
-  const showStartDatepicker = () => {
-    setShowStart(true);
-  };
-
-  const showEndDatepicker = () => {
-    setShowEnd(true);
-  };
-
   return(
     <ScrollView style={styles.container}>
       <View style={styles.headerContainer}>
@@ -68,49 +41,11 @@ const ManualItinerary = ({ navigation }: { navigation: CreateItineraryNavigation
         <Text style={styles.inputLabel}>Trip Name</Text>
         <TextInput keyboardType='email-address' placeholder='Example: Trip to Malaysia' placeholderTextColor="#C37BC3" style={styles.inputBox} />
         
-        
-        <View style={{flexDirection: 'row', marginTop: 20}}>
-          <View style={{alignItems: 'center'}}>
-            <View style={{flexDirection: 'row'}}>
-              <Text style={styles.inputLabel}>Start Date</Text>
-              <TouchableOpacity onPress={showStartDatepicker}>
-                <Ionicons name="calendar" size={25} color="black" style={{marginLeft: 10}} />
-              </TouchableOpacity>
-            </View>
-            {showStart && (
-                <DateTimePicker
-                  value={startDate}
-                  mode="date"
-                  display="default"
-                  onChange={onChangeStartDate}
-                />
-              )}
-            <Text style={styles.dateInput}>{startDate.toDateString()}</Text>
-
-          </View>
-          <View style={{alignItems: 'center'}}>
-            <View style={{flexDirection: 'row'}}>
-              <Text style={styles.inputLabel}>End Date</Text>
-              <TouchableOpacity onPress={showEndDatepicker}>
-                <Ionicons name="calendar" size={25} color="black" style={{marginLeft: 10}} />
-              </TouchableOpacity>
-            </View>
-            {showEnd && (
-                <DateTimePicker
-                  value={endDate}
-                  mode="date"
-                  display="default"
-                  onChange={onChangeEndDate}
-                />
-              )}
-            <Text style={styles.dateInput}>{endDate.toDateString()}</Text>
-          </View>
-        </View>
+        <CustomStartEndDatePicker />
 
         <Text style={[styles.inputLabel, {marginTop: 20}]}>Location</Text>
         <TextInput keyboardType='email-address' placeholder='Destination City' placeholderTextColor="#C37BC3" style={styles.inputBox} />
         
-
         <Text style={[styles.inputLabel, {marginTop: 20}]}>Description</Text>
         <TextInput keyboardType='email-address' placeholder='Description' placeholderTextColor="#C37BC3" style={styles.descriptionBox} multiline />
         
@@ -132,31 +67,6 @@ const ManualItinerary = ({ navigation }: { navigation: CreateItineraryNavigation
 
 const AIItinerary = ({ navigation }: { navigation: CreateItineraryNavigationProp }) => {
  
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
-  const [showStart, setShowStart] = useState(false);
-  const [showEnd, setShowEnd] = useState(false);
-
-  const onChangeStartDate = (event: any, selectedDate: any) => {
-    const currentDate = selectedDate || startDate;
-    setShowStart(Platform.OS === 'ios');
-    setStartDate(currentDate);
-  };
-
-  const onChangeEndDate = (event: any, selectedDate: any) => {
-    const currentDate = selectedDate || endDate;
-    setShowEnd(Platform.OS === 'ios');
-    setEndDate(currentDate);
-  };
-
-  const showStartDatepicker = () => {
-    setShowStart(true);
-  };
-
-  const showEndDatepicker = () => {
-    setShowEnd(true);
-  };
-
   return(
     <ScrollView style={styles.container}>
     <View style={styles.headerContainer}>
@@ -167,43 +77,7 @@ const AIItinerary = ({ navigation }: { navigation: CreateItineraryNavigationProp
       <Text style={styles.inputLabel}>Trip Name</Text>
       <TextInput keyboardType='email-address' placeholder='Example: Trip to Malaysia' placeholderTextColor="#C37BC3" style={styles.inputBox} />
       
-      <View style={{ flexDirection: 'row', marginTop: 20}}>
-        <View style={{alignItems: 'center'}}>
-          <View style={{flexDirection: 'row'}}>
-            <Text style={styles.inputLabel}>Start Date</Text>
-            <TouchableOpacity onPress={showStartDatepicker}>
-              <Ionicons name="calendar" size={25} color="black" style={{marginLeft: 10}} />
-            </TouchableOpacity>
-          </View>
-          {showStart && (
-              <DateTimePicker
-                value={startDate}
-                mode="date"
-                display="default"
-                onChange={onChangeStartDate}
-              />
-            )}
-          <Text style={styles.dateInput}>{startDate.toDateString()}</Text>
-
-          </View>
-          <View style={{alignItems: 'center'}}>
-            <View style={{flexDirection: 'row'}}>
-              <Text style={styles.inputLabel}>End Date</Text>
-              <TouchableOpacity onPress={showEndDatepicker}>
-                <Ionicons name="calendar" size={25} color="black" style={{marginLeft: 10}} />
-              </TouchableOpacity>
-            </View>
-            {showEnd && (
-                <DateTimePicker
-                  value={endDate}
-                  mode="date"
-                  display="default"
-                  onChange={onChangeEndDate}
-                />
-              )}
-            <Text style={styles.dateInput}>{endDate.toDateString()}</Text>
-          </View>
-        </View>
+      <CustomStartEndDatePicker />
 
       <Text style={[styles.inputLabel, {marginTop: 20}]}>Location</Text>
       <TextInput keyboardType='email-address' placeholder='Destination City' placeholderTextColor="#C37BC3" style={styles.inputBox} />
@@ -249,9 +123,8 @@ const styles = StyleSheet.create({
   },
   inputBox:{
     fontFamily: 'Itim-Regular',
-    color: '#C37BC3',
+    color: 'black',
     fontSize: 18,
-    backgroundColor: '#F1E4E4',
     textAlign: 'center',
     borderColor: 'black',
     borderRadius: 10,
@@ -259,24 +132,10 @@ const styles = StyleSheet.create({
     width: 270,
     height: 50,
   },
-  dateInput:{
-    fontFamily: 'Itim-Regular',
-    color: '#C37BC3',
-    fontSize: 18,
-    margin:10,
-    textAlign: 'center',
-    borderColor: 'black',
-    borderRadius: 10,
-    borderWidth: 2, 
-    width: 170,
-    height: 50,
-    lineHeight: 50,
-    backgroundColor: '#F1E4E4',
-  },
   descriptionBox:{
     textAlignVertical: 'top',
     fontFamily: 'Itim-Regular',
-    color: '#C37BC3',
+    color: 'black',
     fontSize: 18,
     borderColor: 'black',
     borderRadius: 10,
