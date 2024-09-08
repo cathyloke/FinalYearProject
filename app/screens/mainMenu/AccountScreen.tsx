@@ -29,7 +29,10 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
       
       <ScrollView >  
         <View style={styles.infoContent}>
-          <Image style={styles.image} source={require("../../assets/images/ProfilePic.png")} />
+          <TouchableOpacity onPress={() => {navigation.navigate('AccountDataManage')}}>
+            <Image style={styles.image} source={require("../../assets/images/ProfilePic.png")} />
+          </TouchableOpacity>
+          
           <View style={styles.info}>
             <View style={styles.infoText}>
               <Text style={styles.infoLabel}>Name</Text>

@@ -5,6 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import AccountScreen from "../screens/mainMenu/AccountScreen";
 
+import AccountDataManageScreen from "../screens/accountMenu/AccountDataManage";
 import AboutScreen from "../screens/accountMenu/AboutScreen";
 import HelpCentreScreen from '../screens/accountMenu/HelpCentreScreen';
 import FeedbackScreen from "../screens/accountMenu/Feedback";
@@ -31,6 +32,14 @@ const AccountNavigator = () => {
           <Stack.Screen
             name="Account"
             component={AccountScreen}
+            options={{
+              title: 'Profile',
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="AccountDataManage"
+            component={AccountDataManageScreen}
             options={{
               title: 'Profile',
               headerShown: false,
