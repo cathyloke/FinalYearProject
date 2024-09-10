@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   content:{
     alignItems: 'center',
     justifyContent: 'center',
-    
+    marginTop: 50
   },
   header:{
     marginTop: 10,
