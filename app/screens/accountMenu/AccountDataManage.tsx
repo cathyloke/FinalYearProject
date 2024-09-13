@@ -22,7 +22,7 @@ const AccountDataManageScreen: React.FC<Props> = ({ navigation }) => {
         <TextInput keyboardType='visible-password' placeholder='Enter your password' placeholderTextColor="#C37BC3" style={styles.inputBox}></TextInput>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => Alert.alert('Data saved')}
+          onPress={() => {Alert.alert('Data saved'); navigation.navigate('Account')}}
         >
           <Text style={styles.buttonText}>Save</Text>
         </TouchableOpacity>
