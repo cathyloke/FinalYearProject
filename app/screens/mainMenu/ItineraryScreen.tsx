@@ -3,7 +3,7 @@ import { Alert, Text, View, Image, StyleSheet, TouchableOpacity } from "react-na
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from '../../assets/Types';
 import { ScrollView } from "react-native-gesture-handler";
-import { Entypo } from "@expo/vector-icons";
+// import { Entypo } from "@expo/vector-icons";
 import { MenuProvider, Menu, MenuOptions, MenuOption, MenuTrigger} from 'react-native-popup-menu'
 
 import UpperTab from "../../components/UpperTab";
@@ -52,7 +52,7 @@ const ItineraryScreen: React.FC<Props> = ({ navigation }) => {
           <View style={{ alignSelf: 'center'}}>
             <Menu>
               <MenuTrigger>
-                <Entypo name="plus" size={35} color="black"/>
+                {/* <Entypo name="plus" size={35} color="black"/> */}
               </MenuTrigger>
               <MenuOptions customStyles={optionsStyle}>
                 {renderMenuOption('Create Manually', 'Manual')}
@@ -79,7 +79,7 @@ const ItineraryScreen: React.FC<Props> = ({ navigation }) => {
           <View>
             <Menu>
               <MenuTrigger>
-                <Entypo name="dots-three-horizontal" size={24} color="black" />
+                {/* <Entypo name="dots-three-horizontal" size={24} color="black" /> */}
               </MenuTrigger>
               <MenuOptions customStyles={optionsStyle}>
                 {/* change to function */}
@@ -105,7 +105,7 @@ const ItineraryScreen: React.FC<Props> = ({ navigation }) => {
           <View>
             <Menu>
               <MenuTrigger>
-                <Entypo name="dots-three-horizontal" size={24} color="black" />
+                {/* <Entypo name="dots-three-horizontal" size={24} color="black" /> */}
               </MenuTrigger>
               <MenuOptions customStyles={optionsStyle}>
                 {/* change to function */}

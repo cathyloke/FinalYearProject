@@ -6,7 +6,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import { ScrollView } from "react-native-gesture-handler";
 import UpperTab from "../../components/UpperTab";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Entypo } from "@expo/vector-icons";
+// import { Entypo } from "@expo/vector-icons";
 import { MenuProvider, Menu, MenuOptions, MenuOption, MenuTrigger} from 'react-native-popup-menu'
 
 type BudgetExpensesScreenNavigationProp = StackNavigationProp<RootStackParamList, 'BudgetExpenses'>;
@@ -45,7 +45,7 @@ const BudgetExpensesScreen: React.FC<Props> = ({ navigation }) => {
       <View style={styles.headerBar}>
         <Text style={styles.header}>Your Budget</Text>
         <TouchableOpacity style={{alignSelf: 'center'}} onPress={() => {navigation.navigate('CreateBudget')}}>
-          <Entypo name="plus" size={35} color="black" />
+          {/* <Entypo name="plus" size={35} color="black" /> */}
         </TouchableOpacity>
         
       </View>
@@ -64,7 +64,7 @@ const BudgetExpensesScreen: React.FC<Props> = ({ navigation }) => {
             <View>
               <Menu>
                 <MenuTrigger>
-                  <Entypo name="dots-three-horizontal" size={24} color="white" />
+                  {/* <Entypo name="dots-three-horizontal" size={24} color="white" /> */}
                 </MenuTrigger>
                 <MenuOptions customStyles={optionsStyle}>
                   {/* change to function */}
@@ -84,7 +84,7 @@ const BudgetExpensesScreen: React.FC<Props> = ({ navigation }) => {
             <View>
               <Menu>
                 <MenuTrigger>
-                  <Entypo name="dots-three-horizontal" size={24} color="white" />
+                  {/* <Entypo name="dots-three-horizontal" size={24} color="white" /> */}
                 </MenuTrigger>
                 <MenuOptions customStyles={optionsStyle}>
                   {/* change to function */}
@@ -104,7 +104,7 @@ const BudgetExpensesScreen: React.FC<Props> = ({ navigation }) => {
             <View>
               <Menu>
                 <MenuTrigger>
-                  <Entypo name="dots-three-horizontal" size={24} color="white" />
+                  {/* <Entypo name="dots-three-horizontal" size={24} color="white" /> */}
                 </MenuTrigger>
                 <MenuOptions customStyles={optionsStyle}>
                   {/* change to function */}

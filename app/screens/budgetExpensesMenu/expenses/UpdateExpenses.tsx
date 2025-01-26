@@ -3,7 +3,7 @@ import { Alert, TextInput, Text, View, Platform, StyleSheet, TouchableOpacity } 
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from '../../../assets/Types';
 import { ScrollView } from "react-native-gesture-handler";
-import { Entypo } from "@expo/vector-icons";
+// import { Entypo } from "@expo/vector-icons";
 import { MenuProvider, Menu, MenuOptions, MenuOption, MenuTrigger} from 'react-native-popup-menu'
 
 import UpperTab from "../../../components/UpperTab";
@@ -11,7 +11,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Picker } from '@react-native-picker/picker';
 import {Dropdown} from 'react-native-element-dropdown';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { Ionicons } from '@expo/vector-icons';
+// import { Ionicons } from '@expo/vector-icons';
 
 type UpdateExpensesNavigationProp = StackNavigationProp<RootStackParamList, 'UpdateExpenses'>;
 
@@ -97,14 +97,14 @@ const UpdateExpenses: React.FC<Props> = ({ navigation }) => {
           <View style={styles.headerBox}>
             <View style={{flexDirection:'row'}}>
               <Text style={styles.header}>Date</Text>
-              <Ionicons name="calendar" size={25} color="black" style={{marginLeft: 10}} />
+              {/* <Ionicons name="calendar" size={25} color="black" style={{marginLeft: 10}} /> */}
             </View>
           </View>
           {DatePickerOS()}
         </View>
         
         <View style={styles.fileContainer}>
-          <Ionicons name="add" size={40} color="black" style={{marginLeft: 10}} />
+          {/* <Ionicons name="add" size={40} color="black" style={{marginLeft: 10}} /> */}
         </View>
 
         <TouchableOpacity style={styles.button} onPress={handleUpdateExpenses}>

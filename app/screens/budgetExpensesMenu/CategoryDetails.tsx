@@ -6,7 +6,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import { ScrollView } from "react-native-gesture-handler";
 import UpperTab from "../../components/UpperTab";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Entypo } from "@expo/vector-icons";
+// import { Entypo } from "@expo/vector-icons";
 import { MenuProvider, Menu, MenuOptions, MenuOption, MenuTrigger} from 'react-native-popup-menu'
 
 type CategoryDetailsScreenNavigationProp = StackNavigationProp<RootStackParamList, 'CategoryDetails'>;

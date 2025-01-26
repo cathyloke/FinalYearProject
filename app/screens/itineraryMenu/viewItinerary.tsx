@@ -8,7 +8,7 @@ import { MenuProvider, Menu, MenuOptions, MenuOption, MenuTrigger} from 'react-n
 
 import UpperTab from "../../components/UpperTab";
 
-import { Entypo } from "@expo/vector-icons";
+// import { Entypo } from "@expo/vector-icons";
 
 type ViewItineraryNavigationProp = StackNavigationProp<RootStackParamList, 'ViewItinerary'>;
 

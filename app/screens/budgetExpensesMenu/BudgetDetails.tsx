@@ -3,7 +3,7 @@ import { Alert, Text, View, Image, StyleSheet, TouchableOpacity } from "react-na
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from '../../assets/Types';
 import { ScrollView } from "react-native-gesture-handler";
-import { Entypo } from "@expo/vector-icons";
+// import { Entypo } from "@expo/vector-icons";
 import { MenuProvider, Menu, MenuOptions, MenuOption, MenuTrigger} from 'react-native-popup-menu'
 
 import UpperTab from "../../components/UpperTab";
@@ -26,7 +26,7 @@ const BudgetDetails: React.FC<Props> = ({ navigation }) => {
         <View style={styles.subHeaderBar}>
           <Text style={styles.subHeader}>Your Expenses</Text>
           <TouchableOpacity style={{alignSelf: 'center'}} onPress={() => {navigation.navigate('AddExpenses')}}>
-            <Entypo name="plus" size={35} color="black" />
+                  {/*  <Entypo name="plus" size={35} color="black" / > */}
           </TouchableOpacity>
         </View>
         <View style={styles.infoBar}>
