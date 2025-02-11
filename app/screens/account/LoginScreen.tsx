@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TouchableOpacity, ScrollView, TextInput, Text, View, Image, StyleSheet, Dimensions } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from '../../assets/Types';
 import axios from 'axios'
+import { getSession, saveSession } from "../../assets/asyncStorageData";
 
 type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Login'>;
 
@@ -17,6 +18,20 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const retrieveSessionData = async () => {
+        const session = await getSession();
+        if (!session || !session.userId) {
+            console.log('No user found in session');
+            return;
+        } else {
+            navigation.navigate('Menu')
+        }
+    }
+
+    useEffect(() => {
+        retrieveSessionData()
+    }, []);
+
     const loginAccount = async () => {
         try {
             if (!email || !password) {
@@ -30,8 +45,10 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
 
             axios.post('http://192.168.1.17:3000/login', userData)
                 .then(res => {
-                    console.log('Successfully register : ' + res)
+                    console.log('Successfully login : ' + res)
                     console.log(JSON.stringify(res))
+                    console.log('id in database', res.data.data._id)
+                    saveSession(res.data.data._id)
                     navigation.navigate('Menu')
                 })
                 .catch(error => {

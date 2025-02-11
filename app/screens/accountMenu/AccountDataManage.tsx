@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { TouchableOpacity, TextInput, Text, View, StyleSheet, Alert } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from '../../assets/Types';
 import { ScrollView } from "react-native-gesture-handler";
+import { getSession, saveSession } from "../../assets/asyncStorageData";
+import axios from 'axios'
 
 type AccountDataManageScreenNavigationProp = StackNavigationProp<RootStackParamList, 'AccountDataManage'>;
 
@@ -11,23 +13,100 @@ type Props = {
 };
 
 const AccountDataManageScreen: React.FC<Props> = ({ navigation }) => {
+
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const retrieveSessionData = async () => {
+        console.log('Retrieve session data and read user')
+        const session = await getSession();
+        if (!session || !session.userId) {
+            console.error('No user found in session');
+            return;
+        }
+
+        const { userId: userId } = session;
+        axios.get(`http://192.168.1.17:3000/read/${userId}`)
+            .then(res => {
+                // console.log('User:', res.data);
+                setName(res.data.data.name)
+                setEmail(res.data.data.email)
+                setPassword(res.data.data.gender)
+            })
+            .catch(error => {
+                console.error('Error:', error.response?.data || error.message);
+            });
+
+    };
+
+    useEffect(() => {
+        retrieveSessionData();
+    }, []);
+
+    const isValidEmail = (email: any) => {
+        // Regular expression for basic email validation
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        return emailRegex.test(email);
+    };
+
+    const saveData = async () => {
+        const session = await getSession();
+        if (!session || !session.userId) {
+            console.error('No user found in session');
+            return;
+        }
+
+        const { userId: userId } = session;
+
+        if (!isValidEmail(email)) {
+            throw new Error('Email is not valid')
+        }
+
+        const userData = {
+            name: name,
+            email: email,
+            password: password
+        }
+
+        axios.put(`http://192.168.1.17:3000/update/${userId}`, userData)
+            .then(res => {
+                console.log('Successfully update user : ' + res)
+                console.log(JSON.stringify(res))
+
+                navigation.navigate('Account')
+            })
+            .catch(error => {
+                console.error('Error:', error.message);
+            });
+
+        console.log(name)
+        // navigation.navigate('Account')
+    }
+
     return (
         <ScrollView style={styles.container}>
             <View style={styles.content}>
-                <Text style={styles.inputLabel}>Name</Text>
-                <TextInput keyboardType='email-address' placeholder='Enter your name' placeholderTextColor="#C37BC3" style={styles.inputBox}></TextInput>
-                <Text style={styles.inputLabel}>Email</Text>
-                <TextInput keyboardType='email-address' placeholder='Enter your email' placeholderTextColor="#C37BC3" style={styles.inputBox}></TextInput>
-                <Text style={styles.inputLabel}>Password</Text>
-                <TextInput keyboardType='visible-password' placeholder='Enter your password' placeholderTextColor="#C37BC3" style={styles.inputBox}></TextInput>
+                <View>
+                    <Text style={styles.inputLabel}>Name</Text>
+                    <TextInput keyboardType='email-address' onChangeText={text => setName(text)} placeholder='Enter your name' placeholderTextColor="#C37BC3" style={styles.inputBox}>{name}</TextInput>
+                </View>
+                <View>
+                    <Text style={styles.inputLabel}>Email</Text>
+                    <TextInput keyboardType='email-address' onChangeText={text => setEmail(text)} placeholder='Enter your email' placeholderTextColor="#C37BC3" style={styles.inputBox}>{email}</TextInput>
+                </View>
+                <View>
+                    <Text style={styles.inputLabel}>Password</Text>
+                    <TextInput keyboardType='visible-password' onChangeText={text => setPassword(text)} placeholder='Enter your password' placeholderTextColor="#C37BC3" style={styles.inputBox}>{password}</TextInput>
+                </View>
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={() => { Alert.alert('Data saved'); navigation.navigate('Account') }}
+                    onPress={() => { saveData() }}
                 >
                     <Text style={styles.buttonText}>Save</Text>
                 </TouchableOpacity>
             </View>
-        </ScrollView>
+        </ScrollView >
     );
 }
 
@@ -39,41 +118,26 @@ const styles = StyleSheet.create({
     content: {
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 50
-    },
-    header: {
-        marginTop: 10,
-        fontSize: 30,
-        fontFamily: 'Itim-Regular',
-        color: 'black',
-    },
-    input: {
-        fontFamily: 'Itim-Regular',
-        fontSize: 18,
-        marginTop: 10,
-        padding: 10,
-        borderWidth: 1.5,
-        borderRadius: 8,
-        width: '90%',
-        height: 300,
-        textAlignVertical: 'top',
+        marginTop: 50,
+        gap: 10
     },
     inputLabel: {
-        fontSize: 25,
-        fontFamily: 'Itim-Regular',
+        textAlign: 'center',
+        fontSize: 18,
+        fontFamily: 'Roboto',
         color: 'black',
     },
     inputBox: {
-        fontFamily: 'Itim-Regular',
+        fontFamily: 'Roboto',
         color: '#C37BC3',
-        fontSize: 20,
+        fontSize: 18,
         margin: 20,
         textAlign: 'center',
         borderColor: 'black',
         borderRadius: 10,
         borderWidth: 2,
         width: 270,
-        height: 65,
+        height: 40,
     },
     button: {
         alignItems: 'center',
@@ -86,11 +150,11 @@ const styles = StyleSheet.create({
         borderWidth: 1.5,
     },
     buttonText: {
-        fontFamily: 'Itim-Regular',
+        fontFamily: 'Roboto',
         justifyContent: 'center',
         color: 'white',
         alignSelf: 'center',
-        fontSize: 20,
+        fontSize: 18,
     },
 
 });

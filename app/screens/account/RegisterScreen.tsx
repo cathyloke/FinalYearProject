@@ -62,9 +62,9 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
                 .then(res => {
                     console.log('Successfully register : ' + res)
                     console.log(JSON.stringify(res))
-                    console.log(res.data.data._id)
+
                     saveSession(res.data.data._id)
-                    
+
                     navigation.navigate('Menu')
                 })
                 .catch(error => {

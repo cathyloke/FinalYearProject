@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import { useFocusEffect } from '@react-navigation/native';
 import { TouchableOpacity, TextInput, Text, View, Image, StyleSheet, Dimensions } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from '../../assets/Types';
@@ -9,6 +10,8 @@ import { AcountMenuButton } from "../../components/CustomButton";
 import DrawerNavigator from "../../navigations/AccountNavigator";
 import { SafeAreaView } from "react-native-safe-area-context";
 import axios from 'axios'
+import { getSession } from "../../assets/asyncStorageData";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type AccountScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Account'>;
 
@@ -21,19 +24,39 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
     const [gender, setGender] = useState('');
     const [email, setEmail] = useState('');
 
-    useEffect(() => {
-        axios.post('http://192.168.1.17:3000/read', { email: 'cathy@gmail.com' })
+
+    const retrieveSessionData = async () => {
+        console.log('Retrieve session data and read user')
+        const session = await getSession();
+        if (!session || !session.userId) {
+            console.error('No user found in session');
+            return;
+        }
+
+        const { userId: userId } = session;
+        // console.log('user id : ', userId)
+
+        axios.get(`http://192.168.1.17:3000/read/${userId}`)
             .then(res => {
-                console.log('Reponses: ')
-                console.log(JSON.stringify(res))
+                // console.log('User:', res.data);
                 setName(res.data.data.name)
                 setGender(res.data.data.gender)
                 setEmail(res.data.data.email)
             })
             .catch(error => {
-                console.error('Error:', error.message);
+                console.error('Error:', error.response?.data || error.message);
             });
-    }, [email]);
+    };
+
+    // useEffect(() => {
+    //     retrieveSessionData();
+    // }, []);
+
+    useFocusEffect(
+        useCallback(() => {
+            retrieveSessionData();
+        }, [])
+    );
 
 
     return (
@@ -130,11 +153,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#E2BFD9',
         height: 85,
     },
-    greetingText: {
-        fontSize: 48,
-        color: 'black',
-        fontFamily: 'Itim-Regular',
-    },
     infoContent: {
         alignItems: 'center',
         justifyContent: 'center',
@@ -156,16 +174,16 @@ const styles = StyleSheet.create({
     },
     info: {
         marginTop: 20,
-        borderWidth: 2,
+        borderWidth: 1.5,
         width: '90%',
         borderRadius: 20,
         marginBottom: 10
     },
     infoLabel: {
         padding: 20,
-        fontFamily: 'Itim-Regular',
+        fontFamily: 'Roboto',
         color: 'black',
-        fontSize: 20,
+        fontSize: 16,
     },
     infoText: {
         flexDirection: 'row',
