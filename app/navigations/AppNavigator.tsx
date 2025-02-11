@@ -4,7 +4,7 @@ import { RootStackParamList } from '../assets/Types';
 import { createStackNavigator } from "@react-navigation/stack";
 
 import CoverScreen from "../screens/cover/CoverScreen";
-import CoverScreen2 from "../screens/cover/CoverScreen2";
+// import CoverScreen2 from "../screens/cover/CoverScreen2";
 import LoginScreen from "../screens/account/LoginScreen";
 import LogoutScreen from "../screens/account/LogoutScreen";
 import RegisterScreen from "../screens/account/RegisterScreen";
@@ -22,11 +22,11 @@ const AppNavigator = () => {
             component={CoverScreen}
             options={{ headerShown: false }}
             />
-            <Stack.Screen
+            {/* <Stack.Screen
             name="Cover2"
             component={CoverScreen2}
             options={{ headerShown: false }}
-            />
+            /> */}
             <Stack.Screen
             name="Login"
             component={LoginScreen}

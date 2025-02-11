@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TouchableOpacity, TextInput, Text, View, Image, StyleSheet, Dimensions } from "react-native";
+import { TouchableOpacity, ScrollView, TextInput, Text, View, Image, StyleSheet, Dimensions } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from '../../assets/Types';
 import axios from 'axios'
@@ -9,6 +9,8 @@ type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Login'
 type Props = {
     navigation: LoginScreenNavigationProp;
 };
+
+const screenWidth = Dimensions.get('window').width;
 
 const LoginScreen: React.FC<Props> = ({ navigation }) => {
 
@@ -44,51 +46,55 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
     }
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.header}>Hi, Ferianto!!</Text>
-            <View style={styles.inputContainer}>
-                <Text style={styles.inputLabel}>Email</Text>
-                <TextInput
-                    keyboardType="email-address"
-                    placeholder="Enter your email"
-                    placeholderTextColor="#C37BC3"
-                    style={styles.inputBox}
-                    value={email}
-                    onChangeText={text => setEmail(text)}
-                />
-                <Text style={styles.inputLabel}>Password</Text>
-                <TextInput
-                    keyboardType="visible-password"
-                    placeholder="Enter your password"
-                    placeholderTextColor="#C37BC3"
-                    style={styles.inputBox}
-                    value={password}
-                    onChangeText={text => setPassword(text)}
-                    secureTextEntry
-                />
+        <ScrollView style={styles.container}>
+            <View style={{
+                alignItems: 'center',
+            }}>
+                <Text style={styles.header}>Welcome, Ferianto!!</Text>
+                <View style={styles.inputContainer}>
+                    {/* <Text style={styles.inputLabel}>Email</Text> */}
+                    <TextInput
+                        keyboardType="email-address"
+                        placeholder="Enter your email"
+                        placeholderTextColor="#C37BC3"
+                        style={styles.inputBox}
+                        value={email}
+                        onChangeText={text => setEmail(text)}
+                    />
+
+                    {/* <Text style={styles.inputLabel}>Password</Text> */}
+                    <TextInput
+                        keyboardType="visible-password"
+                        placeholder="Enter your password"
+                        placeholderTextColor="#C37BC3"
+                        style={styles.inputBox}
+                        value={password}
+                        onChangeText={text => setPassword(text)}
+                        secureTextEntry
+                    />
+                </View>
+
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => loginAccount()}
+                >
+                    <Text style={styles.buttonText}>Log in</Text>
+                </TouchableOpacity>
+
+                <Text style={{ fontFamily: 'Itim-Regular', marginBottom: 5 }}>Don't have an account?</Text>
+
+                <TouchableOpacity onPress={() => navigation.navigate('Register')}><Text style={{ textDecorationLine: 'underline', fontFamily: 'Itim-Regular' }}>Register now!</Text></TouchableOpacity>
+
 
             </View>
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => loginAccount()}
-            >
-                <Text style={styles.buttonText}>Log in</Text>
-            </TouchableOpacity>
-            <Text style={{ fontFamily: 'Itim-Regular' }}>Don't have an account?</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('Register')}><Text style={{ textDecorationLine: 'underline', fontFamily: 'Itim-Regular' }}>Register now!</Text></TouchableOpacity>
-
-
-        </View>
+        </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         backgroundColor: '#F7EFE5',
-        alignItems: 'center',
-        justifyContent: 'center',
-
+        paddingTop: 100,
     },
     header: {
         fontSize: 40,
@@ -98,34 +104,39 @@ const styles = StyleSheet.create({
     inputContainer: {
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 30,
-        marginBottom: 50,
+        marginTop: 20,
+        marginBottom: 20,
+        rowGap: 20
     },
     inputLabel: {
-        fontSize: 25,
-        fontFamily: 'Itim-Regular',
+        fontSize: 18,
+        fontFamily: 'Roboto',
         color: 'black',
+        height: 40,
+        textAlignVertical: "center",
+        borderWidth: 1,
+        marginRight: 10
     },
     inputBox: {
-        fontFamily: 'Itim-Regular',
-        color: '#C37BC3',
-        fontSize: 20,
-        margin: 20,
+        fontFamily: 'Roboto',
+        color: 'black',
+        fontSize: 15,
+        // margin: 20,
         textAlign: 'center',
         borderColor: 'black',
-        borderRadius: 40,
-        borderWidth: 2,
-        width: 270,
-        height: 65,
+        borderRadius: 10,
+        borderWidth: 1,
+        width: screenWidth * 0.7,
+        height: 40,
     },
     button: {
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#C37BC3',
-        width: 250,
-        height: 65,
+        width: screenWidth * 0.7,
+        height: 50,
         marginBottom: 20,
-        borderRadius: 40,
+        borderRadius: 10,
         elevation: 15,                          //android
         shadowColor: '#000',                    //ios
         shadowOffset: { width: 0, height: 2 },
@@ -133,11 +144,11 @@ const styles = StyleSheet.create({
         shadowRadius: 3.84,
     },
     buttonText: {
-        fontFamily: 'Itim-Regular',
+        fontFamily: 'Roboto',
         justifyContent: 'center',
         color: 'white',
         alignSelf: 'center',
-        fontSize: 30,
+        fontSize: 20,
     },
 
 });

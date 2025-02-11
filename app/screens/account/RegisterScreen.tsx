@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { TouchableOpacity, TextInput, Text, View, StyleSheet } from "react-native";
+import { TouchableOpacity, TextInput, Dimensions, Text, View, StyleSheet } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from '../../assets/Types';
 //import { CheckBox } from 'react-native-elements';
 import CheckBox from "expo-checkbox";
 import { ScrollView } from "react-native-gesture-handler";
 import axios from 'axios'
+import { Picker } from '@react-native-picker/picker';
+import { saveSession } from "../../assets/asyncStorageData";
 
 type RegisterScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Register'>;
 
@@ -13,10 +15,13 @@ type Props = {
     navigation: RegisterScreenNavigationProp;
 };
 
+const screenWidth = Dimensions.get('window').width;
+
 const RegisterScreen: React.FC<Props> = ({ navigation }) => {
 
     const [isChecked, setIsChecked] = useState(false);
     const [name, setName] = useState('');
+    const [gender, setGender] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [repassword, setRepassword] = useState('');
@@ -24,7 +29,9 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
 
     const handleCheckBoxChange = () => {
         setIsChecked(!isChecked);
-        navigation.navigate('TNC');
+        if (!isChecked) {
+            navigation.navigate('TNC');
+        }
     };
 
     const isValidEmail = (email: any) => {
@@ -45,6 +52,7 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
 
             const userData = {
                 name: name,
+                gender: gender,
                 email: email,
                 password: password
             };
@@ -54,6 +62,9 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
                 .then(res => {
                     console.log('Successfully register : ' + res)
                     console.log(JSON.stringify(res))
+                    console.log(res.data.data._id)
+                    saveSession(res.data.data._id)
+                    
                     navigation.navigate('Menu')
                 })
                 .catch(error => {
@@ -61,25 +72,21 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
                 });
 
 
-
-
         } catch (error) {
             console.error('Error registering user:', error);
             setMessage('Error registering user.');
         }
-
     }
 
-
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView style={styles.container} contentContainerStyle={{ justifyContent: 'center' }}>
             <View style={{
-                alignItems: 'center',
-                justifyContent: 'center'
+                alignItems: 'center'
             }}>
                 <Text style={styles.header}>Hi, Ferianto!!</Text>
                 <View style={styles.inputContainer}>
-                    <Text style={styles.inputLabel}>Name</Text>
+
+                    {/* <Text style={styles.inputLabel}>Name</Text> */}
                     <TextInput
                         keyboardType='email-address'
                         placeholder='Enter your name'
@@ -87,9 +94,24 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
                         style={styles.inputBox}
                         value={name}
                         onChangeText={text => setName(text)}
+                    />
+
+
+                    {/* <Text style={styles.inputLabel}>Gender</Text> */}
+                    <Picker
+                        selectedValue={gender}
+                        style={styles.inputBox}
+                        onValueChange={(itemValue, itemIndex) => setGender(itemValue)}
+                        itemStyle={{ textAlign: 'center' }}
                     >
-                    </TextInput>
-                    <Text style={styles.inputLabel}>Email</Text>
+                        <Picker.Item label="Select Gender" value="" />
+                        <Picker.Item label="Male" value="Male" />
+                        <Picker.Item label="Female" value="Female" />
+                        <Picker.Item label="Other" value="Other" />
+                    </Picker>
+
+
+                    {/* <Text style={styles.inputLabel}>Email</Text> */}
                     <TextInput
                         keyboardType="email-address"
                         placeholder="Enter your email"
@@ -98,7 +120,9 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
                         value={email}
                         onChangeText={text => setEmail(text)}
                     />
-                    <Text style={styles.inputLabel}>Password</Text>
+
+
+                    {/* <Text style={styles.inputLabel}>Password</Text> */}
                     <TextInput
                         keyboardType="visible-password"
                         placeholder="Enter your password"
@@ -108,7 +132,9 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
                         onChangeText={text => setPassword(text)}
                         secureTextEntry
                     />
-                    <Text style={styles.inputLabel}>Re-Password</Text>
+
+
+                    {/* <Text style={styles.inputLabel}>Re-Password</Text> */}
                     <TextInput
                         keyboardType="visible-password"
                         placeholder="Re-Enter your password"
@@ -118,22 +144,7 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
                         onChangeText={text => setRepassword(text)}
                         secureTextEntry
                     />
-
                 </View>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => registerAccount()}
-                >
-                    <Text style={styles.buttonText}>Register</Text>
-                </TouchableOpacity>
-                {/* {message && <Text>{message}</Text>} */}
-
-                <Text style={{ fontFamily: 'Itim-Regular' }}>Already have an account?</Text>
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('Login')}
-                >
-                    <Text style={[{ textDecorationLine: 'underline' }, { fontFamily: 'Itim-Regular' }]}>Log in now!</Text>
-                </TouchableOpacity>
 
                 <View style={styles.checkboxContainer}>
                     <CheckBox
@@ -144,6 +155,26 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
                     </CheckBox>
                     <Text style={styles.checkboxText}>I had read the <Text style={{ textDecorationLine: 'underline' }} onPress={handleCheckBoxChange}>terms and conditions</Text></Text>
                 </View>
+
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => registerAccount()}
+                >
+                    <Text style={styles.buttonText}>Register</Text>
+                </TouchableOpacity>
+
+                {/* {message && <Text>{message}</Text>} */}
+                <View>
+                    <Text style={{ fontFamily: 'Itim-Regular' }}>Already have an account?</Text>
+                </View>
+
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('Login')}
+                >
+                    <Text style={[{ textDecorationLine: 'underline' }, { fontFamily: 'Itim-Regular' }]}>Log in now!</Text>
+                </TouchableOpacity>
+
+
             </View>
 
         </ScrollView>
@@ -152,9 +183,10 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        // flexGlow: 1,
         backgroundColor: '#F7EFE5',
-
+        paddingTop: 20,
+        paddingBottom: 50,
     },
     header: {
         fontSize: 40,
@@ -164,34 +196,39 @@ const styles = StyleSheet.create({
     inputContainer: {
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 10,
+        marginTop: 20,
         marginBottom: 20,
+        rowGap: 20
     },
     inputLabel: {
-        fontSize: 25,
-        fontFamily: 'Itim-Regular',
+        fontSize: 18,
+        fontFamily: 'Roboto',
         color: 'black',
+        height: 40,
+        textAlignVertical: "center",
+        borderWidth: 1,
+        marginRight: 10
     },
     inputBox: {
-        fontFamily: 'Itim-Regular',
-        color: '#C37BC3',
-        fontSize: 20,
-        margin: 20,
+        fontFamily: 'Roboto',
+        color: 'black',
+        fontSize: 15,
+        // margin: 20,
         textAlign: 'center',
         borderColor: 'black',
-        borderRadius: 40,
-        borderWidth: 2,
-        width: 270,
-        height: 65,
+        borderRadius: 10,
+        borderWidth: 1,
+        width: screenWidth * 0.7,
+        height: 40,
     },
     button: {
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#C37BC3',
-        width: 250,
-        height: 65,
+        width: screenWidth * 0.7,
+        height: 50,
         marginBottom: 20,
-        borderRadius: 40,
+        borderRadius: 10,
         elevation: 15,                          //android
         shadowColor: '#000',                    //ios
         shadowOffset: { width: 0, height: 2 },
@@ -199,19 +236,20 @@ const styles = StyleSheet.create({
         shadowRadius: 3.84,
     },
     buttonText: {
-        fontFamily: 'Itim-Regular',
+        fontFamily: 'Roboto',
         justifyContent: 'center',
         color: 'white',
         alignSelf: 'center',
-        fontSize: 30,
+        fontSize: 20,
     },
     checkboxContainer: {
         flexDirection: 'row',
+        marginBottom: 10,
     },
     checkboxText: {
+        fontFamily: 'Itim-Regular',
         paddingLeft: 5,
         fontSize: 15,
-        fontFamily: 'Itim-Regular',
         color: 'black',
     },
 });
