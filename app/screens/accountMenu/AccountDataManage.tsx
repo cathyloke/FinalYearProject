@@ -130,12 +130,12 @@ const styles = StyleSheet.create({
     inputBox: {
         fontFamily: 'Roboto',
         color: '#C37BC3',
-        fontSize: 18,
+        fontSize: 15,
         margin: 20,
         textAlign: 'center',
         borderColor: 'black',
         borderRadius: 10,
-        borderWidth: 2,
+        borderWidth: 1,
         width: 270,
         height: 40,
     },
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
         height: 50,
         marginTop: 20,
         borderRadius: 10,
-        borderWidth: 1.5,
+        borderWidth: 1,
     },
     buttonText: {
         fontFamily: 'Roboto',

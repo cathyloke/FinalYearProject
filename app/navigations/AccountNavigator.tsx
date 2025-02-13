@@ -16,73 +16,73 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 const AccountNavigator = () => {
     return (
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: true,
-          headerStyle: {
-            backgroundColor: '#E2BFD9', 
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-              fontFamily: 'Itim-Regular',
-              fontSize: 25,
-          },
-          headerBackTitleVisible: false
-        }}>
-          <Stack.Screen
-            name="Account"
-            component={AccountScreen}
-            options={{
-              title: 'Profile',
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="AccountDataManage"
-            component={AccountDataManageScreen}
-            options={{
-              title: 'Profile',
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="AboutUs"
-            component={AboutScreen}
-            options={{
-              title: 'About Us',
-            }}
-          />
-          <Stack.Screen
-            name="Feedback"
-            component={FeedbackScreen}
-            options={{
-              title: 'Feedback',
-            }}
-          />
-          <Stack.Screen
-            name="HelpCentre"
-            component={HelpCentreScreen}
-            options={{
-              title: 'Help Centre',
-            }}
-          />
-          <Stack.Screen
-            name="PrivacyAgreement"
-            component={PrivacyAgreementScreen}
-            options={{
-              title: 'Privacy Agreement',
-            }}
-          />
-          <Stack.Screen
-            name="UserAgreement"
-            component={UserAgreementScreen}
-            options={{
-              title: 'User Agreement',
-            }}
-          />
-  
-      </Stack.Navigator>
-    );
-  }
+        <Stack.Navigator
+            screenOptions={{
+                headerShown: true,
+                headerStyle: {
+                    backgroundColor: '#E2BFD9',
+                },
+                headerTintColor: '#fff',
+                headerTitleStyle: {
+                    fontFamily: 'Itim-Regular',
+                    fontSize: 25,
+                },
+                headerBackTitleVisible: false
+            }}>
+            <Stack.Screen
+                name="Account"
+                component={AccountScreen}
+                options={{
+                    title: 'Profile',
+                    headerShown: false,
+                }}
+            />
+            <Stack.Screen
+                name="AccountDataManage"
+                component={AccountDataManageScreen}
+                options={{
+                    title: 'Profile',
+                    // headerShown: false,
+                }}
+            />
+            <Stack.Screen
+                name="AboutUs"
+                component={AboutScreen}
+                options={{
+                    title: 'About Us',
+                }}
+            />
+            <Stack.Screen
+                name="Feedback"
+                component={FeedbackScreen}
+                options={{
+                    title: 'Feedback',
+                }}
+            />
+            <Stack.Screen
+                name="HelpCentre"
+                component={HelpCentreScreen}
+                options={{
+                    title: 'Help Centre',
+                }}
+            />
+            <Stack.Screen
+                name="PrivacyAgreement"
+                component={PrivacyAgreementScreen}
+                options={{
+                    title: 'Privacy Agreement',
+                }}
+            />
+            <Stack.Screen
+                name="UserAgreement"
+                component={UserAgreementScreen}
+                options={{
+                    title: 'User Agreement',
+                }}
+            />
 
-  export default AccountNavigator;
+        </Stack.Navigator>
+    );
+}
+
+export default AccountNavigator;
