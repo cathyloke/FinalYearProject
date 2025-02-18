@@ -36,7 +36,7 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
         const { userId: userId } = session;
         // console.log('user id : ', userId)
 
-        axios.get(`http://192.168.1.17:3000/read/${userId}`)
+        axios.get(`http://10.0.2.2:3000/read/${userId}`)
             .then(res => {
                 // console.log('User:', res.data);
                 setName(res.data.data.name)

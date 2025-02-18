@@ -58,7 +58,7 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
             };
 
 
-            axios.post('http://192.168.1.17:3000/register', userData)
+            axios.post('http://10.0.2.2:3000/register', userData)
                 .then(res => {
                     console.log('Successfully register : ' + res)
                     console.log(JSON.stringify(res))

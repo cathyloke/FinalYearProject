@@ -43,7 +43,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
                 password: password
             };
 
-            axios.post('http://192.168.1.17:3000/login', userData)
+            axios.post('http://10.0.2.2:3000/login', userData)   //'http://192.168.1.17:3000/login'
                 .then(res => {
                     console.log('Successfully login : ' + res)
                     console.log(JSON.stringify(res))
