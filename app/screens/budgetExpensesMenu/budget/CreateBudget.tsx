@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Alert, TextInput, Text, View, Platform, StyleSheet, TouchableOpacity, Button } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from '../../../assets/Types';
 import { ScrollView } from "react-native-gesture-handler";
 import axios from "axios";
+import { getSession } from "../../../assets/asyncStorageData";
+import { useFocusEffect } from "@react-navigation/native";
 
 type CreateBudgetNavigationProp = StackNavigationProp<RootStackParamList, 'CreateBudget'>;
 
@@ -24,31 +26,38 @@ const categories = [
 const CreateBudget: React.FC<Props> = ({ navigation }) => {
 
     const [name, setName] = useState('')
-    const [budgetAmount, setBudgetAmount] = useState('')
+    const [budgetAmount, setBudgetAmount] = useState<number>(0);
 
-    const handleBudgetCreation = () => {
+    const handleBudget = async () => {
 
-        Alert.alert('Budget created');
+        // Alert.alert('Budget created');
 
         if (!name || !budgetAmount) {
             throw new Error('Missing budget creation details')
         }
+
+        const session = await getSession();
+        if (!session || !session.userId) {
+            Alert.alert('No user session data. Please log in')
+            navigation.navigate('Cover')
+            return;
+        }
+
+        const { userId: userId } = session;
 
         const budget = {
             name: name,
             budgetAmount: budgetAmount
         };
 
-        axios.put('http://10.0.2.2:3000/createBudget', budget)
+        axios.put(`http://10.0.2.2:3000/budget/${userId}`, budget)
             .then(res => {
-                console.log('Successfully create budget : ' + res)
-                console.log(JSON.stringify(res))
-                console.log('id in database', res.data.data._id)
+                console.log('Successfully create/edit budget : ' + res)
                 // saveSession(res.data.data._id)
-                navigation.navigate('Menu')
+                navigation.navigate('BudgetExpenses')
             })
             .catch(error => {
-                console.error('Error:', error.message);
+                Alert.alert(`Error: ${error.message}`)
             });
 
         navigation.navigate("BudgetExpenses");
@@ -77,8 +86,8 @@ const CreateBudget: React.FC<Props> = ({ navigation }) => {
                     placeholderTextColor={'#C37BC3'}
                     placeholder='Enter amount'
                     keyboardType="numeric"
-                    value={budgetAmount}
-                    onChangeText={text => setBudgetAmount(text)}
+                    value={budgetAmount.toString()}
+                    onChangeText={text => setBudgetAmount(parseFloat(text) || 0)}
                 />
             </View>
 
@@ -100,7 +109,7 @@ const CreateBudget: React.FC<Props> = ({ navigation }) => {
                 }]
             */}
 
-            <TouchableOpacity style={styles.button} onPress={handleBudgetCreation}>
+            <TouchableOpacity style={styles.button} onPress={handleBudget}>
                 <Text style={styles.buttonText}>Create Budget</Text>
             </TouchableOpacity>
 

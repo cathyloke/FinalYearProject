@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { TouchableOpacity, ScrollView, TextInput, Text, View, Image, StyleSheet, Dimensions } from "react-native";
+import { Alert, TouchableOpacity, ScrollView, TextInput, Text, View, Image, StyleSheet, Dimensions } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from '../../assets/Types';
 import axios from 'axios'
@@ -52,12 +52,11 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
                     navigation.navigate('Menu')
                 })
                 .catch(error => {
-                    console.error('Error:', error.message);
+                    Alert.alert(`Error: ${error.message}`)
                 });
 
         } catch (error) {
-            console.error('Error logging', error);
-            // setMessage('Error registering user.');
+            Alert.alert(`Error logging: ${error}`)
         }
 
     }

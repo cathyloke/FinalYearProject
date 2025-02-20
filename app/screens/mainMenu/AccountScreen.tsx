@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useFocusEffect } from '@react-navigation/native';
-import { TouchableOpacity, TextInput, Text, View, Image, StyleSheet, Dimensions } from "react-native";
+import { TouchableOpacity, TextInput, Text, View, Image, StyleSheet, Dimensions, Alert } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from '../../assets/Types';
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -29,7 +29,8 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
         console.log('Retrieve session data and read user')
         const session = await getSession();
         if (!session || !session.userId) {
-            console.error('No user found in session');
+            Alert.alert('No user session data. Please log in')
+            navigation.navigate('Cover')
             return;
         }
 
@@ -44,7 +45,7 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
                 setEmail(res.data.data.email)
             })
             .catch(error => {
-                console.error('Error:', error.response?.data || error.message);
+                Alert.alert(`Error: ${error.response?.data || error.message}`)
             });
     };
 

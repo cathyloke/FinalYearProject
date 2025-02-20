@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TouchableOpacity, TextInput, Dimensions, Text, View, StyleSheet } from "react-native";
+import { TouchableOpacity, TextInput, Dimensions, Text, View, StyleSheet, Alert } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from '../../assets/Types';
 //import { CheckBox } from 'react-native-elements';
@@ -68,13 +68,12 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
                     navigation.navigate('Menu')
                 })
                 .catch(error => {
-                    console.error('Error:', error.message);
+                    Alert.alert(`Error: ${error.message}`)
                 });
 
 
         } catch (error) {
-            console.error('Error registering user:', error);
-            setMessage('Error registering user.');
+            Alert.alert(`Error register: ${error}`)
         }
     }
 

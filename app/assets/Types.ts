@@ -1,5 +1,5 @@
 export type RootStackParamList = {
-    
+
     //App Navigator
     Cover: undefined;
     Cover2: undefined;
@@ -15,20 +15,20 @@ export type RootStackParamList = {
     Home: undefined;
     ItineraryMenu: undefined;
     BudgetMenu: undefined;
-    ProfileMenu:undefined;
-    
+    ProfileMenu: undefined;
+
     // Itinerary
     Itinerary: undefined;
     CreateItinerary: { type: 'Manual' | 'AI' };
     ViewItinerary: undefined;
     UpdateItinerary: undefined;
-    
+
     //Budget
     BudgetExpenses: undefined;
     BudgetDetails: undefined;
     CategoryDetails: undefined;
     CreateBudget: undefined;
-    UpdateBudget: undefined;
+    UpdateBudget: { budgetName: string };
     AddExpenses: undefined;
     UpdateExpenses: undefined;
 
@@ -42,4 +42,3 @@ export type RootStackParamList = {
     UserAgreement: undefined;
 
 };
-  

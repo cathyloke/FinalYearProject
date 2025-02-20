@@ -22,7 +22,8 @@ const AccountDataManageScreen: React.FC<Props> = ({ navigation }) => {
         console.log('Retrieve session data and read user')
         const session = await getSession();
         if (!session || !session.userId) {
-            console.error('No user found in session');
+            Alert.alert('No user session data. Please log in')
+            navigation.navigate('Cover')
             return;
         }
 
@@ -35,7 +36,7 @@ const AccountDataManageScreen: React.FC<Props> = ({ navigation }) => {
                 setPassword(res.data.data.gender)
             })
             .catch(error => {
-                console.error('Error:', error.response?.data || error.message);
+                Alert.alert(`Error: ${error.response?.data || error.message}`)
             });
 
     };
@@ -53,7 +54,8 @@ const AccountDataManageScreen: React.FC<Props> = ({ navigation }) => {
     const saveData = async () => {
         const session = await getSession();
         if (!session || !session.userId) {
-            console.error('No user found in session');
+            Alert.alert('No user session data. Please log in')
+            navigation.navigate('Cover')
             return;
         }
 
@@ -77,7 +79,7 @@ const AccountDataManageScreen: React.FC<Props> = ({ navigation }) => {
                 navigation.navigate('Account')
             })
             .catch(error => {
-                console.error('Error:', error.message);
+                Alert.alert(`Error: ${error.message}`)
             });
 
         console.log(name)

@@ -1,11 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Alert } from "react-native";
 
 //Create session data
 export const saveSession = async (userId: string) => {
     try {
         await AsyncStorage.setItem('@user_id', userId);
     } catch (error) {
-        console.error('Failed to save user:', error);
+        Alert.alert(`Failed to save user: ${error}`)
     }
 };
 
@@ -15,8 +16,7 @@ export const getSession = async () => {
         const userId = await AsyncStorage.getItem('@user_id');
         return { userId };
     } catch (error) {
-        console.error('Failed to retrieve user:', error);
-        return null;
+        Alert.alert(`Failed to retrieve user: ${error}`)
     }
 };
 
@@ -25,6 +25,6 @@ export const clearSession = async () => {
     try {
         await AsyncStorage.removeItem('@user_id');
     } catch (error) {
-        console.error('Failed to clear user:', error);
+        Alert.alert(`Failed to clear user: ${error}`)
     }
 };
