@@ -41,7 +41,7 @@ type Budget = {
 const BudgetExpensesScreen: React.FC<Props> = ({ navigation }) => {
     const [budgets, setBudgets] = useState<Budget[]>();
 
-    const handleDeleteBudget = () => {
+    const handleDeleteBudget = (budgetName: string) => {
         Alert.alert(
             'Are you sure to delete this budget?',
             'You will not be able to recover the budget once it is deleted.',
@@ -53,7 +53,27 @@ const BudgetExpensesScreen: React.FC<Props> = ({ navigation }) => {
                 },
                 {
                     text: 'Yes',
-                    onPress: () => console.log('Delete Budget'),
+                    onPress: async () => {
+                        console.log('Delete Budget')
+
+                        const session = await getSession();
+                        if (!session || !session.userId) {
+                            Alert.alert('No user session data. Please log in')
+                            navigation.navigate('Cover')
+                            return;
+                        }
+
+                        const { userId: userId } = session;
+
+                        axios.delete(`http://10.0.2.2:3000/budget/${userId}/${budgetName}`)
+                            .then(res => {
+                                console.log(res.data.data)
+                                loadData()
+                            })
+                            .catch(error => {
+                                Alert.alert(`Error: ${error.response?.data || error.message}`)
+                            });
+                    }
                 },
             ]
         );
@@ -98,47 +118,58 @@ const BudgetExpensesScreen: React.FC<Props> = ({ navigation }) => {
             <View style={styles.headerBar}>
                 <Text style={styles.header}>Your Budget</Text>
                 <TouchableOpacity style={{ alignSelf: 'center' }} onPress={() => { navigation.navigate('CreateBudget') }}>
-                    <Entypo name="plus" size={35} color="black" />
+                    <Entypo name="plus" size={30} color="black" />
                 </TouchableOpacity>
 
             </View>
 
-            <ScrollView >
+            {/* <ScrollView> */}
 
-                {/* Flatlist */}
-                <View style={styles.itineraryContainer}>
-                    <FlatList
-                        data={budgets}
-                        renderItem={({ item }) => (
-                            <TouchableOpacity
-                                style={styles.infoContainer}
-                                onPress={() => navigation.navigate('BudgetDetails')} //, { budgetId: item.id }
-                            >
-                                <View>
-                                    <Text style={styles.info}>{item.name}</Text>
-                                    <Text style={styles.info}>Budget: RM{item.budgetAmount.toFixed(2)}</Text>
-                                    <Text style={styles.info}>Expenses: RM{item.expensesAmount.toFixed(2)}</Text>
-                                </View>
-                                <View>
-                                    <Menu>
-                                        <MenuTrigger>
-                                            <Entypo name="dots-three-horizontal" size={24} color="white" />
-                                        </MenuTrigger>
-                                        <MenuOptions customStyles={optionsStyle}>
-                                            <MenuOption onSelect={() => handleUpdateBudget(item.name)} text="Edit Budget" />
-                                            <MenuOption onSelect={() => handleDeleteBudget()} text="Delete Budget" />
-                                        </MenuOptions>
-                                    </Menu>
-                                </View>
-                            </TouchableOpacity>
-                        )}
-                        keyExtractor={(item) => item._id.toString()}
-                    />
+            {/* Flatlist */}
+            {/* <View style={styles.itineraryContainer}> */}
+            <FlatList
+                data={budgets}
+                renderItem={({ item }) => (
+                    <TouchableOpacity
+                        style={styles.infoContainer}
+                        onPress={() => navigation.navigate('BudgetDetails', { budgetName: item.name })}
+                    >
+                        <View style={styles.infoContent}>
+                            <Text style={[styles.info, { fontWeight: 'bold', fontSize: 18, color: 'black' }]}>{item.name}</Text>
+                            <Text style={[styles.info, { marginTop: 10 }]}>Budget: RM{item.budgetAmount.toFixed(2)}</Text>
+                            <Text style={styles.info}>Expenses: RM{item.expensesAmount.toFixed(2)}</Text>
+                        </View>
+                        <View style={styles.infoContent}>
+                            <Menu>
+                                <MenuTrigger>
+                                    <Entypo name="dots-three-horizontal" size={20} color="#424242" />
+                                </MenuTrigger>
+                                <MenuOptions customStyles={optionsStyle}>
+                                    {/* <MenuOption onSelect={() => handleUpdateBudget(item.name)} text="Edit Budget" />
+                                    <MenuOption onSelect={() => handleDeleteBudget()} text="Delete Budget" /> */}
+                                    <MenuOption onSelect={() => handleUpdateBudget(item.name)}>
+                                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                            <Entypo name="edit" size={18} color="#3789BB" style={{ marginRight: 8 }} />
+                                            <Text>Edit Budget</Text>
+                                        </View>
+                                    </MenuOption>
+                                    <MenuOption onSelect={() => handleDeleteBudget(item.name)}>
+                                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                            <Entypo name="trash" size={18} color="#D14D37" style={{ marginRight: 8 }} />
+                                            <Text>Delete Budget</Text>
+                                        </View>
+                                    </MenuOption>
+                                </MenuOptions>
+                            </Menu>
+                        </View>
+                    </TouchableOpacity>
+                )}
+                keyExtractor={(item) => item._id.toString()}
+            />
 
+            {/* </View> */}
 
-                </View>
-
-            </ScrollView>
+            {/* </ScrollView> */}
         </SafeAreaView>
     );
 }
@@ -188,7 +219,7 @@ const styles = StyleSheet.create({
     header: {
         fontSize: 25,
         padding: 5,
-        margin: 10,
+        margin: 8,
         fontFamily: 'Itim-Regular',
         color: 'black',
     },
@@ -197,21 +228,27 @@ const styles = StyleSheet.create({
     },
     infoContainer: {
         justifyContent: 'space-between',
-        padding: 10,
-        borderWidth: 1,
-        backgroundColor: '#C37BC3',
-        borderRadius: 20,
+        padding: 5,
+        // borderWidth: 1,
+        // backgroundColor: '#C37BC3',
+        borderBottomWidth: 1,
+        borderBottomColor: 'grey',
+        // borderRadius: 20,
         marginHorizontal: 20,
-        marginVertical: 10,
+        // marginVertical: 10,
         height: 100,
         flexDirection: 'row',
 
     },
+    infoContent: {
+        marginTop: 5,
+    },
     info: {
-        fontFamily: 'Itim-Regular',
-        color: 'white',
-        fontSize: 20,
-        paddingHorizontal: 10
+        fontFamily: 'Roboto',
+        color: '#424242',
+        fontSize: 15,
+        paddingHorizontal: 10,
+        textAlignVertical: 'center',
     },
 
 

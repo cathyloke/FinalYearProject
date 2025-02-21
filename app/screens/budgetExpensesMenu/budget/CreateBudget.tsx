@@ -91,24 +91,6 @@ const CreateBudget: React.FC<Props> = ({ navigation }) => {
                 />
             </View>
 
-
-            {/* 
-                budgets: [{
-                    name: { type: String },
-                    budgetAmount: { type: Number },
-                    expensesAmount: { type: Number },
-                    expensesCategory: [{
-                        expensesCategoryName: { type: String },
-                        expensesCategoryAmount: { type: Number },
-                        expensesCategoryDetail: [{
-                            name: { type: String },
-                            dateCreated: { type: Date },
-                            amount: { type: Number },
-                        }]
-                    }]
-                }]
-            */}
-
             <TouchableOpacity style={styles.button} onPress={handleBudget}>
                 <Text style={styles.buttonText}>Create Budget</Text>
             </TouchableOpacity>

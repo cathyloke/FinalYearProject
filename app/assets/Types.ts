@@ -25,7 +25,7 @@ export type RootStackParamList = {
 
     //Budget
     BudgetExpenses: undefined;
-    BudgetDetails: undefined;
+    BudgetDetails: { budgetName: string };
     CategoryDetails: undefined;
     CreateBudget: undefined;
     UpdateBudget: { budgetName: string };
