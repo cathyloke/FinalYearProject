@@ -11,6 +11,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { getSession } from "../../assets/asyncStorageData";
 import axios from "axios";
 import { RouteProp, useFocusEffect } from "@react-navigation/native";
+import { Entypo } from "@expo/vector-icons";
 
 type BudgetDetailsNavigationProp = StackNavigationProp<RootStackParamList, 'BudgetDetails'>;
 
@@ -83,8 +84,8 @@ const BudgetDetails: React.FC<Props> = ({ navigation, route }) => {
 
             <View style={styles.subHeaderBar}>
                 <Text style={styles.subHeader}>Your Expenses</Text>
-                <TouchableOpacity style={{ alignSelf: 'center' }} onPress={() => { navigation.navigate('AddExpenses') }}>
-                    {/*  <Entypo name="plus" size={35} color="black" / > */}
+                <TouchableOpacity style={{ alignSelf: 'center' }} onPress={() => { navigation.navigate('AddExpenses', { budgetName: budgetName }) }}>
+                    <Entypo name="plus" size={35} color="black" ></Entypo>
                 </TouchableOpacity>
             </View>
             <View style={styles.infoBar}>
@@ -128,7 +129,7 @@ const BudgetDetails: React.FC<Props> = ({ navigation, route }) => {
 
             </View>
 
-        </ScrollView>
+        </ScrollView >
     );
 }
 
