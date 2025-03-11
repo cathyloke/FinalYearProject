@@ -26,11 +26,11 @@ export type RootStackParamList = {
     //Budget
     BudgetExpenses: undefined;
     BudgetDetails: { budgetName: string };
-    CategoryDetails: undefined;
+    CategoryDetails: { budgetName: string, categoryName: string };
     CreateBudget: undefined;
     UpdateBudget: { budgetName: string };
     AddExpenses: { budgetName: string };
-    UpdateExpenses: undefined;
+    UpdateExpenses: { budgetName: string, categoryName: string, detailId: string };
 
     //Account Profile
     Account: undefined;
