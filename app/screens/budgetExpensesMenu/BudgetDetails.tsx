@@ -99,7 +99,7 @@ const BudgetDetails: React.FC<Props> = ({ navigation, route }) => {
             </View>
 
             <View style={styles.subHeaderBar}>
-                <Text style={styles.subHeader}>Your Expenses</Text>
+                <Text style={styles.subHeader}>My Expenses</Text>
                 <TouchableOpacity
                     style={{ alignSelf: "center" }}
                     onPress={() => {

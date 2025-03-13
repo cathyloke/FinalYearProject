@@ -116,7 +116,7 @@ const BudgetExpensesScreen: React.FC<Props> = ({ navigation }) => {
         <SafeAreaView style={styles.container}>
             <UpperTab navigation={navigation}></UpperTab>
             <View style={styles.headerBar}>
-                <Text style={styles.header}>Your Budget</Text>
+                <Text style={styles.header}>My Budget</Text>
                 <TouchableOpacity style={{ alignSelf: 'center' }} onPress={() => { navigation.navigate('CreateBudget') }}>
                     <Entypo name="plus" size={30} color="black" />
                 </TouchableOpacity>
