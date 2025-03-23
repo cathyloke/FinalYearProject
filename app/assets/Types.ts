@@ -35,6 +35,7 @@ export type RootStackParamList = {
     //Account Profile
     Account: undefined;
     AccountDataManage: undefined;
+    Preferences: undefined;
     AboutUs: undefined;
     Feedback: undefined;
     HelpCentre: undefined;
