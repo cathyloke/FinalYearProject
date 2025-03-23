@@ -18,6 +18,7 @@ import axios from "axios";
 import { useFocusEffect } from "@react-navigation/native";
 import { getSession } from "../../assets/asyncStorageData";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Checkbox } from "react-native-paper";
 
 type PreferencesScreenNavigationProp = StackNavigationProp<
     RootStackParamList,
@@ -39,8 +40,8 @@ type Interest = {
 };
 
 type UserPreference = {
-    interests: Interest[];
-    travelModes: TravelMode[];
+    interests: string[];
+    travelModes: string[];
 };
 
 const PreferencesScreen: React.FC<Props> = ({ navigation }) => {
@@ -48,13 +49,70 @@ const PreferencesScreen: React.FC<Props> = ({ navigation }) => {
     const [interests, setInterests] = useState<Interest[]>();
     const [userPreferences, setUserPreferences] = useState<UserPreference>();
 
+    const [selectedTravelModes, setSelectedTravelModes] = useState<{
+        [key: string]: boolean;
+    }>({});
+    const [selectedInterests, setSelectedInterests] = useState<{
+        [key: string]: boolean;
+    }>({});
+
+    const toggleTravelMode = (id: string) => {
+        setSelectedTravelModes((prev) => ({
+            ...prev,
+            [id]: !prev[id],
+        }));
+    };
+
+    const toggleInterest = (id: string) => {
+        setSelectedInterests((prev) => ({
+            ...prev,
+            [id]: !prev[id],
+        }));
+    };
+
+    useEffect(() => {
+        console.log("updating the travelmodes");
+        if (travelModes && userPreferences) {
+            const selected: { [key: string]: boolean } = {};
+
+            travelModes.forEach((mode) => {
+                const isSelected = userPreferences.travelModes.some(
+                    (pref) => pref == mode._id.toString()
+                );
+
+                selected[mode._id] = isSelected;
+            });
+
+            setSelectedTravelModes(selected);
+        }
+    }, [travelModes, userPreferences]);
+
+    useEffect(() => {
+        console.log("updating the interest");
+
+        if (interests && userPreferences) {
+            const selected: { [key: string]: boolean } = {};
+
+            interests.forEach((mode) => {
+                const isSelected = userPreferences.interests.some(
+                    (pref) => pref == mode._id.toString()
+                );
+
+                selected[mode._id] = isSelected;
+            });
+
+            setSelectedInterests(selected);
+        }
+    }, [interests, userPreferences]);
+
     const loadData = async () => {
         try {
+            console.log("loading data");
             const travelModeRes = await axios.get(
                 `http://10.0.2.2:3000/preferences/travelMode`
             );
 
-            console.log(travelModeRes.data.data);
+            // console.log(travelModeRes.data.data);
             const travelModeData = travelModeRes.data.data;
             setTravelModes(travelModeData);
 
@@ -62,7 +120,7 @@ const PreferencesScreen: React.FC<Props> = ({ navigation }) => {
                 `http://10.0.2.2:3000/preferences/interest`
             );
 
-            console.log(interestRes.data.data);
+            // console.log(interestRes.data.data);
             const interestData = interestRes.data.data;
             setInterests(interestData);
 
@@ -74,16 +132,59 @@ const PreferencesScreen: React.FC<Props> = ({ navigation }) => {
             }
             const { userId: userId } = session;
 
+            const userRes = await axios.get(
+                `http://10.0.2.2:3000/read/${userId}`
+            );
+            console.log(userRes.data.data);
+            const data = userRes.data.data.preferences;
+            setUserPreferences(data);
+
+            console.log("this is the user presferences");
+            console.log(userPreferences);
+        } catch (error) {
+            Alert.alert(`Error: ${error}`);
+        }
+    };
+
+    const saveData = async () => {
+        try {
+            const selectedTravelModeIds = Object.keys(
+                selectedTravelModes
+            ).filter((key) => selectedTravelModes[key]);
+
+            const selectedInterestIds = Object.keys(selectedInterests).filter(
+                (key) => selectedInterests[key]
+            );
+
+            const preferences = {
+                travelModes: selectedTravelModeIds,
+                interests: selectedInterestIds,
+            };
+
+            //call api
+            const session = await getSession();
+            if (!session || !session.userId) {
+                Alert.alert("No user session data. Please log in");
+                navigation.navigate("Cover");
+                return;
+            }
+
+            const { userId: userId } = session;
+
+            const updateData = {
+                preferences: preferences,
+            };
+
             axios
-                .get(`http://10.0.2.2:3000/read/${userId}`)
+                .put(`http://10.0.2.2:3000/update/${userId}`, updateData)
                 .then((res) => {
-                    console.log(res.data.data);
-                    setUserPreferences(res.data.data.preferences);
+                    console.log("Successfully update user : " + res);
+                    console.log(JSON.stringify(res));
+
+                    navigation.navigate("Account");
                 })
                 .catch((error) => {
-                    Alert.alert(
-                        `Error: ${error.response?.data || error.message}`
-                    );
+                    throw new Error(error.message);
                 });
         } catch (error) {
             Alert.alert(`Error: ${error}`);
@@ -102,63 +203,105 @@ const PreferencesScreen: React.FC<Props> = ({ navigation }) => {
                 <Text style={styles.info}>My preferences is</Text>
             </View>
             <FlatList
-                //    style={styles.infoBar}
                 data={travelModes}
                 renderItem={({ item }) => (
-                    <View>
-                        <Text>{item.name != null ? item.name : "None"}</Text>
+                    <View style={styles.checkboxlist}>
+                        <Checkbox
+                            status={
+                                selectedTravelModes[item._id.toString()]
+                                    ? "checked"
+                                    : "unchecked"
+                            }
+                            onPress={() =>
+                                toggleTravelMode(item._id.toString())
+                            }
+                        />
+                        <Text style={styles.checkboxtext}>
+                            {item.name.toLocaleUpperCase() || "None"}
+                        </Text>
                     </View>
                 )}
                 keyExtractor={(item) => item._id.toString()}
             />
+
             <View>
                 <Text style={styles.info}>My interest</Text>
             </View>
             <FlatList
-                //    style={styles.infoBar}
                 data={interests}
                 renderItem={({ item }) => (
-                    <View>
-                        <Text>{item.name != null ? item.name : "None"}</Text>
+                    <View style={styles.checkboxlist}>
+                        <Checkbox
+                            status={
+                                selectedInterests[item._id.toString()]
+                                    ? "checked"
+                                    : "unchecked"
+                            }
+                            onPress={() => toggleInterest(item._id.toString())}
+                        />
+                        <Text style={styles.checkboxtext}>
+                            {item.name.toLocaleUpperCase() || "None"}
+                        </Text>
                     </View>
                 )}
                 keyExtractor={(item) => item._id.toString()}
             />
+            <View style={styles.buttonContainer}>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => {
+                        saveData();
+                    }}
+                >
+                    <Text style={styles.buttonText}>Save</Text>
+                </TouchableOpacity>
+            </View>
         </SafeAreaView>
     );
 };
 
-const screenHeight = Dimensions.get("window").height;
+// const screenHeight = Dimensions.get("window").height;
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#F7EFE5",
     },
-    upperTab: {
+    checkboxlist: {
         flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        padding: 15,
-        backgroundColor: "#E2BFD9",
-        height: 85,
+        padding: 2,
+        paddingHorizontal: 20,
     },
-    content: {
-        alignItems: "center",
-        justifyContent: "center",
+    checkboxtext: {
+        textAlignVertical: "center",
     },
     info: {
         fontSize: 18,
         fontFamily: "Itim-Regular",
         color: "black",
-        textAlign: "justify",
-        margin: 20,
+        padding: 20,
     },
-    image: {
-        width: "50%",
-        height: screenHeight * 0.25,
-        borderRadius: 60,
+    buttonContainer: {
+        justifyContent: "center",
+        alignItems: "center",
+        marginBottom: 10,
+    },
+    button: {
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "#C37BC3",
+        width: 200,
+        height: 50,
         marginTop: 20,
+        borderRadius: 10,
+        borderWidth: 1,
+    },
+    buttonText: {
+        fontFamily: "Roboto",
+        justifyContent: "center",
+        color: "white",
+        alignSelf: "center",
+        fontSize: 18,
     },
 });
 
