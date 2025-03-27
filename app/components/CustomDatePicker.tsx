@@ -10,114 +10,42 @@ import {
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Ionicons } from "@expo/vector-icons";
 
-export const CustomStartEndDatePicker = () => {
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(new Date());
+interface Props {
+    onStartDateChange: (date: Date) => void;
+    onEndDateChange: (date: Date) => void;
+}
+
+export const CustomStartEndDatePicker: React.FC<Props> = ({
+    onStartDateChange,
+    onEndDateChange,
+}) => {
+    const [startDate, setStartDate] = useState<Date | null>(null);
+    const [endDate, setEndDate] = useState<Date | null>(null);
     const [showStartAndroidCalendar, setShowStartAndroidCalendar] =
         useState(false);
-    const [showEndAndroidCalendar, setEndStartAndroidCalendar] =
-        useState(false);
+    const [showEndAndroidCalendar, setShowEndAndroidCalendar] = useState(false);
 
-    const onChangeStartDate = (event: any, selectedDate: any) => {
-        const currentDate = selectedDate || startDate;
-        setStartDate(currentDate);
+    const onChangeStartDate = (event: any, selectedDate: Date | undefined) => {
+        if (selectedDate) {
+            setStartDate(selectedDate);
+            onStartDateChange(selectedDate);
+        }
         setShowStartAndroidCalendar(false);
     };
 
-    const onChangeEndDate = (event: any, selectedDate: any) => {
-        const currentDate = selectedDate || endDate;
-        setEndDate(currentDate);
-        setEndStartAndroidCalendar(false);
-    };
-
-    const DatePickerStartOS = () => {
-        if (Platform.OS === "ios") {
-            return (
-                <View>
-                    <DateTimePicker
-                        value={startDate}
-                        mode="date"
-                        display="default"
-                        onChange={onChangeStartDate}
-                    />
-                </View>
-            );
-        } else {
-            return (
-                <View>
-                    <TouchableOpacity
-                        onPress={() => {
-                            setShowStartAndroidCalendar(true);
-                        }}
-                    >
-                        <TextInput
-                            style={styles.dateInput}
-                            placeholderTextColor={"#C37BC3"}
-                            placeholder="Enter date"
-                            editable={false}
-                        >
-                            <Text>{startDate.toDateString()}</Text>
-                        </TextInput>
-                    </TouchableOpacity>
-                    {showStartAndroidCalendar && (
-                        <DateTimePicker
-                            value={startDate}
-                            mode="date"
-                            display="default"
-                            onChange={onChangeStartDate}
-                        />
-                    )}
-                </View>
-            );
+    const onChangeEndDate = (event: any, selectedDate: Date | undefined) => {
+        if (selectedDate) {
+            setEndDate(selectedDate);
+            onEndDateChange(selectedDate);
         }
-    };
-
-    const DatePickerEndOS = () => {
-        if (Platform.OS === "ios") {
-            return (
-                <View>
-                    <DateTimePicker
-                        value={endDate}
-                        mode="date"
-                        display="default"
-                        onChange={onChangeEndDate}
-                    />
-                </View>
-            );
-        } else {
-            return (
-                <View>
-                    <TouchableOpacity
-                        onPress={() => {
-                            setEndStartAndroidCalendar(true);
-                        }}
-                    >
-                        <TextInput
-                            style={styles.dateInput}
-                            placeholderTextColor={"#C37BC3"}
-                            placeholder="Enter date"
-                            editable={false}
-                        >
-                            <Text>{endDate.toDateString()}</Text>
-                        </TextInput>
-                    </TouchableOpacity>
-                    {showEndAndroidCalendar && (
-                        <DateTimePicker
-                            value={endDate}
-                            mode="date"
-                            display="default"
-                            onChange={onChangeEndDate}
-                        />
-                    )}
-                </View>
-            );
-        }
+        setShowEndAndroidCalendar(false);
     };
 
     return (
-        <View style={{ flexDirection: "row", marginTop: 20 }}>
-            <View style={{ alignItems: "center" }}>
-                <View style={{ flexDirection: "row" }}>
+        <View style={styles.container}>
+            {/* Start Date Picker */}
+            <View style={styles.pickerContainer}>
+                <View style={styles.labelContainer}>
                     <Text style={styles.inputLabel}>Start Date</Text>
                     <Ionicons
                         name="calendar"
@@ -126,11 +54,45 @@ export const CustomStartEndDatePicker = () => {
                         style={{ marginLeft: 10 }}
                     />
                 </View>
-                {DatePickerStartOS()}
+                {Platform.OS === "ios" ? (
+                    <DateTimePicker
+                        value={startDate || new Date()}
+                        mode="date"
+                        display="default"
+                        onChange={onChangeStartDate}
+                    />
+                ) : (
+                    <View>
+                        <TouchableOpacity
+                            onPress={() => setShowStartAndroidCalendar(true)}
+                        >
+                            <TextInput
+                                style={styles.dateInput}
+                                placeholder="Select start date"
+                                editable={false}
+                            >
+                                <Text>
+                                    {startDate
+                                        ? startDate.toDateString()
+                                        : "Select a date"}
+                                </Text>
+                            </TextInput>
+                        </TouchableOpacity>
+                        {showStartAndroidCalendar && (
+                            <DateTimePicker
+                                value={startDate || new Date()}
+                                mode="date"
+                                display="default"
+                                onChange={onChangeStartDate}
+                            />
+                        )}
+                    </View>
+                )}
             </View>
 
-            <View style={{ alignItems: "center" }}>
-                <View style={{ flexDirection: "row" }}>
+            {/* End Date Picker */}
+            <View style={styles.pickerContainer}>
+                <View style={styles.labelContainer}>
                     <Text style={styles.inputLabel}>End Date</Text>
                     <Ionicons
                         name="calendar"
@@ -139,13 +101,61 @@ export const CustomStartEndDatePicker = () => {
                         style={{ marginLeft: 10 }}
                     />
                 </View>
-                {DatePickerEndOS()}
+                {Platform.OS === "ios" ? (
+                    <DateTimePicker
+                        value={endDate || new Date()}
+                        mode="date"
+                        display="default"
+                        onChange={onChangeEndDate}
+                    />
+                ) : (
+                    <View>
+                        <TouchableOpacity
+                            onPress={() => setShowEndAndroidCalendar(true)}
+                        >
+                            <TextInput
+                                style={styles.dateInput}
+                                placeholder="Select end date"
+                                editable={false}
+                            >
+                                <Text>
+                                    {endDate
+                                        ? endDate.toDateString()
+                                        : "Select a date"}
+                                </Text>
+                            </TextInput>
+                        </TouchableOpacity>
+                        {showEndAndroidCalendar && (
+                            <DateTimePicker
+                                value={endDate || new Date()}
+                                mode="date"
+                                display="default"
+                                onChange={onChangeEndDate}
+                            />
+                        )}
+                    </View>
+                )}
             </View>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
+    container: {
+        flexDirection: "row",
+        marginTop: 20,
+        alignItems: "center",
+        justifyContent: "center",
+        flex: 1,
+        gap: 20,
+    },
+    pickerContainer: {
+        alignItems: "center",
+    },
+    labelContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+    },
     inputLabel: {
         fontSize: 18,
         fontFamily: "Itim-Regular",
@@ -155,13 +165,11 @@ const styles = StyleSheet.create({
         fontFamily: "Itim-Regular",
         color: "black",
         fontSize: 15,
-        marginHorizontal: 10,
         textAlign: "center",
         borderColor: "black",
         borderRadius: 10,
         borderWidth: 1.5,
-        width: 170,
+        width: 175,
         height: 50,
-        // lineHeight: 50,
     },
 });

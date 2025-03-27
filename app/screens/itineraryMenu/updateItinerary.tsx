@@ -3,7 +3,6 @@ import { Button, TextInput, Text, View, Platform, Image, StyleSheet, TouchableOp
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from '../../assets/Types';
 import { ScrollView } from "react-native-gesture-handler";
-import DateTimePicker from '@react-native-community/datetimepicker';
 import { Ionicons } from '@expo/vector-icons';
 import { CustomStartEndDatePicker } from "../../components/CustomDatePicker";
 
@@ -21,7 +20,7 @@ const UpdateItinerary: React.FC<Props> = ({ navigation }) => {
                 <Text style={styles.inputLabel}>Trip Name</Text>
                 <TextInput keyboardType='email-address' placeholder='Penang Trip' placeholderTextColor="#C37BC3" style={styles.inputBox} />
 
-                <CustomStartEndDatePicker />
+                {/* <CustomStartEndDatePicker /> */}
 
                 <Text style={[styles.inputLabel, { marginTop: 20 }]}>Location</Text>
                 <TextInput keyboardType='email-address' placeholder='Penang' placeholderTextColor="#C37BC3" style={styles.inputBox} />

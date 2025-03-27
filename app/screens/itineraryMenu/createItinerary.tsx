@@ -18,6 +18,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import { CustomStartEndDatePicker } from "../../components/CustomDatePicker";
 import { Dropdown } from "react-native-element-dropdown";
 import axios from "axios";
+import { getSession } from "../../assets/asyncStorageData";
 
 type CreateItineraryNavigationProp = StackNavigationProp<
     RootStackParamList,
@@ -147,6 +148,83 @@ const ManualItinerary = ({
         }
     };
 
+    const [startDate, setStartDate] = useState<Date | null>(null);
+    const [endDate, setEndDate] = useState<Date | null>(null);
+
+    const [itineraryId, setItineraryId] = useState("");
+    const [name, setName] = useState("");
+    const [destination, setDestination] = useState("");
+
+    const calculateDuration = () => {
+        if (!startDate || !endDate) return null;
+        const diffTime = endDate.getTime() - startDate.getTime();
+        return Math.max(Math.ceil(diffTime / (1000 * 60 * 60 * 24) + 1), 1); // Minimum 1 day
+    };
+
+    const createTrip = async () => {
+        try {
+            const session = await getSession();
+            if (!session || !session.userId) {
+                Alert.alert("No user session data. Please log in");
+                navigation.navigate("Cover");
+                return;
+            }
+
+            const { userId: userId } = session;
+
+            if (
+                !startDate ||
+                !endDate ||
+                !name ||
+                !destination ||
+                !budget ||
+                !selectedTravelMode ||
+                !selectedInterests
+            ) {
+                Alert.alert("Please check the missing details");
+                return;
+            }
+
+            if (endDate <= startDate) {
+                Alert.alert("End date must be later than start date.");
+                return;
+            }
+
+            const tripDays = calculateDuration();
+            console.log(tripDays);
+            const response: any = await axios.post(
+                `http://10.0.2.2:3000/itinerary/${userId}`,
+                {
+                    newItinerary: {
+                        name: name,
+                        days: tripDays,
+                        startDate: startDate,
+                        endDate: endDate,
+                        destination: destination,
+                        budget: budget,
+                        travelModes: selectedTravelMode,
+                        interests: selectedInterests,
+                        itinerary: [],
+                    },
+                }
+            );
+
+            if (response) {
+                console.log("yuhjmhmghjghj");
+                console.log(response);
+                console.log(response.data.data._id.toString());
+                setItineraryId(response.data.data._id.toString());
+
+                Alert.alert("Trip Created Successfully");
+                navigation.navigate("CreateItineraryDetails", {
+                    itineraryId: response.data.data._id.toString(),
+                });
+            }
+        } catch (error) {
+            Alert.alert(`Error: ${error}`);
+        }
+    };
+
     return (
         <ScrollView style={styles.container}>
             <View style={styles.headerContainer}>
@@ -155,7 +233,10 @@ const ManualItinerary = ({
                 </Text>
             </View>
 
-            <CustomStartEndDatePicker />
+            <CustomStartEndDatePicker
+                onStartDateChange={(date) => setStartDate(date)}
+                onEndDateChange={(date) => setEndDate(date)}
+            />
 
             <View style={styles.inputContainer}>
                 <Text style={styles.inputLabel}>Trip Name</Text>
@@ -164,6 +245,8 @@ const ManualItinerary = ({
                     placeholder="Enter trip name"
                     placeholderTextColor="#C37BC3"
                     style={styles.inputBox}
+                    value={name}
+                    onChangeText={(text) => setName(text)}
                 />
             </View>
 
@@ -174,6 +257,8 @@ const ManualItinerary = ({
                     placeholder="Enter trip destination"
                     placeholderTextColor="#C37BC3"
                     style={styles.inputBox}
+                    value={destination}
+                    onChangeText={(text) => setDestination(text)}
                 />
             </View>
 
@@ -199,13 +284,18 @@ const ManualItinerary = ({
 
                 <Dropdown
                     style={styles.inputBox}
-                    data={travelModes}
+                    data={travelModes.map((item) => ({
+                        ...item,
+                        name:
+                            item.name.charAt(0).toUpperCase() +
+                            item.name.slice(1).toLowerCase(),
+                    }))}
                     labelField="name"
-                    valueField="_id"
+                    valueField="name"
                     placeholder="Select Travel Mode"
                     value={selectedTravelMode}
                     onChange={(item) => {
-                        setSelectedTravelMode(item._id);
+                        setSelectedTravelMode(item.name);
                     }}
                     placeholderStyle={styles.placeholderText}
                 />
@@ -217,7 +307,7 @@ const ManualItinerary = ({
                 <Text style={styles.inputLabel}>Interests</Text>
 
                 <ScrollView
-                    style={{ maxHeight: 300 }}
+                    style={{ maxHeight: 200 }}
                     contentContainerStyle={{ paddingBottom: 20 }}
                     showsVerticalScrollIndicator={true}
                 >
@@ -269,12 +359,15 @@ const ManualItinerary = ({
                 </Text> */}
             </View>
 
+            {/* <View style={styles.multiSelect}>
+                <Text style={styles.inputLabel}>Itineraries</Text>
+            </View> */}
+
             <View style={styles.buttonContainer}>
                 <TouchableOpacity
                     style={styles.button}
                     onPress={() => {
-                        Alert.alert("Trip Created Successfully");
-                        navigation.goBack();
+                        createTrip();
                     }}
                 >
                     <Text style={styles.buttonText}>Create Trip</Text>
@@ -348,13 +441,19 @@ const AIItinerary = ({
         }
     };
 
+    const [startDate, setStartDate] = useState<Date | null>(null);
+    const [endDate, setEndDate] = useState<Date | null>(null);
+
     return (
         <ScrollView style={styles.container}>
             <View style={styles.headerContainer}>
                 <Text style={styles.header}>Build your trip through AI</Text>
             </View>
 
-            <CustomStartEndDatePicker />
+            <CustomStartEndDatePicker
+                onStartDateChange={(date) => setStartDate(date)}
+                onEndDateChange={(date) => setEndDate(date)}
+            />
 
             <View style={styles.inputContainer}>
                 <Text style={styles.inputLabel}>Trip Name</Text>
@@ -517,6 +616,7 @@ const styles = StyleSheet.create({
         fontSize: 15,
         textAlign: "left",
         paddingLeft: 20,
+        marginRight: 10,
         borderColor: "black",
         borderRadius: 10,
         borderWidth: 1.5,
@@ -526,6 +626,7 @@ const styles = StyleSheet.create({
     placeholderText: {
         fontFamily: "Roboto",
         fontSize: 15,
+        color: "#C37BC3",
     },
     buttonContainer: { alignItems: "center", marginBottom: 20 },
     button: {
