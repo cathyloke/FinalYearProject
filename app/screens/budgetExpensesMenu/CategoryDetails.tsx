@@ -217,22 +217,6 @@ const CategoryDetails: React.FC<Props> = ({ navigation, route }) => {
     );
 };
 
-const optionsStyle = {
-    optionsContainer: {
-        backgroundColor: "#f2f2f2",
-        padding: 5,
-        borderRadius: 15,
-    },
-    optionWrapper: {
-        padding: 10,
-    },
-    optionText: {
-        color: "black",
-        fontFamily: "Itim-Regular",
-        fontSize: 18,
-    },
-};
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,

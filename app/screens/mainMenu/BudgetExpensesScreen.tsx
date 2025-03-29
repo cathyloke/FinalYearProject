@@ -1,18 +1,36 @@
 import React, { useCallback, useState } from "react";
-import { Alert, TouchableOpacity, TextInput, Text, View, Image, StyleSheet, Modal } from "react-native";
+import {
+    Alert,
+    TouchableOpacity,
+    TextInput,
+    Text,
+    View,
+    Image,
+    StyleSheet,
+    Modal,
+} from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from '../../assets/Types';
+import { RootStackParamList } from "../../assets/Types";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import UpperTab from "../../components/UpperTab";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Entypo } from "@expo/vector-icons";
-import { MenuProvider, Menu, MenuOptions, MenuOption, MenuTrigger } from 'react-native-popup-menu'
+import {
+    MenuProvider,
+    Menu,
+    MenuOptions,
+    MenuOption,
+    MenuTrigger,
+} from "react-native-popup-menu";
 import { useFocusEffect } from "@react-navigation/native";
 import { getSession } from "../../assets/asyncStorageData";
-import axios from 'axios';
+import axios from "axios";
 
-type BudgetExpensesScreenNavigationProp = StackNavigationProp<RootStackParamList, 'BudgetExpenses'>;
+type BudgetExpensesScreenNavigationProp = StackNavigationProp<
+    RootStackParamList,
+    "BudgetExpenses"
+>;
 
 type Props = {
     navigation: BudgetExpensesScreenNavigationProp;
@@ -43,68 +61,74 @@ const BudgetExpensesScreen: React.FC<Props> = ({ navigation }) => {
 
     const handleDeleteBudget = (budgetName: string) => {
         Alert.alert(
-            'Are you sure to delete this budget?',
-            'You will not be able to recover the budget once it is deleted.',
+            "Are you sure to delete this budget?",
+            "You will not be able to recover the budget once it is deleted.",
             [
                 {
-                    text: 'Cancel',
-                    onPress: () => console.log('Cancel Action'),
-                    style: 'cancel',
+                    text: "Cancel",
+                    onPress: () => console.log("Cancel Action"),
+                    style: "cancel",
                 },
                 {
-                    text: 'Yes',
+                    text: "Yes",
                     onPress: async () => {
-                        console.log('Delete Budget')
+                        console.log("Delete Budget");
 
                         const session = await getSession();
                         if (!session || !session.userId) {
-                            Alert.alert('No user session data. Please log in')
-                            navigation.navigate('Cover')
+                            Alert.alert("No user session data. Please log in");
+                            navigation.navigate("Cover");
                             return;
                         }
 
                         const { userId: userId } = session;
 
-                        axios.delete(`http://10.0.2.2:3000/budget/${userId}/${budgetName}`)
-                            .then(res => {
-                                console.log(res.data.data)
-                                loadData()
+                        axios
+                            .delete(
+                                `http://10.0.2.2:3000/budget/${userId}/${budgetName}`
+                            )
+                            .then((res) => {
+                                console.log(res.data.data);
+                                loadData();
                             })
-                            .catch(error => {
-                                Alert.alert(`Error: ${error.response?.data || error.message}`)
+                            .catch((error) => {
+                                Alert.alert(
+                                    `Error: ${
+                                        error.response?.data || error.message
+                                    }`
+                                );
                             });
-                    }
+                    },
                 },
             ]
         );
     };
 
     const handleUpdateBudget = (budgetName: string) => {
-        navigation.navigate('UpdateBudget', { budgetName: budgetName })
+        navigation.navigate("UpdateBudget", { budgetName: budgetName });
     };
-
-
 
     const loadData = async () => {
         const session = await getSession();
         if (!session || !session.userId) {
-            Alert.alert('No user session data. Please log in')
-            navigation.navigate('Cover')
+            Alert.alert("No user session data. Please log in");
+            navigation.navigate("Cover");
             return;
         }
 
         const { userId: userId } = session;
         // console.log('user id : ', userId)
 
-        axios.get(`http://10.0.2.2:3000/read/${userId}`)
-            .then(res => {
-                console.log(res.data.data)
-                setBudgets(res.data.data.budgets)
+        axios
+            .get(`http://10.0.2.2:3000/read/${userId}`)
+            .then((res) => {
+                console.log(res.data.data);
+                setBudgets(res.data.data.budgets);
             })
-            .catch(error => {
-                Alert.alert(`Error: ${error.response?.data || error.message}`)
+            .catch((error) => {
+                Alert.alert(`Error: ${error.response?.data || error.message}`);
             });
-    }
+    };
 
     useFocusEffect(
         useCallback(() => {
@@ -117,10 +141,14 @@ const BudgetExpensesScreen: React.FC<Props> = ({ navigation }) => {
             <UpperTab navigation={navigation}></UpperTab>
             <View style={styles.headerBar}>
                 <Text style={styles.header}>My Budget</Text>
-                <TouchableOpacity style={{ alignSelf: 'center' }} onPress={() => { navigation.navigate('CreateBudget') }}>
+                <TouchableOpacity
+                    style={{ alignSelf: "center" }}
+                    onPress={() => {
+                        navigation.navigate("CreateBudget");
+                    }}
+                >
                     <Entypo name="plus" size={30} color="black" />
                 </TouchableOpacity>
-
             </View>
 
             {/* <ScrollView> */}
@@ -132,30 +160,81 @@ const BudgetExpensesScreen: React.FC<Props> = ({ navigation }) => {
                 renderItem={({ item }) => (
                     <TouchableOpacity
                         style={styles.infoContainer}
-                        onPress={() => navigation.navigate('BudgetDetails', { budgetName: item.name })}
+                        onPress={() =>
+                            navigation.navigate("BudgetDetails", {
+                                budgetName: item.name,
+                            })
+                        }
                     >
                         <View style={styles.infoContent}>
-                            <Text style={[styles.info, { fontWeight: 'bold', fontSize: 18, color: 'black' }]}>{item.name}</Text>
-                            <Text style={[styles.info, { marginTop: 10 }]}>Budget: RM{item.budgetAmount.toFixed(2)}</Text>
-                            <Text style={styles.info}>Expenses: RM{item.expensesAmount.toFixed(2)}</Text>
+                            <Text
+                                style={[
+                                    styles.info,
+                                    {
+                                        fontWeight: "bold",
+                                        fontSize: 18,
+                                        color: "black",
+                                    },
+                                ]}
+                            >
+                                {item.name}
+                            </Text>
+                            <Text style={[styles.info, { marginTop: 10 }]}>
+                                Budget: RM{item.budgetAmount.toFixed(2)}
+                            </Text>
+                            <Text style={styles.info}>
+                                Expenses: RM{item.expensesAmount.toFixed(2)}
+                            </Text>
                         </View>
                         <View style={styles.infoContent}>
                             <Menu>
                                 <MenuTrigger>
-                                    <Entypo name="dots-three-horizontal" size={20} color="#424242" />
+                                    <Entypo
+                                        name="dots-three-horizontal"
+                                        size={20}
+                                        color="black"
+                                    />
                                 </MenuTrigger>
                                 <MenuOptions customStyles={optionsStyle}>
                                     {/* <MenuOption onSelect={() => handleUpdateBudget(item.name)} text="Edit Budget" />
                                     <MenuOption onSelect={() => handleDeleteBudget()} text="Delete Budget" /> */}
-                                    <MenuOption onSelect={() => handleUpdateBudget(item.name)}>
-                                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                            <Entypo name="edit" size={18} color="#3789BB" style={{ marginRight: 8 }} />
+                                    <MenuOption
+                                        onSelect={() =>
+                                            handleUpdateBudget(item.name)
+                                        }
+                                    >
+                                        <View
+                                            style={{
+                                                flexDirection: "row",
+                                                alignItems: "center",
+                                            }}
+                                        >
+                                            <Entypo
+                                                name="edit"
+                                                size={18}
+                                                color="#3789BB"
+                                                style={{ marginRight: 8 }}
+                                            />
                                             <Text>Edit Budget</Text>
                                         </View>
                                     </MenuOption>
-                                    <MenuOption onSelect={() => handleDeleteBudget(item.name)}>
-                                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                            <Entypo name="trash" size={18} color="#D14D37" style={{ marginRight: 8 }} />
+                                    <MenuOption
+                                        onSelect={() =>
+                                            handleDeleteBudget(item.name)
+                                        }
+                                    >
+                                        <View
+                                            style={{
+                                                flexDirection: "row",
+                                                alignItems: "center",
+                                            }}
+                                        >
+                                            <Entypo
+                                                name="trash"
+                                                size={18}
+                                                color="#D14D37"
+                                                style={{ marginRight: 8 }}
+                                            />
                                             <Text>Delete Budget</Text>
                                         </View>
                                     </MenuOption>
@@ -172,11 +251,11 @@ const BudgetExpensesScreen: React.FC<Props> = ({ navigation }) => {
             {/* </ScrollView> */}
         </SafeAreaView>
     );
-}
+};
 
 const optionsStyle = {
     optionsContainer: {
-        backgroundColor: '#f2f2f2',
+        backgroundColor: "#f2f2f2",
         padding: 5,
         borderRadius: 15,
     },
@@ -184,74 +263,66 @@ const optionsStyle = {
         padding: 10,
     },
     optionText: {
-        color: 'black',
-        fontFamily: 'Itim-Regular',
+        color: "black",
+        fontFamily: "Itim-Regular",
         fontSize: 18,
     },
-
-}
+};
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F7EFE5',
+        backgroundColor: "#F7EFE5",
     },
     upperTab: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
         padding: 15,
-        backgroundColor: '#E2BFD9',
+        backgroundColor: "#E2BFD9",
         height: 85,
     },
     content: {
-        flexDirection: 'row',
+        flexDirection: "row",
         margin: 20,
-        justifyContent: 'space-between'
+        justifyContent: "space-between",
     },
     headerBar: {
-        flexDirection: 'row',
+        flexDirection: "row",
         borderBottomWidth: 1,
-        borderBottomColor: 'grey',
+        borderBottomColor: "grey",
         marginHorizontal: 20,
-        justifyContent: 'space-between',
+        justifyContent: "space-between",
     },
     header: {
         fontSize: 25,
         padding: 5,
         margin: 8,
-        fontFamily: 'Itim-Regular',
-        color: 'black',
+        fontFamily: "Itim-Regular",
+        color: "black",
     },
     itineraryContainer: {
         marginTop: 10,
     },
     infoContainer: {
-        justifyContent: 'space-between',
+        justifyContent: "space-between",
         padding: 5,
-        // borderWidth: 1,
-        // backgroundColor: '#C37BC3',
         borderBottomWidth: 1,
-        borderBottomColor: 'grey',
-        // borderRadius: 20,
+        borderBottomColor: "grey",
         marginHorizontal: 20,
-        // marginVertical: 10,
         height: 100,
-        flexDirection: 'row',
-
+        flexDirection: "row",
     },
     infoContent: {
         marginTop: 5,
     },
     info: {
-        fontFamily: 'Roboto',
-        color: '#424242',
+        fontFamily: "Roboto",
+        color: "#424242",
         fontSize: 15,
         paddingHorizontal: 10,
-        textAlignVertical: 'center',
+        textAlignVertical: "center",
     },
-
-
 });
 
 export default BudgetExpensesScreen;

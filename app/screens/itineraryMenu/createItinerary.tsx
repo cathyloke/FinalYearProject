@@ -185,7 +185,7 @@ const ManualItinerary = ({
                 return;
             }
 
-            if (endDate <= startDate) {
+            if (endDate < startDate) {
                 Alert.alert("End date must be later than start date.");
                 return;
             }

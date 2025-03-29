@@ -20,6 +20,7 @@ import { Dropdown } from "react-native-element-dropdown";
 import axios from "axios";
 import { getSession } from "../../assets/asyncStorageData";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 type CreateItineraryDetailsNavigationProp = StackNavigationProp<
     RootStackParamList,
@@ -54,12 +55,14 @@ const CreateItineraryDetails: React.FC<Props> = ({ navigation, route }) => {
     const [itinerary, setItinerary] = useState<ItineraryDay[]>([]);
 
     useEffect(() => {
-        setItinerary(
-            Array.from({ length: tripDays }, (_, i) => ({
-                day: i + 1,
-                activities: [],
-            }))
-        );
+        if (itinerary.length === 0 && tripDays > 0) {
+            setItinerary(
+                Array.from({ length: tripDays }, (_, i) => ({
+                    day: i + 1,
+                    activities: itinerary[i]?.activities || [], // Preserve existing activities
+                }))
+            );
+        }
     }, [tripDays]);
 
     const loadData = async () => {
@@ -91,21 +94,90 @@ const CreateItineraryDetails: React.FC<Props> = ({ navigation, route }) => {
     );
 
     const addActivity = (dayIndex: number, activity: Activity) => {
-        const newItinerary = [...itinerary];
-        newItinerary[dayIndex].activities.push(activity);
-        setItinerary(newItinerary);
+        const timeRegex = /^(0[1-9]|1[0-2]):[0-5][0-9]\s?(AM|PM)$/i;
+
+        if (!timeRegex.test(activity.time)) {
+            Alert.alert(
+                "Invalid Time",
+                "Please enter time in HH:MM AM/PM format."
+            );
+            return;
+        }
+
+        setItinerary((prevItinerary) =>
+            prevItinerary.map((day, index) => {
+                if (index === dayIndex) {
+                    const updatedActivities = [...day.activities, activity];
+
+                    // Sort activities by time
+                    updatedActivities.sort(
+                        (a, b) =>
+                            convertTo24Hour(a.time) - convertTo24Hour(b.time)
+                    );
+
+                    return { ...day, activities: updatedActivities };
+                }
+                return day;
+            })
+        );
+
+        const convertTo24Hour = (time: string) => {
+            const [_, hours, minutes, period] =
+                time.match(/(\d+):(\d+)\s?(AM|PM)/i) || [];
+
+            if (!hours || !minutes || !period) return 0; // Fallback for invalid time
+
+            let hourNum = parseInt(hours, 10);
+            let minuteNum = parseInt(minutes, 10);
+
+            if (period.toUpperCase() === "PM" && hourNum !== 12) {
+                hourNum += 12;
+            } else if (period.toUpperCase() === "AM" && hourNum === 12) {
+                hourNum = 0;
+            }
+
+            return hourNum * 60 + minuteNum; // Convert time to minutes for sorting
+        };
+        console.log("now is ");
+        console.log(JSON.stringify(itinerary));
+    };
+
+    const removeActivity = (dayIndex: number, activityIndex: number) => {
+        setItinerary((prevItinerary) =>
+            prevItinerary.map((day, index) =>
+                index === dayIndex
+                    ? {
+                          ...day,
+                          activities: day.activities.filter(
+                              (_, i) => i !== activityIndex
+                          ),
+                      }
+                    : day
+            )
+        );
     };
 
     const handleSubmit = async () => {
         try {
+            const session = await getSession();
+            if (!session || !session.userId) {
+                Alert.alert("No user session data. Please log in");
+                navigation.navigate("Cover");
+                return;
+            }
+
+            const { userId: userId } = session;
+            console.log("the final itinerary to submit is ");
+            console.log(JSON.stringify(itinerary));
+
             const response = await axios.put(
-                `http://10.0.2.2:3000/itinerary/details/${itineraryId}`,
+                `http://10.0.2.2:3000/itinerary/details/${userId}/${itineraryId}`,
                 { itinerary }
             );
 
-            if (response.status === 200) {
+            if (response) {
                 Alert.alert("Success", "Itinerary details saved successfully!");
-                navigation.navigate("Home");
+                navigation.navigate("Itinerary");
             }
         } catch (error: any) {
             Alert.alert(
@@ -116,48 +188,73 @@ const CreateItineraryDetails: React.FC<Props> = ({ navigation, route }) => {
     };
 
     return (
-        <ScrollView style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <View style={styles.headerContainer}>
                 <Text style={styles.header}>
                     Build your itinerary by filling details below
                 </Text>
             </View>
 
-            <View style={{ flex: 1 }}>
-                <FlatList
-                    data={itinerary}
-                    keyExtractor={(item) => item.day.toString()}
-                    renderItem={({ item, index }) => (
-                        <View>
-                            <Text style={styles.dateLabel}>
-                                Day {item.day}:{" "}
-                                {new Date(
-                                    new Date(startDate).setDate(
-                                        new Date(startDate).getDate() + index
-                                    )
-                                ).toDateString()}
-                            </Text>
-                            <ActivityInput
-                                dayIndex={index}
-                                addActivity={addActivity}
-                            />
-                        </View>
-                    )}
-                />
-            </View>
+            <FlatList
+                data={itinerary}
+                keyExtractor={(item) => item.day.toString()}
+                renderItem={({ item, index }) => (
+                    <View style={{ flex: 1 }}>
+                        <Text style={styles.dateLabel}>
+                            Day {item.day} :{" "}
+                            {new Date(
+                                new Date(startDate).setDate(
+                                    new Date(startDate).getDate() + index
+                                )
+                            ).toDateString()}
+                        </Text>
+                        <ActivityInput
+                            dayIndex={index}
+                            addActivity={addActivity}
+                        />
 
-            <View style={[styles.buttonContainer, { marginTop: 15 }]}>
+                        <FlatList
+                            data={item.activities}
+                            keyExtractor={(activity, idx) => idx.toString()}
+                            renderItem={({
+                                item: activity,
+                                index: activityIndex,
+                            }) => (
+                                <View style={styles.activityItem}>
+                                    <TouchableOpacity
+                                        onPress={() =>
+                                            removeActivity(index, activityIndex)
+                                        }
+                                        style={{ marginRight: 5 }}
+                                    >
+                                        <Ionicons
+                                            name="trash-bin"
+                                            size={24}
+                                            color="#FF6347"
+                                        />
+                                    </TouchableOpacity>
+                                    <Text style={styles.activityText}>
+                                        {activity.time} - {activity.activity} @{" "}
+                                        {activity.location}
+                                    </Text>
+                                </View>
+                            )}
+                        />
+                    </View>
+                )}
+            />
+
+            <View style={[styles.buttonContainer, { marginVertical: 15 }]}>
                 <TouchableOpacity
                     style={styles.button}
                     onPress={() => {
-                        // handleSubmit();
-                        Alert.alert("Saved the itinerary");
+                        handleSubmit();
                     }}
                 >
                     <Text style={styles.buttonText}>Save Itinerary</Text>
                 </TouchableOpacity>
             </View>
-        </ScrollView>
+        </SafeAreaView>
     );
 };
 
@@ -182,7 +279,7 @@ const ActivityInput: React.FC<ActivityInputProps> = ({
                     style={styles.inputBox}
                     placeholder="Enter Time (HH:MM AM/PM)"
                     value={time}
-                    onChangeText={setTime}
+                    onChangeText={(text) => setTime(text)}
                 />
             </View>
 
@@ -192,7 +289,7 @@ const ActivityInput: React.FC<ActivityInputProps> = ({
                     style={styles.inputBox}
                     placeholder="Enter Activity"
                     value={activity}
-                    onChangeText={setActivity}
+                    onChangeText={(text) => setActivity(text)}
                 />
             </View>
 
@@ -202,7 +299,7 @@ const ActivityInput: React.FC<ActivityInputProps> = ({
                     style={styles.inputBox}
                     placeholder="Enter Location"
                     value={location}
-                    onChangeText={setLocation}
+                    onChangeText={(text) => setLocation(text)}
                 />
             </View>
 
@@ -273,8 +370,23 @@ const styles = StyleSheet.create({
         // width: screenWidth * 0.7,
         height: 50,
     },
+    activityItem: {
+        flexDirection: "row",
+        alignItems: "center",
+        backgroundColor: "#E6E6FA",
+        padding: 10,
+        marginHorizontal: 10,
+        marginVertical: 5,
+        borderRadius: 8,
+        borderWidth: 1,
+    },
+    activityText: {
+        fontSize: 16,
+        fontFamily: "Roboto",
+        color: "black",
+    },
     buttonContainer: {
-        flex: 1,
+        // flex: 1,
         alignItems: "center",
     },
     button: {
@@ -293,6 +405,23 @@ const styles = StyleSheet.create({
         color: "white",
         alignSelf: "center",
         fontSize: 20,
+    },
+    buttonRow: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        marginTop: 5,
+    },
+    actionButton: {
+        padding: 5,
+        borderRadius: 5,
+        width: 70,
+        alignItems: "center",
+    },
+    editButton: {
+        backgroundColor: "#FFD700",
+    },
+    deleteButton: {
+        backgroundColor: "#FF6347",
     },
 });
 
