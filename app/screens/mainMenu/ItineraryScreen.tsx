@@ -38,22 +38,45 @@ const ItineraryScreen: React.FC<Props> = ({ navigation }) => {
     const handleUpdateTrip = () => {
         navigation.navigate("UpdateItinerary");
     };
-    const handleDeleteTrip = () => {
-        Alert.alert(
-            "Are you sure to delete this trip?",
-            "You will not be able to recover the trip once it is deleted.",
-            [
-                {
-                    text: "Cancel",
-                    onPress: () => console.log("Cancel Pressed"),
-                    style: "cancel",
-                },
-                {
-                    text: "Yes",
-                    onPress: () => console.log("Delete Trip"), // Replace with your delete logic
-                },
-            ]
-        );
+    const handleDeleteTrip = async (itineraryId: string) => {
+        try {
+            Alert.alert(
+                "Are you sure to delete this trip?",
+                "You will not be able to recover the trip once it is deleted.",
+                [
+                    {
+                        text: "Cancel",
+                        onPress: () => console.log("Cancel Pressed"),
+                        style: "cancel",
+                    },
+                    {
+                        text: "Yes",
+                        onPress: async () => {
+                            console.log("Delete Trip");
+
+                            const session = await getSession();
+                            if (!session || !session.userId) {
+                                Alert.alert(
+                                    "No user session data. Please log in"
+                                );
+                                navigation.navigate("Cover");
+                                return;
+                            }
+
+                            const { userId: userId } = session;
+
+                            await axios.delete(
+                                `http://10.0.2.2:3000/itinerary/${userId}/${itineraryId}`
+                            );
+
+                            await loadData();
+                        },
+                    },
+                ]
+            );
+        } catch (error) {
+            Alert.alert(`Error: ${error}`);
+        }
     };
 
     useFocusEffect(
@@ -121,7 +144,11 @@ const ItineraryScreen: React.FC<Props> = ({ navigation }) => {
                 renderItem={({ item }) => (
                     <View style={styles.content}>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate("ViewItinerary")}
+                            onPress={() =>
+                                navigation.navigate("ViewItinerary", {
+                                    itineraryId: item._id.toString(),
+                                })
+                            }
                         >
                             <View style={{ marginTop: 5 }}>
                                 <Text style={styles.infoLabel}>
@@ -180,7 +207,11 @@ const ItineraryScreen: React.FC<Props> = ({ navigation }) => {
                                         text="Edit Trip"
                                     />
                                     <MenuOption
-                                        onSelect={handleDeleteTrip}
+                                        onSelect={() =>
+                                            handleDeleteTrip(
+                                                item._id.toString()
+                                            )
+                                        }
                                         text="Delete Trip"
                                     />
                                 </MenuOptions>
