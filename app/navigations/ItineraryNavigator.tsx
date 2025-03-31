@@ -9,6 +9,7 @@ import CreateItinerary from "../screens/itineraryMenu/createItinerary";
 import ViewItinerary from "../screens/itineraryMenu/viewItinerary";
 import UpdateItinerary from "../screens/itineraryMenu/updateItinerary";
 import CreateItineraryDetails from "../screens/itineraryMenu/createItineraryDetails";
+import UpdateItineraryDetails from "../screens/itineraryMenu/updateItineraryDetails";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -62,6 +63,13 @@ const ItineraryNavigator = () => {
                 component={UpdateItinerary}
                 options={{
                     title: "Update Itinerary",
+                }}
+            />
+            <Stack.Screen
+                name="UpdateItineraryDetails"
+                component={UpdateItineraryDetails}
+                options={{
+                    title: "Update Itinerary Details",
                 }}
             />
         </Stack.Navigator>

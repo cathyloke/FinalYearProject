@@ -35,8 +35,8 @@ type Props = {
 };
 
 const ItineraryScreen: React.FC<Props> = ({ navigation }) => {
-    const handleUpdateTrip = () => {
-        navigation.navigate("UpdateItinerary");
+    const handleUpdateTrip = (itineraryId: string) => {
+        navigation.navigate("UpdateItinerary", { itineraryId: itineraryId });
     };
     const handleDeleteTrip = async (itineraryId: string) => {
         try {
@@ -203,7 +203,11 @@ const ItineraryScreen: React.FC<Props> = ({ navigation }) => {
                                 <MenuOptions customStyles={optionsStyle}>
                                     {/* change to function */}
                                     <MenuOption
-                                        onSelect={handleUpdateTrip}
+                                        onSelect={() => {
+                                            handleUpdateTrip(
+                                                item._id.toString()
+                                            );
+                                        }}
                                         text="Edit Trip"
                                     />
                                     <MenuOption

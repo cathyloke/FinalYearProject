@@ -121,22 +121,6 @@ const AddExpenses: React.FC<Props> = ({ navigation, route }) => {
 
             const { userId: userId } = session;
 
-            console.log("as");
-            console.log(category);
-            console.log(name);
-            console.log(amount);
-            console.log(date);
-
-            const expensesData = {
-                category: category,
-                name: name,
-                amount: amount,
-                payer: payer,
-                date: date,
-            };
-            console.log("expenses data");
-            console.log(expensesData);
-
             const response = await axios.post(
                 `http://10.0.2.2:3000/expenses/${userId}/${budgetName}`,
                 {

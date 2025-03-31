@@ -130,6 +130,16 @@ const ViewItinerary: React.FC<Props> = ({ navigation, route }) => {
         <SafeAreaView style={styles.container}>
             <View style={{ borderBottomWidth: 1, padding: 10 }}>
                 <Text style={styles.header}>{plan?.name}</Text>
+                <TouchableOpacity
+                    onPress={() => {
+                        navigation.navigate("UpdateItineraryDetails", {
+                            itineraryId: itineraryId,
+                        });
+                    }}
+                    style={{ position: "absolute", right: 10, top: 10 }}
+                >
+                    <Ionicons name="create" size={25} color="black" />
+                </TouchableOpacity>
 
                 <View style={styles.iconText}>
                     <Ionicons

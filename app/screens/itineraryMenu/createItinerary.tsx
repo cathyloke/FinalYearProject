@@ -44,32 +44,6 @@ const screenWidth = Dimensions.get("window").width;
 
 const CreateItinerary: React.FC<Props> = ({ navigation, route }) => {
     const { type } = route.params;
-    /**
-     *  {
-     *      name
-            days: { type: Number },
-            destination: { type: String },
-            budget: {
-                type: String,
-                enum: ["High", "Medium", "Low"],
-            },
-            travelModes: [String],
-            interests: [String],
-            itinerary: [
-                {
-                    day: { type: Number },
-                    activities: [
-                        {
-                            time: { type: Date },
-                            activity: { type: String },
-                            location: { type: String },
-                        },
-                    ],
-                },
-            ],
-        }
-        
-     */
 
     if (type === "Manual") {
         return <ManualItinerary navigation={navigation} />;
@@ -234,6 +208,8 @@ const ManualItinerary = ({
             </View>
 
             <CustomStartEndDatePicker
+                startDate={startDate}
+                endDate={endDate}
                 onStartDateChange={(date) => setStartDate(date)}
                 onEndDateChange={(date) => setEndDate(date)}
             />
@@ -451,6 +427,8 @@ const AIItinerary = ({
             </View>
 
             <CustomStartEndDatePicker
+                startDate={startDate}
+                endDate={endDate}
                 onStartDateChange={(date) => setStartDate(date)}
                 onEndDateChange={(date) => setEndDate(date)}
             />

@@ -11,23 +11,27 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { Ionicons } from "@expo/vector-icons";
 
 interface Props {
+    startDate: Date | null;
+    endDate: Date | null;
     onStartDateChange: (date: Date) => void;
     onEndDateChange: (date: Date) => void;
 }
 
 export const CustomStartEndDatePicker: React.FC<Props> = ({
+    startDate,
+    endDate,
     onStartDateChange,
     onEndDateChange,
 }) => {
-    const [startDate, setStartDate] = useState<Date | null>(null);
-    const [endDate, setEndDate] = useState<Date | null>(null);
+    // const [startDate, setStartDate] = useState<Date | null>(null);
+    // const [endDate, setEndDate] = useState<Date | null>(null);
     const [showStartAndroidCalendar, setShowStartAndroidCalendar] =
         useState(false);
     const [showEndAndroidCalendar, setShowEndAndroidCalendar] = useState(false);
 
     const onChangeStartDate = (event: any, selectedDate: Date | undefined) => {
         if (selectedDate) {
-            setStartDate(selectedDate);
+            // setStartDate(selectedDate);
             onStartDateChange(selectedDate);
         }
         setShowStartAndroidCalendar(false);
@@ -35,7 +39,7 @@ export const CustomStartEndDatePicker: React.FC<Props> = ({
 
     const onChangeEndDate = (event: any, selectedDate: Date | undefined) => {
         if (selectedDate) {
-            setEndDate(selectedDate);
+            // setEndDate(selectedDate);
             onEndDateChange(selectedDate);
         }
         setShowEndAndroidCalendar(false);

@@ -22,7 +22,8 @@ export type RootStackParamList = {
     CreateItinerary: { type: 'Manual' | 'AI' };
     CreateItineraryDetails: { itineraryId: string };
     ViewItinerary: { itineraryId: string };
-    UpdateItinerary: undefined;
+    UpdateItinerary: { itineraryId: string };
+    UpdateItineraryDetails: { itineraryId: string }
 
     //Budget
     BudgetExpenses: undefined;
