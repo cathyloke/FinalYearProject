@@ -10,6 +10,7 @@ import {
     TouchableOpacity,
     Alert,
     Dimensions,
+    Modal,
 } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../assets/Types";
@@ -19,6 +20,7 @@ import { CustomStartEndDatePicker } from "../../components/CustomDatePicker";
 import { Dropdown } from "react-native-element-dropdown";
 import axios from "axios";
 import { getSession } from "../../assets/asyncStorageData";
+import { ActivityIndicator } from "react-native-paper";
 
 type CreateItineraryNavigationProp = StackNavigationProp<
     RootStackParamList,
@@ -421,8 +423,10 @@ const AIItinerary = ({
         return Math.max(Math.ceil(diffTime / (1000 * 60 * 60 * 24) + 1), 1); // Minimum 1 day
     };
 
+    const [loading, setLoading] = useState(false);
     const generateTrip = async () => {
         try {
+            setLoading(true);
             const session = await getSession();
             if (!session || !session.userId) {
                 Alert.alert("No user session data. Please log in");
@@ -502,8 +506,10 @@ const AIItinerary = ({
                     itineraryId: saveTrip.data.data._id.toString(),
                 });
             }
+            setLoading(false);
         } catch (error) {
             Alert.alert(`Error: ${error}`);
+            setLoading(false);
         }
     };
 
@@ -515,6 +521,20 @@ const AIItinerary = ({
 
     return (
         <ScrollView style={styles.container}>
+            <Modal
+                visible={loading}
+                transparent={true}
+                animationType="fade"
+                onRequestClose={() => setLoading(false)}
+            >
+                <View style={styles.loadingOverlay}>
+                    <ActivityIndicator size="large" color="#C37BC3" />
+                    <Text style={styles.loadingText}>
+                        Generating your trip...
+                    </Text>
+                </View>
+            </Modal>
+
             <View style={styles.headerContainer}>
                 <Text style={styles.header}>Build your trip through AI</Text>
             </View>
@@ -645,9 +665,6 @@ const AIItinerary = ({
                 <TouchableOpacity
                     style={styles.button}
                     onPress={() => {
-                        Alert.alert(
-                            "Please wait for few seconds to generate the trip"
-                        );
                         generateTrip();
                         // navigation.goBack();
                     }}
@@ -663,6 +680,17 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#F7EFE5",
+    },
+    loadingOverlay: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
+    },
+    loadingText: {
+        marginTop: 10,
+        fontSize: 18,
+        color: "#fff",
     },
     headerContainer: {
         alignSelf: "center",
