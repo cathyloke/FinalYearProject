@@ -358,8 +358,6 @@ const AIItinerary = ({
 }: {
     navigation: CreateItineraryNavigationProp;
 }) => {
-    const [budget, setBudget] = useState("");
-
     const budgetCategories = [
         { label: "Low", value: "low" },
         { label: "Medium", value: "medium" },
@@ -417,8 +415,103 @@ const AIItinerary = ({
         }
     };
 
+    const calculateDuration = () => {
+        if (!startDate || !endDate) return null;
+        const diffTime = endDate.getTime() - startDate.getTime();
+        return Math.max(Math.ceil(diffTime / (1000 * 60 * 60 * 24) + 1), 1); // Minimum 1 day
+    };
+
+    const generateTrip = async () => {
+        try {
+            const session = await getSession();
+            if (!session || !session.userId) {
+                Alert.alert("No user session data. Please log in");
+                navigation.navigate("Cover");
+                return;
+            }
+
+            const { userId: userId } = session;
+
+            if (
+                !startDate ||
+                !endDate ||
+                !name ||
+                !destination ||
+                !budget ||
+                !selectedTravelMode ||
+                !selectedInterests
+            ) {
+                Alert.alert("Please check the missing details");
+                return;
+            }
+
+            if (endDate < startDate) {
+                Alert.alert("End date must be later than start date.");
+                return;
+            }
+
+            const tripDays = calculateDuration();
+
+            const url = "https://ai-trip-planner.p.rapidapi.com/detailed-plan";
+            const options = {
+                method: "POST",
+                headers: {
+                    "x-rapidapi-key":
+                        "a230c9ccd7mshb07ccda32616866p1f0411jsn819da13c3d68",
+                    "x-rapidapi-host": "ai-trip-planner.p.rapidapi.com",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    days: tripDays,
+                    destination: destination,
+                    interests: selectedInterests,
+                    budget: budget,
+                    travelMode: selectedTravelMode.toLowerCase(),
+                }),
+            };
+
+            const response = await fetch(url, options);
+            const result = await response.json();
+
+            console.log(result);
+
+            if (!result) {
+                throw new Error(`Error in calling AI travel planner API`);
+            }
+
+            // const parsedResult = JSON.parse(result);
+
+            const saveTrip = await axios.post(
+                `http://10.0.2.2:3000/itinerary/${userId}`,
+                {
+                    newItinerary: {
+                        name: name,
+                        days: tripDays,
+                        startDate: startDate,
+                        endDate: endDate,
+                        destination: destination,
+                        budget: budget,
+                        travelModes: selectedTravelMode,
+                        interests: selectedInterests,
+                        itinerary: result.plan.itinerary,
+                    },
+                }
+            );
+            if (saveTrip) {
+                navigation.navigate("ViewItinerary", {
+                    itineraryId: saveTrip.data.data._id.toString(),
+                });
+            }
+        } catch (error) {
+            Alert.alert(`Error: ${error}`);
+        }
+    };
+
     const [startDate, setStartDate] = useState<Date | null>(null);
     const [endDate, setEndDate] = useState<Date | null>(null);
+    const [name, setName] = useState("");
+    const [destination, setDestination] = useState("");
+    const [budget, setBudget] = useState("");
 
     return (
         <ScrollView style={styles.container}>
@@ -440,6 +533,8 @@ const AIItinerary = ({
                     placeholder="Enter trip name"
                     placeholderTextColor="#C37BC3"
                     style={styles.inputBox}
+                    value={name}
+                    onChangeText={(text) => setName(text)}
                 />
             </View>
 
@@ -450,6 +545,8 @@ const AIItinerary = ({
                     placeholder="Enter trip destination"
                     placeholderTextColor="#C37BC3"
                     style={styles.inputBox}
+                    value={destination}
+                    onChangeText={(text) => setDestination(text)}
                 />
             </View>
 
@@ -475,19 +572,22 @@ const AIItinerary = ({
 
                 <Dropdown
                     style={styles.inputBox}
-                    data={travelModes}
+                    data={travelModes.map((item) => ({
+                        ...item,
+                        name:
+                            item.name.charAt(0).toUpperCase() +
+                            item.name.slice(1).toLowerCase(),
+                    }))}
                     labelField="name"
-                    valueField="_id"
+                    valueField="name"
                     placeholder="Select Travel Mode"
                     value={selectedTravelMode}
                     onChange={(item) => {
-                        setSelectedTravelMode(item._id);
+                        setSelectedTravelMode(item.name);
                     }}
                     placeholderStyle={styles.placeholderText}
                 />
             </View>
-
-            {/* name, days, destination, budget, travelModes, interests, itinerary */}
 
             <View style={styles.multiSelect}>
                 <Text style={styles.inputLabel}>Interests</Text>
@@ -545,8 +645,11 @@ const AIItinerary = ({
                 <TouchableOpacity
                     style={styles.button}
                     onPress={() => {
-                        Alert.alert("Trip Generated Successfully");
-                        navigation.goBack();
+                        Alert.alert(
+                            "Please wait for few seconds to generate the trip"
+                        );
+                        generateTrip();
+                        // navigation.goBack();
                     }}
                 >
                     <Text style={styles.buttonText}>Generate Trip</Text>

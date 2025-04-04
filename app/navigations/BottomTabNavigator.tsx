@@ -9,6 +9,7 @@ import HomeScreen from "../screens/mainMenu/HomeScreen"
 import BudgetNavigator from "./BudgetNavigator";
 import AccountNavigator from "./AccountNavigator";
 import ItineraryNavigator from "./ItineraryNavigator";
+import HomeNavigator from "./HomeNavigator";
 
 const BottomTab = createBottomTabNavigator<RootStackParamList>();
 
@@ -26,8 +27,8 @@ const BottomTabNavigator = () => {
         tabBarShowLabel: false,
       }}>
       <BottomTab.Screen
-        name="Home"
-        component={HomeScreen}
+        name="HomeMenu"
+        component={HomeNavigator}
         options={{ 
           tabBarIcon: ({focused}) => (            
             <MaterialCommunityIcons name='home' size={40} color={focused ? 'black': '#F7EFE5'}/>

@@ -38,7 +38,7 @@ type AddExpensesNavigationProp = StackNavigationProp<
 
 type Props = {
     navigation: AddExpensesNavigationProp;
-    route: RouteProp<RootStackParamList, "BudgetDetails">;
+    route: RouteProp<RootStackParamList, "AddExpenses">;
 };
 
 const categories = [

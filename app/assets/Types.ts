@@ -12,10 +12,17 @@ export type RootStackParamList = {
 
     //Bottom Tab
     Menu: undefined;
-    Home: undefined;
+    HomeMenu: undefined;
     ItineraryMenu: undefined;
     BudgetMenu: undefined;
     ProfileMenu: undefined;
+
+    //Home
+    Home: undefined;
+    Weather: undefined;
+    Attraction: undefined;
+    Flight: undefined;
+    Stay: undefined;
 
     // Itinerary
     Itinerary: undefined;
