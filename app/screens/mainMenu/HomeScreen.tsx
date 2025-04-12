@@ -23,105 +23,26 @@ type Props = {
 };
 
 const HomeScreen: React.FC<Props> = ({ navigation }) => {
-    const flatlistRef = useRef<FlatList<any>>(null);
-    const screenWidth = Dimensions.get("window").width;
-    const [activeIndex, setActiveIndex] = useState(0);
-
-    // Auto Scroll
-
-    // useEffect(() => {
-    // let interval = setInterval(() => {
-    //     if (activeIndex === carouselData.length - 1) {
-    //         flatlistRef.current.scrollToIndex({
-    //             index: 0,
-    //             animated: true,
-    //         });
-    //     } else {
-    //         flatlistRef.current.scrollToIndex({
-    //             index: activeIndex + 1,
-    //             animated: true,
-    //         });
-    //     }
-    // }, 3000);
-    //     return () => clearInterval(interval);
-    // });
-
-    // const getItemLayout = (data, index) => ({
-    //     length: screenWidth,
-    //     offset: screenWidth * index,
-    //     index: index,
-    // });
-
-    //replace image later from api/database
-    // const carouselData = [
-    //     {
-    //         id: "01",
-    //         image: require("../../assets/images/HomeImage/Trip1.jpg"),
-    //     },
-    //     {
-    //         id: "02",
-    //         image: require("../../assets/images/HomeImage/Trip2.jpg"),
-    //     },
-    //     {
-    //         id: "03",
-    //         image: require("../../assets/images/HomeImage/Trip3.jpg"),
-    //     },
-    // ];
-
-    // const renderItem = ({ item, index }) => {
-    //     return (
-    //         <View>
-    //             <Image
-    //                 source={item.image}
-    //                 style={{ height: 250, width: screenWidth }}
-    //             />
-    //         </View>
-    //     );
-    // };
-
-    // const handleScroll = (event) => {
-    //     const scrollPosition = event.nativeEvent.contentOffset.x;
-    //     const index = Math.round(scrollPosition / screenWidth);
-    //     setActiveIndex(index);
-    // };
-
     return (
         <SafeAreaView style={styles.container}>
             <UpperTab navigation={navigation} />
             <ScrollView>
                 <View style={styles.content}>
-                    {/* <FlatList
-                        data={carouselData}
-                        ref={flatlistRef}
-                        getItemLayout={getItemLayout}
-                        renderItem={renderItem}
-                        keyExtractor={(item) => item.id}
-                        horizontal={true}
-                        pagingEnabled={true}
-                        onScroll={handleScroll}
-                    /> */}
+                    <Text style={styles.sectionHeader}>
+                        Plan Your Trip Starting With :
+                    </Text>
 
-                    {/* Booking service */}
-                    <Text style={styles.sectionHeader}>What do you want?</Text>
                     <View style={styles.OptionContainer}>
-                        <TouchableNativeFeedback>
-                            <View style={styles.bookingOptionWrapper}>
-                                <MaterialCommunityIcons
-                                    name="airplane"
-                                    size={50}
-                                    color="black"
-                                />
-                                <Text style={styles.bookingOption}>Flight</Text>
-                            </View>
-                        </TouchableNativeFeedback>
-                        <TouchableNativeFeedback>
+                        <TouchableNativeFeedback
+                            onPress={() => navigation.navigate("Hotel")}
+                        >
                             <View style={styles.bookingOptionWrapper}>
                                 <MaterialCommunityIcons
                                     name="bed-queen"
                                     size={50}
                                     color="black"
                                 />
-                                <Text style={styles.bookingOption}>Stay</Text>
+                                <Text style={styles.bookingOption}>Hotel</Text>
                             </View>
                         </TouchableNativeFeedback>
                         <TouchableNativeFeedback
@@ -138,10 +59,56 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
                                 </Text>
                             </View>
                         </TouchableNativeFeedback>
+                        <TouchableNativeFeedback
+                            onPress={() => navigation.navigate("Weather")}
+                        >
+                            <View style={styles.bookingOptionWrapper}>
+                                <MaterialCommunityIcons
+                                    name="cloud"
+                                    size={50}
+                                    color="black"
+                                />
+                                <Text style={styles.bookingOption}>
+                                    Weather
+                                </Text>
+                            </View>
+                        </TouchableNativeFeedback>
                     </View>
 
-                    <Text style={styles.sectionHeader}>Check weather</Text>
-                    <View
+                    <View style={styles.OptionContainer}>
+                        <TouchableNativeFeedback>
+                            <View style={styles.bookingOptionWrapper}>
+                                <MaterialCommunityIcons
+                                    name="airplane"
+                                    size={50}
+                                    color="black"
+                                />
+                                <Text style={styles.bookingOption}>Flight</Text>
+                            </View>
+                        </TouchableNativeFeedback>
+                        <TouchableNativeFeedback
+                            onPress={() => navigation.navigate("Hotel")}
+                        >
+                            <View style={styles.bookingOptionWrapper}>
+                                <MaterialCommunityIcons
+                                    name="car"
+                                    size={50}
+                                    color="black"
+                                />
+                                <Text style={styles.bookingOption}>Car</Text>
+                            </View>
+                        </TouchableNativeFeedback>
+                    </View>
+
+                    <Text style={styles.sectionHeader}>
+                        Check Your Pocket Here
+                    </Text>
+
+                    <Text style={styles.sectionHeader}>
+                        Check Your Itinerary Here
+                    </Text>
+
+                    {/* <View
                         style={[
                             styles.OptionContainer,
                             { maxWidth: screenWidth * 0.33 },
@@ -161,58 +128,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
                                 </Text>
                             </View>
                         </TouchableNativeFeedback>
-                    </View>
-
-                    {/* Recommended activities */}
-                    <Text style={styles.sectionHeader}>Recommended</Text>
-                    <View style={styles.imageContainer}>
-                        <TouchableNativeFeedback>
-                            <View style={styles.activitiesOptionWrapper}>
-                                <Image
-                                    source={require("../../assets/images/HomeImage/Trip2.jpg")}
-                                    style={styles.backgroundImage}
-                                />
-                                <Text style={styles.activitiesOption}>
-                                    Malaysia
-                                </Text>
-                            </View>
-                        </TouchableNativeFeedback>
-                        <TouchableNativeFeedback>
-                            <View style={styles.activitiesOptionWrapper}>
-                                <Image
-                                    source={require("../../assets/images/HomeImage/Trip3.jpg")}
-                                    style={styles.backgroundImage}
-                                />
-                                <Text style={styles.activitiesOption}>
-                                    Thailand
-                                </Text>
-                            </View>
-                        </TouchableNativeFeedback>
-                    </View>
-                    <View style={styles.imageContainer}>
-                        <TouchableNativeFeedback>
-                            <View style={styles.activitiesOptionWrapper}>
-                                <Image
-                                    source={require("../../assets/images/HomeImage/Trip2.jpg")}
-                                    style={styles.backgroundImage}
-                                />
-                                <Text style={styles.activitiesOption}>
-                                    Malaysia
-                                </Text>
-                            </View>
-                        </TouchableNativeFeedback>
-                        <TouchableNativeFeedback>
-                            <View style={styles.activitiesOptionWrapper}>
-                                <Image
-                                    source={require("../../assets/images/HomeImage/Trip3.jpg")}
-                                    style={styles.backgroundImage}
-                                />
-                                <Text style={styles.activitiesOption}>
-                                    Thailand
-                                </Text>
-                            </View>
-                        </TouchableNativeFeedback>
-                    </View>
+                    </View> */}
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -237,7 +153,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     sectionHeader: {
-        fontSize: 30,
+        fontSize: 25,
         fontFamily: "Itim-Regular",
         color: "black",
         alignSelf: "flex-start",
@@ -252,6 +168,7 @@ const styles = StyleSheet.create({
         flex: 1,
         margin: 15,
         height: 120,
+        maxWidth: screenWidth * 0.33,
         alignItems: "center",
         justifyContent: "center",
         marginHorizontal: 5,
@@ -261,7 +178,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#E2BFD9",
     },
     bookingOption: {
-        fontSize: 20,
+        fontSize: 18,
         fontFamily: "Itim-Regular",
         paddingVertical: 10,
         color: "black",

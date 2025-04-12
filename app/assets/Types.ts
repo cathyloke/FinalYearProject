@@ -21,6 +21,16 @@ export type RootStackParamList = {
     Home: undefined;
     Weather: undefined;
     Attraction: undefined;
+    AttractionDetails: { productSlug: string };
+    Hotel: undefined;
+    HotelListings: {
+        departure_date: string,
+        arrival_date: string,
+        dest_id: string,
+        search_type: string
+    };
+    HotelDetails: { hotel: any };
+
     Flight: undefined;
     Stay: undefined;
 

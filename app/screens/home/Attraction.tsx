@@ -1,10 +1,21 @@
-import React, { useState } from "react";
-import { ScrollView, TextInput, Text, View, StyleSheet } from "react-native";
+import React, { useCallback, useState } from "react";
+import {
+    ScrollView,
+    TextInput,
+    Text,
+    View,
+    StyleSheet,
+    Alert,
+    Modal,
+} from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../assets/Types";
 import axios from "axios";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
+import { useFocusEffect } from "@react-navigation/native";
+import { ActivityIndicator } from "react-native-paper";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type AttractionNavigationProp = StackNavigationProp<
     RootStackParamList,
@@ -16,10 +27,98 @@ type Props = {
 };
 
 const Attraction: React.FC<Props> = ({ navigation }) => {
+    const [destination, setDestination] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [products, setProducts] = useState<any[]>([]);
+
+    const fetchAttractions = async () => {
+        try {
+            setLoading(true);
+            setProducts([]);
+
+            const url = `https://booking-com15.p.rapidapi.com/api/v1/attraction/searchLocation?query=${encodeURIComponent(
+                destination
+            )}&languagecode=en-us`;
+
+            const options = {
+                headers: {
+                    "x-rapidapi-key":
+                        "a230c9ccd7mshb07ccda32616866p1f0411jsn819da13c3d68",
+                    "x-rapidapi-host": "booking-com15.p.rapidapi.com",
+                },
+            };
+
+            const response = await axios.get(url, options);
+            const fetchedProducts = response.data?.data?.products || [];
+            setProducts(fetchedProducts);
+            setLoading(false);
+        } catch (error) {
+            Alert.alert(`Error: ${error}`);
+            setLoading(false);
+        }
+    };
+
     return (
         <ScrollView style={styles.container}>
             <View style={styles.content}>
-                <Text>this is the attraction pgae</Text>
+                <Modal
+                    visible={loading}
+                    transparent={true}
+                    animationType="fade"
+                    onRequestClose={() => setLoading(false)}
+                >
+                    <View style={styles.loadingOverlay}>
+                        <ActivityIndicator size="large" color="#C37BC3" />
+                        <Text style={styles.loadingText}>
+                            Searching Attraction ...
+                        </Text>
+                    </View>
+                </Modal>
+
+                <Text style={styles.heading}>Search Attractions</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Enter destination (e.g. New York)"
+                    value={destination}
+                    onChangeText={setDestination}
+                />
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={fetchAttractions}
+                >
+                    <Text style={styles.buttonText}>Search</Text>
+                </TouchableOpacity>
+
+                {products.length > 0 && (
+                    <View style={styles.results}>
+                        {products.map((item, index) => (
+                            <TouchableOpacity
+                                key={index}
+                                style={styles.resultItem}
+                                onPress={() =>
+                                    navigation.navigate("AttractionDetails", {
+                                        productSlug: item.productSlug,
+                                    })
+                                }
+                            >
+                                <Text style={styles.resultText}>
+                                    {item.title}
+                                </Text>
+                                <Text style={styles.metaText}>
+                                    {item.cityName},{" "}
+                                    {item.countryCode.toUpperCase()}
+                                </Text>
+                                <Text style={styles.slugText}>
+                                    Category:{" "}
+                                    {item.taxonomySlug.replace("-", " ")}
+                                </Text>
+                                <Text style={styles.linkText}>
+                                    Slug: {item.productSlug}
+                                </Text>
+                            </TouchableOpacity>
+                        ))}
+                    </View>
+                )}
             </View>
         </ScrollView>
     );
@@ -34,26 +133,23 @@ const styles = StyleSheet.create({
     content: {
         marginBottom: 20,
     },
-    inputBox: {
-        flex: 1,
-        fontFamily: "Roboto",
-        color: "black",
-        fontSize: 15,
-        textAlign: "left",
-        paddingLeft: 20,
-        marginRight: 10,
-        borderColor: "black",
-        borderRadius: 10,
-        borderWidth: 1.5,
-        // width: screenWidth * 0.7,
-        height: 50,
+    heading: {
+        fontSize: 20,
+        fontWeight: "bold",
+        marginBottom: 10,
     },
-    buttonContainer: { alignItems: "center" },
+    input: {
+        borderWidth: 1,
+        borderColor: "#ccc",
+        padding: 10,
+        marginBottom: 10,
+        borderRadius: 8,
+        backgroundColor: "#fff",
+    },
     button: {
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: "#C37BC3",
-        width: 200,
         height: 40,
         marginTop: 20,
         borderRadius: 10,
@@ -68,65 +164,48 @@ const styles = StyleSheet.create({
     },
     error: {
         color: "red",
-        textAlign: "center",
+        marginTop: 10,
+    },
+    results: {
         marginTop: 20,
     },
-    AttractionCard: {
-        marginVertical: 20,
+    resultItem: {
         backgroundColor: "#fff",
+        padding: 12,
+        marginBottom: 12,
         borderRadius: 10,
-        padding: 20,
-        shadowColor: "#000",
-        shadowOpacity: 0.1,
-        shadowRadius: 10,
-        elevation: 3,
-        alignItems: "center",
-        justifyContent: "center",
+        borderColor: "#ddd",
+        borderWidth: 1,
     },
-    cityName: {
-        fontSize: 24,
-        fontWeight: "bold",
-        marginBottom: 10,
-    },
-    currentTemp: {
-        fontSize: 40,
-        fontWeight: "bold",
-        color: "#f39c12",
-    },
-    feelsLike: {
+    resultText: {
         fontSize: 16,
-        color: "#666",
-        marginTop: 5,
-        fontFamily: "Itim-Regular",
-    },
-    label: {
-        fontSize: 18,
-        marginTop: 20,
         fontWeight: "bold",
-        textAlign: "left",
-        width: "100%",
-        fontFamily: "Roboto",
+        marginBottom: 4,
     },
-    daylightStatus: {
-        fontSize: 17,
-        color: "#f39c12",
-        marginTop: 5,
+    metaText: {
+        fontSize: 14,
+        color: "#666",
     },
-    dailyForecast: {
+    slugText: {
+        fontSize: 13,
+        color: "#999",
+        marginTop: 2,
+    },
+    linkText: {
+        fontSize: 12,
+        color: "#007BFF",
+        marginTop: 2,
+    },
+    loadingOverlay: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
+    },
+    loadingText: {
         marginTop: 10,
-        width: "100%",
-    },
-    dailyItem: {
-        marginTop: 10,
-        padding: 10,
-        backgroundColor: "#f9f9f9",
-        borderRadius: 8,
-        marginBottom: 10,
-    },
-    dailyDate: {
-        textAlign: "center",
-        fontSize: 17,
-        fontFamily: "Itim-Regular",
+        fontSize: 18,
+        color: "#fff",
     },
 });
 

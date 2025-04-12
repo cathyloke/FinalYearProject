@@ -135,7 +135,7 @@ const Weather: React.FC<Props> = ({ navigation }) => {
 
                 {error ? <Text style={styles.error}>{error}</Text> : null}
 
-                <View style={styles.buttonContainer}>
+                {/* <View style={styles.buttonContainer}>
                     <TouchableOpacity
                         style={styles.button}
                         onPress={() => {
@@ -144,7 +144,16 @@ const Weather: React.FC<Props> = ({ navigation }) => {
                     >
                         <Text style={styles.buttonText}>Find Weather</Text>
                     </TouchableOpacity>
-                </View>
+                </View> */}
+
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => {
+                        fetchWeather();
+                    }}
+                >
+                    <Text style={styles.buttonText}>Find Weather</Text>
+                </TouchableOpacity>
 
                 {weather && !error && (
                     <View style={styles.weatherCard}>
@@ -229,25 +238,19 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     inputBox: {
-        flex: 1,
-        fontFamily: "Roboto",
-        color: "black",
-        fontSize: 15,
-        textAlign: "left",
-        paddingLeft: 20,
-        marginRight: 10,
-        borderColor: "black",
-        borderRadius: 10,
-        borderWidth: 1.5,
-        // width: screenWidth * 0.7,
-        height: 50,
+        borderWidth: 1,
+        borderColor: "#ccc",
+        padding: 10,
+        marginBottom: 10,
+        borderRadius: 8,
+        backgroundColor: "#fff",
     },
     buttonContainer: { alignItems: "center" },
     button: {
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: "#C37BC3",
-        width: 200,
+        // width: 200,
         height: 40,
         marginTop: 20,
         borderRadius: 10,
