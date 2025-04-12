@@ -124,6 +124,7 @@ const Weather: React.FC<Props> = ({ navigation }) => {
     return (
         <ScrollView style={styles.container}>
             <View style={styles.content}>
+                <Text style={styles.heading}>Search Weather</Text>
                 <TextInput
                     keyboardType="email-address"
                     placeholder="Enter location to check weather"
@@ -236,6 +237,11 @@ const styles = StyleSheet.create({
     },
     content: {
         marginBottom: 20,
+    },
+    heading: {
+        fontSize: 20,
+        fontWeight: "bold",
+        marginBottom: 10,
     },
     inputBox: {
         borderWidth: 1,
