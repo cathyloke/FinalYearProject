@@ -1,18 +1,15 @@
 import React, { useCallback, useEffect, useState } from "react";
 import {
-    Dimensions,
     TouchableOpacity,
-    TextInput,
     Text,
     View,
-    Image,
     StyleSheet,
     Alert,
+    FlatList,
 } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../assets/Types";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { FlatList, ScrollView } from "react-native-gesture-handler";
 import UpperTab from "../../components/UpperTab";
 import axios from "axios";
 import { useFocusEffect } from "@react-navigation/native";

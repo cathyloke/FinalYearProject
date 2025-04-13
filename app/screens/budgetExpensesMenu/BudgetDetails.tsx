@@ -3,23 +3,12 @@ import {
     Alert,
     Text,
     View,
-    Image,
     StyleSheet,
     TouchableOpacity,
+    FlatList
 } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../assets/Types";
-import { FlatList, ScrollView } from "react-native-gesture-handler";
-// import { Entypo } from "@expo/vector-icons";
-import {
-    MenuProvider,
-    Menu,
-    MenuOptions,
-    MenuOption,
-    MenuTrigger,
-} from "react-native-popup-menu";
-
-import UpperTab from "../../components/UpperTab";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { getSession } from "../../assets/asyncStorageData";
 import axios from "axios";

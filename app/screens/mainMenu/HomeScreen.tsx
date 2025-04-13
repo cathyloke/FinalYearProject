@@ -1,16 +1,16 @@
-import React, { useRef, useState, useEffect, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import {
     Text,
     View,
-    Image,
     StyleSheet,
     Dimensions,
     TouchableNativeFeedback,
     Alert,
+    FlatList,
 } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../assets/Types";
-import { FlatList, ScrollView } from "react-native-gesture-handler";
+import { ScrollView } from "react-native-gesture-handler";
 import UpperTab from "../../components/UpperTab";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { SafeAreaView } from "react-native-safe-area-context";

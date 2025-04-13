@@ -1,22 +1,17 @@
 import React, { useCallback, useEffect, useState } from "react";
 import {
-    Button,
     TextInput,
     Text,
     View,
-    Platform,
-    Image,
     StyleSheet,
     TouchableOpacity,
     Alert,
     Dimensions,
+    FlatList
 } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../assets/Types";
 import { RouteProp, useFocusEffect } from "@react-navigation/native";
-import { FlatList, ScrollView } from "react-native-gesture-handler";
-import { CustomStartEndDatePicker } from "../../components/CustomDatePicker";
-import { Dropdown } from "react-native-element-dropdown";
 import axios from "axios";
 import { getSession } from "../../assets/asyncStorageData";
 import { SafeAreaView } from "react-native-safe-area-context";

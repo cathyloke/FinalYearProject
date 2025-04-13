@@ -1,29 +1,16 @@
 import React, { useCallback, useState } from "react";
 import {
-    Button,
     Modal,
     TouchableOpacity,
-    TextInput,
     Text,
     View,
-    Image,
     StyleSheet,
     Alert,
+    FlatList
 } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../assets/Types";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { FlatList, ScrollView } from "react-native-gesture-handler";
-import UpperTab from "../../components/UpperTab";
 import { SafeAreaView } from "react-native-safe-area-context";
-// import { Entypo } from "@expo/vector-icons";
-import {
-    MenuProvider,
-    Menu,
-    MenuOptions,
-    MenuOption,
-    MenuTrigger,
-} from "react-native-popup-menu";
 import { RouteProp, useFocusEffect } from "@react-navigation/native";
 import { getSession } from "../../assets/asyncStorageData";
 import axios from "axios";

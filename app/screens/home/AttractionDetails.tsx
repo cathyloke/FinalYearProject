@@ -1,7 +1,6 @@
 import React, { useCallback, useRef, useState } from "react";
 import {
     ScrollView,
-    TextInput,
     Text,
     View,
     Image,
@@ -11,16 +10,14 @@ import {
     NativeSyntheticEvent,
     NativeScrollEvent,
     Modal,
+    FlatList
 } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../assets/Types";
 import axios from "axios";
-import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 import { RouteProp, useFocusEffect } from "@react-navigation/native";
 import { ActivityIndicator } from "react-native-paper";
-import { SafeAreaView } from "react-native-safe-area-context";
-// import Carousel, { Pagination } from "react-native-snap-carousel";
 
 type AttractionDetailsNavigationProp = StackNavigationProp<
     RootStackParamList,

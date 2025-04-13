@@ -2,22 +2,17 @@ import React, { useCallback, useState } from "react";
 import {
     Alert,
     TouchableOpacity,
-    TextInput,
     Text,
     View,
-    Image,
     StyleSheet,
-    Modal,
+    FlatList,
 } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../assets/Types";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { FlatList, ScrollView } from "react-native-gesture-handler";
 import UpperTab from "../../components/UpperTab";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Entypo } from "@expo/vector-icons";
 import {
-    MenuProvider,
     Menu,
     MenuOptions,
     MenuOption,
