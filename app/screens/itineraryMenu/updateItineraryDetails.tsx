@@ -7,7 +7,7 @@ import {
     TouchableOpacity,
     Alert,
     Dimensions,
-    FlatList
+    FlatList,
 } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../assets/Types";
@@ -74,7 +74,7 @@ const UpdateItineraryDetails: React.FC<Props> = ({ navigation, route }) => {
             const { userId: userId } = session;
 
             const response = await axios.get(
-                `http://10.0.2.2:3000/itinerary/${userId}/${itineraryId}`
+                `http://192.168.1.12:3000/itinerary/${userId}/${itineraryId}`
             );
             setTripDays(response.data.data.days);
             setStartDate(response.data.data.startDate);
@@ -171,7 +171,7 @@ const UpdateItineraryDetails: React.FC<Props> = ({ navigation, route }) => {
             console.log(JSON.stringify(itinerary));
 
             const response = await axios.put(
-                `http://10.0.2.2:3000/itinerary/details/${userId}/${itineraryId}`,
+                `http://192.168.1.12:3000/itinerary/details/${userId}/${itineraryId}`,
                 { itinerary }
             );
 

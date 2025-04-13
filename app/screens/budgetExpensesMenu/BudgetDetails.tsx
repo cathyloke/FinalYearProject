@@ -5,7 +5,7 @@ import {
     View,
     StyleSheet,
     TouchableOpacity,
-    FlatList
+    FlatList,
 } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../assets/Types";
@@ -60,7 +60,7 @@ const BudgetDetails: React.FC<Props> = ({ navigation, route }) => {
         // console.log('user id : ', userId)
 
         axios
-            .get(`http://10.0.2.2:3000/budget/${userId}/${budgetName}`)
+            .get(`http://192.168.1.12:3000/budget/${userId}/${budgetName}`)
             .then((res) => {
                 console.log(res.data.data);
                 setBudgetAmount(res.data.data.budgetAmount);

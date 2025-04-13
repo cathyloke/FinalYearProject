@@ -118,7 +118,7 @@ const UpdateExpenses: React.FC<Props> = ({ navigation, route }) => {
 
             axios
                 .put(
-                    `http://10.0.2.2:3000/expenses/${userId}/${budgetName}/${categoryName}`,
+                    `http://192.168.1.12:3000/expenses/${userId}/${budgetName}/${categoryName}`,
                     expensesDetails
                 )
                 .then((res) => {
@@ -160,7 +160,7 @@ const UpdateExpenses: React.FC<Props> = ({ navigation, route }) => {
             const { userId: userId } = session;
 
             const response = await axios.get(
-                `http://10.0.2.2:3000/expenses/${userId}/${budgetName}/${categoryName}/${detailId}`
+                `http://192.168.1.12:3000/expenses/${userId}/${budgetName}/${categoryName}/${detailId}`
             );
 
             if (response) {

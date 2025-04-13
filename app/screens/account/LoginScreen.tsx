@@ -56,14 +56,10 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
                 password: password,
             };
 
-            console.log("posting data");
-            console.log(email);
-            console.log(password);
             const response = await axios.post(
-                "http://10.0.2.2:3000/login",
+                "http://192.168.1.12:3000/login",
                 userData
             );
-            console.log("data retrieved");
 
             saveSession(response.data.data._id);
             navigation.navigate("Menu");

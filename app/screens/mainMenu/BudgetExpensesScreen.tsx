@@ -80,7 +80,7 @@ const BudgetExpensesScreen: React.FC<Props> = ({ navigation }) => {
 
                         axios
                             .delete(
-                                `http://10.0.2.2:3000/budget/${userId}/${budgetName}`
+                                `http://192.168.1.12:3000/budget/${userId}/${budgetName}`
                             )
                             .then((res) => {
                                 console.log(res.data.data);
@@ -115,7 +115,7 @@ const BudgetExpensesScreen: React.FC<Props> = ({ navigation }) => {
         // console.log('user id : ', userId)
 
         axios
-            .get(`http://10.0.2.2:3000/read/${userId}`)
+            .get(`http://192.168.1.12:3000/read/${userId}`)
             .then((res) => {
                 console.log(res.data.data);
                 setBudgets(res.data.data.budgets);

@@ -101,7 +101,7 @@ const ManualItinerary = ({
         try {
             console.log("loading data");
             const travelModeRes = await axios.get(
-                `http://10.0.2.2:3000/preferences/travelMode`
+                `http://192.168.1.12:3000/preferences/travelMode`
             );
 
             // console.log(travelModeRes.data.data);
@@ -109,7 +109,7 @@ const ManualItinerary = ({
             setTravelModes(travelModeData);
 
             const interestRes = await axios.get(
-                `http://10.0.2.2:3000/preferences/interest`
+                `http://192.168.1.12:3000/preferences/interest`
             );
 
             // console.log(interestRes.data.data);
@@ -169,7 +169,7 @@ const ManualItinerary = ({
             const tripDays = calculateDuration();
             console.log(tripDays);
             const response: any = await axios.post(
-                `http://10.0.2.2:3000/itinerary/${userId}`,
+                `http://192.168.1.12:3000/itinerary/${userId}`,
                 {
                     newItinerary: {
                         name: name,
@@ -394,7 +394,7 @@ const AIItinerary = ({
         try {
             console.log("loading data");
             const travelModeRes = await axios.get(
-                `http://10.0.2.2:3000/preferences/travelMode`
+                `http://192.168.1.12:3000/preferences/travelMode`
             );
 
             // console.log(travelModeRes.data.data);
@@ -402,7 +402,7 @@ const AIItinerary = ({
             setTravelModes(travelModeData);
 
             const interestRes = await axios.get(
-                `http://10.0.2.2:3000/preferences/interest`
+                `http://192.168.1.12:3000/preferences/interest`
             );
 
             // console.log(interestRes.data.data);
@@ -486,7 +486,7 @@ const AIItinerary = ({
             // const parsedResult = JSON.parse(result);
 
             const saveTrip = await axios.post(
-                `http://10.0.2.2:3000/itinerary/${userId}`,
+                `http://192.168.1.12:3000/itinerary/${userId}`,
                 {
                     newItinerary: {
                         name: name,
