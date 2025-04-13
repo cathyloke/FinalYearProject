@@ -96,7 +96,7 @@ const CategoryDetails: React.FC<Props> = ({ navigation, route }) => {
                 loadData();
             })
             .catch((error) => {
-                Alert.alert(`Error: ${error.response?.data || error.message}`);
+                Alert.alert(`${error.response?.data || error.message}`);
             });
     };
 
@@ -126,7 +126,7 @@ const CategoryDetails: React.FC<Props> = ({ navigation, route }) => {
                 setExpensesCategoryDetail(res.data.data.expensesCategoryDetail);
             })
             .catch((error) => {
-                Alert.alert(`Error: ${error.response?.data || error.message}`);
+                Alert.alert(`${error.response?.data || error.message}`);
             });
     };
 
@@ -150,7 +150,9 @@ const CategoryDetails: React.FC<Props> = ({ navigation, route }) => {
                             }}
                         >
                             <Text style={styles.info}>{item.name}</Text>
-                            <Text style={styles.info}>RM{item.amount}</Text>
+                            <Text style={styles.info}>
+                                RM{item.amount.toFixed(2)}
+                            </Text>
                         </View>
                         <View>
                             <Text style={styles.subInfo}>
@@ -192,24 +194,36 @@ const CategoryDetails: React.FC<Props> = ({ navigation, route }) => {
                         <Text style={styles.modalText}>
                             What do you want to do?
                         </Text>
-                        <Button
-                            title="Update Expenses"
+                        <TouchableOpacity
+                            style={styles.modalButton}
                             onPress={() =>
                                 handleUpdateExpenses(selectedExpensesDetailsId)
-                            } // Hide modal on button press
-                        />
-                        <Button
-                            title="Delete Expenses"
+                            }
+                        >
+                            <Text style={styles.modalButtonText}>
+                                Update Expenses
+                            </Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            style={styles.modalButton}
                             onPress={() =>
                                 handleDeleteExpenses(selectedExpensesDetailsId)
                             }
-                        />
-                        <Button
-                            title="Cancel"
+                        >
+                            <Text style={styles.modalButtonText}>
+                                Delete Expenses
+                            </Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            style={styles.modalButton}
                             onPress={() => {
                                 setModalVisible(false);
                             }}
-                        />
+                        >
+                            <Text style={styles.modalButtonText}>Cancel</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </Modal>
@@ -264,8 +278,26 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     modalText: {
-        marginBottom: 15,
+        marginBottom: 10,
         textAlign: "center",
+        fontFamily: "Itim-Regular",
+        fontSize: 18,
+    },
+    modalButton: {
+        borderWidth: 1,
+        borderRadius: 10,
+        width: 180,
+        height: 40,
+        backgroundColor: "#C37BC3",
+        alignSelf: "center",
+        justifyContent: "center",
+        alignItems: "center",
+        marginVertical: 10,
+    },
+    modalButtonText: {
+        fontFamily: "Itim-Regular",
+        fontSize: 18,
+        color: "white",
     },
 });
 

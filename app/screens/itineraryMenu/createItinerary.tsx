@@ -120,7 +120,7 @@ const ManualItinerary = ({
 
             // console.log(interests);
         } catch (error) {
-            Alert.alert(`Error: ${error}`);
+            Alert.alert(`${error}`);
         }
     };
 
@@ -197,7 +197,7 @@ const ManualItinerary = ({
                 });
             }
         } catch (error) {
-            Alert.alert(`Error: ${error}`);
+            Alert.alert(`${error}`);
         }
     };
 
@@ -413,7 +413,7 @@ const AIItinerary = ({
 
             // console.log(interests);
         } catch (error) {
-            Alert.alert(`Error: ${error}`);
+            Alert.alert(`${error}`);
         }
     };
 
@@ -508,7 +508,7 @@ const AIItinerary = ({
             }
             setLoading(false);
         } catch (error) {
-            Alert.alert(`Error: ${error}`);
+            Alert.alert(`${error}`);
             setLoading(false);
         }
     };

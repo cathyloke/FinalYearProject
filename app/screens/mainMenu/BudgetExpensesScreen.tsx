@@ -126,7 +126,7 @@ const BudgetExpensesScreen: React.FC<Props> = ({ navigation }) => {
                 setBudgets(res.data.data.budgets);
             })
             .catch((error) => {
-                Alert.alert(`Error: ${error.response?.data || error.message}`);
+                Alert.alert(`${error.response?.data || error.message}`);
             });
     };
 

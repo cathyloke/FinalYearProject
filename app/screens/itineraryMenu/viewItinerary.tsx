@@ -93,7 +93,7 @@ const ViewItinerary: React.FC<Props> = ({ navigation, route }) => {
             console.log(JSON.stringify(response.data.data));
             setPlan(response.data.data);
         } catch (error) {
-            Alert.alert(`Error: ${error}`);
+            Alert.alert(`${error}`);
         }
     };
 

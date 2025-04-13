@@ -57,7 +57,7 @@ const UpdateExpenses: React.FC<Props> = ({ navigation, route }) => {
     const [name, setName] = useState("");
     const [payer, setPayer] = useState("");
     const [category, setCategory] = useState(categoryName);
-    const [amount, setAmount] = useState<number>(0);
+    const [amount, setAmount] = useState("");
     const [date, setDate] = useState(new Date());
     const onChangeDate = (event: any, selectedDate: any) => {
         const currentDate = selectedDate || date;
@@ -102,10 +102,16 @@ const UpdateExpenses: React.FC<Props> = ({ navigation, route }) => {
 
             const { userId: userId } = session;
 
+            const amountRegex = /^\d+(\.\d{1,2})?$/;
+            if (!amountRegex.test(amount)) {
+                Alert.alert("Amount must be a number, e.g. 5.50");
+                return;
+            }
+
             const expensesDetails = {
                 id: detailId,
                 name: name,
-                amount: amount,
+                amount: Number(amount),
                 payer: payer,
                 date: date,
             };
@@ -123,7 +129,7 @@ const UpdateExpenses: React.FC<Props> = ({ navigation, route }) => {
                     });
                 })
                 .catch((error) => {
-                    //   Alert.alert(`Error: ${error.response?.data || error.message}`)
+                    //   Alert.alert(`${error.response?.data || error.message}`)
                     Alert.alert("Error in updating data");
                 });
         } catch (error: any) {
@@ -238,9 +244,7 @@ const UpdateExpenses: React.FC<Props> = ({ navigation, route }) => {
                         placeholder="Enter amount"
                         keyboardType="numeric"
                         value={amount.toString()}
-                        onChangeText={(text) =>
-                            setAmount(parseFloat(text) || 0)
-                        }
+                        onChangeText={setAmount}
                     ></TextInput>
                 </View>
 

@@ -69,7 +69,7 @@ const AttractionDetails: React.FC<Props> = ({ navigation, route }) => {
             setPhotos(attractionDet.photos.map((photo: any) => photo.small));
             setLoading(false);
         } catch (error) {
-            Alert.alert(`Error: ${error}`);
+            Alert.alert(`${error}`);
             setLoading(false);
         }
     };

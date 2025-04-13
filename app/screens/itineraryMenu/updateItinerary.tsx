@@ -114,7 +114,7 @@ const UpdateItinerary: React.FC<Props> = ({ navigation, route }) => {
             setSelectedInterests(response.data.data.interests);
             setSelectedTravelMode(response.data.data.travelModes[0]);
         } catch (error) {
-            Alert.alert(`Error: ${error}`);
+            Alert.alert(`${error}`);
         }
     };
 
@@ -236,7 +236,7 @@ const UpdateItinerary: React.FC<Props> = ({ navigation, route }) => {
             );
             navigation.navigate("Itinerary");
         } catch (error) {
-            Alert.alert(`Error: ${error}`);
+            Alert.alert(`${error}`);
         }
     };
 

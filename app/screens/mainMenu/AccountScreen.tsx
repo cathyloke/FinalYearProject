@@ -21,6 +21,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import axios from "axios";
 import { getSession } from "../../assets/asyncStorageData";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Entypo } from "@expo/vector-icons";
 
 type AccountScreenNavigationProp = StackNavigationProp<
     RootStackParamList,
@@ -57,7 +58,7 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
                 setEmail(res.data.data.email);
             })
             .catch((error) => {
-                Alert.alert(`Error: ${error.response?.data || error.message}`);
+                Alert.alert(`${error.response?.data || error.message}`);
             });
     };
 
@@ -77,18 +78,21 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
 
             <ScrollView>
                 <View style={styles.infoContent}>
-                    <TouchableOpacity
-                        onPress={() => {
-                            navigation.navigate("AccountDataManage");
-                        }}
-                    >
-                        <Image
-                            style={styles.image}
-                            source={require("../../assets/images/ProfilePic.png")}
-                        />
-                    </TouchableOpacity>
-
                     <View style={styles.info}>
+                        <TouchableOpacity
+                            onPress={() =>
+                                navigation.navigate("AccountDataManage")
+                            }
+                            style={{
+                                flexDirection: "row",
+                                justifyContent: "flex-end",
+                                paddingRight: 10,
+                                paddingTop: 10,
+                            }}
+                        >
+                            <Entypo name="pencil" size={20} color="#3789BB" />
+                        </TouchableOpacity>
+
                         <View style={styles.infoText}>
                             <Text style={styles.infoLabel}>Name</Text>
                             <TextInput
@@ -210,7 +214,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     infoLabel: {
-        padding: 20,
+        margin: 10,
         fontFamily: "Roboto",
         color: "black",
         fontSize: 16,

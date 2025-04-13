@@ -88,7 +88,7 @@ const UpdateItineraryDetails: React.FC<Props> = ({ navigation, route }) => {
             console.log("finish load data");
             console.log(itinerary);
         } catch (error) {
-            Alert.alert(`Error: ${error}`);
+            Alert.alert(`${error}`);
         }
     };
 

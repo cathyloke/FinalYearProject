@@ -142,7 +142,7 @@ const PreferencesScreen: React.FC<Props> = ({ navigation }) => {
             console.log("this is the user presferences");
             console.log(userPreferences);
         } catch (error) {
-            Alert.alert(`Error: ${error}`);
+            Alert.alert(`${error}`);
         }
     };
 
@@ -187,7 +187,7 @@ const PreferencesScreen: React.FC<Props> = ({ navigation }) => {
                     throw new Error(error.message);
                 });
         } catch (error) {
-            Alert.alert(`Error: ${error}`);
+            Alert.alert(`${error}`);
         }
     };
 

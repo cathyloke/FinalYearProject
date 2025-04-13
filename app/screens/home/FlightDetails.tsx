@@ -64,7 +64,7 @@ const FlightDetails: React.FC<Props> = ({ navigation, route }) => {
 
             setLoading(false);
         } catch (error) {
-            Alert.alert(`Error: ${error}`);
+            Alert.alert(`${error}`);
             setLoading(false);
         }
     };

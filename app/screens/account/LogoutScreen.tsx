@@ -14,22 +14,6 @@ type Props = {
 const screenHeight = Dimensions.get('window').height;
 
 const LogoutScreen: React.FC<Props> = ({ navigation }) => {
-    // const [timer, setTimer] = useState(10); 
-
-    // useEffect(() => {
-    //   const interval = setInterval(() => {
-    //     setTimer(prevTimer => {
-    //       if (prevTimer <= 1) {
-    //         clearInterval(interval);
-    //         navigation.navigate('Cover');
-    //         return 0;
-    //       }
-    //       return prevTimer - 1;
-    //     });
-    //   }, 1000);
-
-    //   return () => clearInterval(interval);
-    // }, [navigation]);
     const [seconds, setSeconds] = useState(3);
 
     useEffect(() => {

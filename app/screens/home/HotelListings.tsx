@@ -64,7 +64,7 @@ const HotelListings: React.FC<Props> = ({ navigation, route }) => {
                 setHasMore(false); // no more data
             }
         } catch (error) {
-            Alert.alert(`Error: ${error}`);
+            Alert.alert(`${error}`);
         } finally {
             setLoading(false);
         }

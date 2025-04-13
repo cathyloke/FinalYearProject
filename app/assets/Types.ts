@@ -2,7 +2,6 @@ export type RootStackParamList = {
 
     //App Navigator
     Cover: undefined;
-    Cover2: undefined;
     Login: undefined;
     Register: undefined;
     Logout: undefined;
@@ -32,7 +31,6 @@ export type RootStackParamList = {
     HotelDetails: { hotel: any };
     Flight: undefined;
     FlightDetails: { token: string };
-    Stay: undefined;
 
     // Itinerary
     Itinerary: undefined;

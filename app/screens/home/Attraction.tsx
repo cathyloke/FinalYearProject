@@ -53,7 +53,7 @@ const Attraction: React.FC<Props> = ({ navigation }) => {
             setProducts(fetchedProducts);
             setLoading(false);
         } catch (error) {
-            Alert.alert(`Error: ${error}`);
+            Alert.alert(`${error}`);
             setLoading(false);
         }
     };

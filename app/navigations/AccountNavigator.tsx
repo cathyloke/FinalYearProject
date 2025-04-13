@@ -44,7 +44,6 @@ const AccountNavigator = () => {
                 component={AccountDataManageScreen}
                 options={{
                     title: "Profile",
-                    // headerShown: false,
                 }}
             />
             <Stack.Screen

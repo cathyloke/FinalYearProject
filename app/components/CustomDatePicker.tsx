@@ -23,15 +23,12 @@ export const CustomStartEndDatePicker: React.FC<Props> = ({
     onStartDateChange,
     onEndDateChange,
 }) => {
-    // const [startDate, setStartDate] = useState<Date | null>(null);
-    // const [endDate, setEndDate] = useState<Date | null>(null);
     const [showStartAndroidCalendar, setShowStartAndroidCalendar] =
         useState(false);
     const [showEndAndroidCalendar, setShowEndAndroidCalendar] = useState(false);
 
     const onChangeStartDate = (event: any, selectedDate: Date | undefined) => {
         if (selectedDate) {
-            // setStartDate(selectedDate);
             onStartDateChange(selectedDate);
         }
         setShowStartAndroidCalendar(false);
@@ -39,7 +36,6 @@ export const CustomStartEndDatePicker: React.FC<Props> = ({
 
     const onChangeEndDate = (event: any, selectedDate: Date | undefined) => {
         if (selectedDate) {
-            // setEndDate(selectedDate);
             onEndDateChange(selectedDate);
         }
         setShowEndAndroidCalendar(false);
@@ -150,7 +146,6 @@ const styles = StyleSheet.create({
         marginTop: 20,
         alignItems: "center",
         justifyContent: "center",
-        // flex: 1,
         gap: 20,
     },
     pickerContainer: {

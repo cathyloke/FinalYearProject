@@ -79,7 +79,7 @@ const BudgetDetails: React.FC<Props> = ({ navigation, route }) => {
                 setExpensesCategory(res.data.data.expensesCategory);
             })
             .catch((error) => {
-                Alert.alert(`Error: ${error.response?.data || error.message}`);
+                Alert.alert(`${error.response?.data || error.message}`);
             });
     };
 
@@ -92,9 +92,11 @@ const BudgetDetails: React.FC<Props> = ({ navigation, route }) => {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.headerBar}>
-                <Text style={styles.headerInfo}>Budget: RM{budgetAmount}</Text>
                 <Text style={styles.headerInfo}>
-                    Expenses: RM{expensesAmount}
+                    Budget: RM{budgetAmount.toFixed(2)}
+                </Text>
+                <Text style={styles.headerInfo}>
+                    Expenses: RM{expensesAmount.toFixed(2)}
                 </Text>
             </View>
 
@@ -129,7 +131,7 @@ const BudgetDetails: React.FC<Props> = ({ navigation, route }) => {
                         </Text>
                         <View style={{ alignSelf: "center" }}>
                             <Text style={styles.info}>
-                                RM{item.expensesCategoryAmount}
+                                RM{item.expensesCategoryAmount.toFixed(2)}
                             </Text>
                         </View>
                     </TouchableOpacity>
@@ -157,7 +159,7 @@ const styles = StyleSheet.create({
     },
     headerInfo: {
         fontFamily: "Itim-Regular",
-        fontSize: 25,
+        fontSize: 22,
     },
     subHeaderBar: {
         backgroundColor: "#F7EFE5",
@@ -174,7 +176,7 @@ const styles = StyleSheet.create({
     },
     subHeader: {
         fontFamily: "Itim-Regular",
-        fontSize: 25,
+        fontSize: 22,
     },
     infoBar: {
         backgroundColor: "#F7EFE5",
@@ -189,7 +191,7 @@ const styles = StyleSheet.create({
     },
     info: {
         fontFamily: "Itim-Regular",
-        fontSize: 22,
+        fontSize: 20,
         padding: 20,
     },
 });

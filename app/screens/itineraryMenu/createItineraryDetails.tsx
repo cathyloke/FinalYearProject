@@ -83,7 +83,7 @@ const CreateItineraryDetails: React.FC<Props> = ({ navigation, route }) => {
             setStartDate(response.data.data.startDate);
             setEndDate(response.data.data.endDate);
         } catch (error) {
-            Alert.alert(`Error: ${error}`);
+            Alert.alert(`${error}`);
         }
     };
 

@@ -75,7 +75,7 @@ const ItineraryScreen: React.FC<Props> = ({ navigation }) => {
                 ]
             );
         } catch (error) {
-            Alert.alert(`Error: ${error}`);
+            Alert.alert(`${error}`);
         }
     };
 
@@ -106,7 +106,7 @@ const ItineraryScreen: React.FC<Props> = ({ navigation }) => {
             setPlans(response.data.data);
             console.log(response.data.data);
         } catch (error) {
-            Alert.alert(`Error: ${error}`);
+            Alert.alert(`${error}`);
         }
     };
 

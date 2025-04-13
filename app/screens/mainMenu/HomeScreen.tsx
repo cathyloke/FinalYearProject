@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import {
     Text,
     View,
@@ -6,6 +6,7 @@ import {
     StyleSheet,
     Dimensions,
     TouchableNativeFeedback,
+    Alert,
 } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../assets/Types";
@@ -13,6 +14,9 @@ import { FlatList, ScrollView } from "react-native-gesture-handler";
 import UpperTab from "../../components/UpperTab";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { getSession } from "../../assets/asyncStorageData";
+import axios from "axios";
+import { useFocusEffect } from "@react-navigation/native";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -23,11 +27,78 @@ type Props = {
 };
 
 const HomeScreen: React.FC<Props> = ({ navigation }) => {
+    const [budgets, setBudgets] = useState();
+    const [errors, setErrors] = useState([]);
+    const loadData = async () => {
+        try {
+            const session = await getSession();
+            if (!session || !session.userId) {
+                Alert.alert("No user session data. Please log in");
+                navigation.navigate("Cover");
+                return;
+            }
+
+            const { userId: userId } = session;
+
+            axios
+                .get(`http://10.0.2.2:3000/read/${userId}`)
+                .then((res) => {
+                    const budgetsData = res.data.data.budgets;
+                    setBudgets(budgetsData);
+
+                    const errorMessages = budgetsData
+                        .filter(
+                            (budget: any) =>
+                                budget.budgetAmount <= budget.expensesAmount
+                        )
+                        .map(
+                            (budget: any) =>
+                                `Your budget "${budget.name}" has been fully used or exceeded. Please check your pocket.`
+                        );
+
+                    setErrors(errorMessages);
+                })
+                .catch((error) => {
+                    Alert.alert(
+                        `Error: ${error.response?.data || error.message}`
+                    );
+                });
+        } catch (error) {
+            Alert.alert(`${error}`);
+        }
+    };
+
+    useFocusEffect(
+        useCallback(() => {
+            loadData();
+        }, [])
+    );
+
     return (
         <SafeAreaView style={styles.container}>
             <UpperTab navigation={navigation} />
             <ScrollView>
                 <View style={styles.content}>
+                    {errors.length > 0 && (
+                        <View style={styles.errorContainer}>
+                            <Text
+                                style={[
+                                    styles.sectionHeader,
+                                    { color: "#cc0000" },
+                                ]}
+                            >
+                                Notifications ⚠️
+                            </Text>
+                            {errors.map((err, index) => (
+                                <View key={index} style={styles.errorItem}>
+                                    <Text style={styles.errorText}>
+                                        • {err}
+                                    </Text>
+                                </View>
+                            ))}
+                        </View>
+                    )}
+
                     <Text style={styles.sectionHeader}>
                         Plan Your Trip Starting With :
                     </Text>
@@ -137,16 +208,16 @@ const styles = StyleSheet.create({
         height: 85,
     },
     content: {
-        alignItems: "center",
+        // alignItems: "center",
         justifyContent: "center",
     },
     sectionHeader: {
-        fontSize: 25,
+        fontSize: 20,
         fontFamily: "Itim-Regular",
         color: "black",
         alignSelf: "flex-start",
+        paddingTop: 10,
         paddingLeft: 15,
-        paddingTop: 15,
     },
     OptionContainer: {
         flexDirection: "row",
@@ -170,6 +241,26 @@ const styles = StyleSheet.create({
         fontFamily: "Itim-Regular",
         paddingVertical: 10,
         color: "black",
+    },
+
+    errorContainer: {
+        padding: 10,
+        backgroundColor: "#ffe6e6",
+        borderRadius: 8,
+        // borderColor: "#ff4d4d",
+        borderWidth: 1,
+        margin: 10,
+    },
+
+    errorItem: {
+        // marginBottom: 4,
+        paddingVertical: 4,
+    },
+    errorText: {
+        fontSize: 14,
+        color: "#990000",
+        paddingHorizontal: 5,
+        textAlign: "justify",
     },
 });
 

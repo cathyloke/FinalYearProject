@@ -67,21 +67,15 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
                 password: password,
             };
 
-            axios
-                .post("http://10.0.2.2:3000/register", userData)
-                .then((res) => {
-                    console.log("Successfully register : " + res);
-                    console.log(JSON.stringify(res));
+            const response = await axios.post(
+                "http://10.0.2.2:3000/register",
+                userData
+            );
+            saveSession(response.data.data._id);
 
-                    saveSession(res.data.data._id);
-
-                    navigation.navigate("Menu");
-                })
-                .catch((error) => {
-                    Alert.alert(`Error: ${error.message}`);
-                });
+            navigation.navigate("Menu");
         } catch (error) {
-            Alert.alert(`Error register: ${error}`);
+            Alert.alert(`${error}`);
         }
     };
 
@@ -144,7 +138,7 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
                         style={styles.inputBox}
                         value={password}
                         onChangeText={(text) => setPassword(text)}
-                        secureTextEntry
+                        secureTextEntry={true}
                     />
 
                     {/* <Text style={styles.inputLabel}>Re-Password</Text> */}
@@ -155,7 +149,7 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
                         style={styles.inputBox}
                         value={repassword}
                         onChangeText={(text) => setRepassword(text)}
-                        secureTextEntry
+                        secureTextEntry={true}
                     />
                 </View>
 

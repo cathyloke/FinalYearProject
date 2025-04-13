@@ -57,7 +57,7 @@ const AddExpenses: React.FC<Props> = ({ navigation, route }) => {
     const [name, setName] = useState("");
     const [payer, setPayer] = useState("");
     const [category, setCategory] = useState("");
-    const [amount, setAmount] = useState<number>(0);
+    const [amount, setAmount] = useState("");
     const [date, setDate] = useState(new Date());
     const onChangeDate = (event: any, selectedDate: any) => {
         const currentDate = selectedDate || date;
@@ -121,13 +121,19 @@ const AddExpenses: React.FC<Props> = ({ navigation, route }) => {
 
             const { userId: userId } = session;
 
+            const amountRegex = /^\d+(\.\d{1,2})?$/;
+            if (!amountRegex.test(amount)) {
+                Alert.alert("Amount must be a number, e.g. 5.50");
+                return;
+            }
+
             const response = await axios.post(
                 `http://10.0.2.2:3000/expenses/${userId}/${budgetName}`,
                 {
                     expensesData: {
                         category: category,
                         name: name,
-                        amount: amount,
+                        amount: Number(amount),
                         payer: payer,
                         date: date,
                     },
@@ -212,9 +218,7 @@ const AddExpenses: React.FC<Props> = ({ navigation, route }) => {
                         placeholder="Enter amount"
                         keyboardType="numeric"
                         value={amount.toString()}
-                        onChangeText={(text) =>
-                            setAmount(parseFloat(text) || 0)
-                        }
+                        onChangeText={setAmount}
                     ></TextInput>
                 </View>
 

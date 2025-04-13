@@ -54,7 +54,7 @@ const Hotel: React.FC<Props> = ({ navigation }) => {
             console.log(JSON.stringify(fetchedData));
             setLoading(false);
         } catch (error) {
-            Alert.alert(`Error: ${error}`);
+            Alert.alert(`${error}`);
             setLoading(false);
         }
     };
@@ -72,7 +72,7 @@ const Hotel: React.FC<Props> = ({ navigation }) => {
                 search_type: type,
             });
         } catch (error) {
-            Alert.alert(`Error: ${error}`);
+            Alert.alert(`${error}`);
         }
     };
 

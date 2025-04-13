@@ -143,7 +143,7 @@ const Flight: React.FC<Props> = ({ navigation }) => {
             setFlightDestinations(response.data.data.flightOffers);
             setLoading(false);
         } catch (error) {
-            Alert.alert(`Error: ${error}`);
+            Alert.alert(`${error}`);
             setLoading(false);
         }
     };
