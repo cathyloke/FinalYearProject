@@ -89,48 +89,34 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
                             </View>
                         </TouchableNativeFeedback>
                         <TouchableNativeFeedback
-                            onPress={() => navigation.navigate("Hotel")}
+                            onPress={() =>
+                                navigation.navigate("BudgetExpenses")
+                            }
                         >
                             <View style={styles.bookingOptionWrapper}>
                                 <MaterialCommunityIcons
-                                    name="car"
+                                    name="cash"
                                     size={50}
                                     color="black"
                                 />
-                                <Text style={styles.bookingOption}>Car</Text>
+                                <Text style={styles.bookingOption}>Pocket</Text>
                             </View>
                         </TouchableNativeFeedback>
-                    </View>
-
-                    <Text style={styles.sectionHeader}>
-                        Check Your Pocket Here
-                    </Text>
-
-                    <Text style={styles.sectionHeader}>
-                        Check Your Itinerary Here
-                    </Text>
-
-                    {/* <View
-                        style={[
-                            styles.OptionContainer,
-                            { maxWidth: screenWidth * 0.33 },
-                        ]}
-                    >
                         <TouchableNativeFeedback
-                            onPress={() => navigation.navigate("Weather")}
+                            onPress={() => navigation.navigate("Itinerary")}
                         >
                             <View style={styles.bookingOptionWrapper}>
                                 <MaterialCommunityIcons
-                                    name="cloud"
+                                    name="book"
                                     size={50}
                                     color="black"
                                 />
                                 <Text style={styles.bookingOption}>
-                                    Weather
+                                    Itinerary
                                 </Text>
                             </View>
                         </TouchableNativeFeedback>
-                    </View> */}
+                    </View>
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -184,32 +170,6 @@ const styles = StyleSheet.create({
         fontFamily: "Itim-Regular",
         paddingVertical: 10,
         color: "black",
-    },
-    imageContainer: {
-        flexDirection: "row",
-        marginBottom: 20,
-    },
-    activitiesOptionWrapper: {
-        width: 180,
-        height: 150,
-        justifyContent: "flex-start",
-        alignItems: "flex-start",
-        overflow: "hidden",
-        marginHorizontal: 10,
-        borderRadius: 20,
-    },
-    activitiesOption: {
-        fontSize: 20,
-        fontFamily: "Itim-Regular",
-        paddingVertical: 5,
-        paddingLeft: 15,
-        color: "white",
-    },
-    backgroundImage: {
-        position: "absolute",
-        width: "100%",
-        height: "100%",
-        resizeMode: "cover",
     },
 });
 
