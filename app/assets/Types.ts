@@ -30,8 +30,8 @@ export type RootStackParamList = {
         search_type: string
     };
     HotelDetails: { hotel: any };
-
     Flight: undefined;
+    FlightDetails: { token: string };
     Stay: undefined;
 
     // Itinerary

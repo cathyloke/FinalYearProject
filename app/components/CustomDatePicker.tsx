@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
         alignItems: "center",
         justifyContent: "center",
-        flex: 1,
+        // flex: 1,
         gap: 20,
     },
     pickerContainer: {

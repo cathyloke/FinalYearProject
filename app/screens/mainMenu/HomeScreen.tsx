@@ -76,7 +76,9 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
                     </View>
 
                     <View style={styles.OptionContainer}>
-                        <TouchableNativeFeedback>
+                        <TouchableNativeFeedback
+                            onPress={() => navigation.navigate("Flight")}
+                        >
                             <View style={styles.bookingOptionWrapper}>
                                 <MaterialCommunityIcons
                                     name="airplane"

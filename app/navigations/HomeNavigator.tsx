@@ -10,6 +10,8 @@ import AttractionDetails from "../screens/home/AttractionDetails";
 import Hotel from "../screens/home/Hotel";
 import HotelDetails from "../screens/home/HotelDetails";
 import HotelListings from "../screens/home/HotelListings";
+import Flight from "../screens/home/Flight";
+import FlightDetails from "../screens/home/FlightDetails";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -45,6 +47,8 @@ const HomeNavigator = () => {
             <Stack.Screen name="Hotel" component={Hotel} />
             <Stack.Screen name="HotelListings" component={HotelListings} />
             <Stack.Screen name="HotelDetails" component={HotelDetails} />
+            <Stack.Screen name="Flight" component={Flight} />
+            <Stack.Screen name="FlightDetails" component={FlightDetails} />
         </Stack.Navigator>
     );
 };
