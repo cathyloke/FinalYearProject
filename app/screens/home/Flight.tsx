@@ -10,6 +10,7 @@ import {
     Image,
     TouchableOpacity,
     FlatList,
+    Dimensions,
 } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../assets/Types";
@@ -24,6 +25,8 @@ type FlightNavigationProp = StackNavigationProp<RootStackParamList, "Flight">;
 type Props = {
     navigation: FlightNavigationProp;
 };
+
+const screenWidth = Dimensions.get("window").width;
 
 const Flight: React.FC<Props> = ({ navigation }) => {
     const [destination, setDestination] = useState("");
@@ -173,7 +176,7 @@ const Flight: React.FC<Props> = ({ navigation }) => {
 
                 <View style={{ flexDirection: "row" }}>
                     <TextInput
-                        style={styles.input}
+                        style={[styles.input, { width: screenWidth * 0.7 }]}
                         placeholder="Enter departure destination (e.g. Kuala Lumpur)"
                         value={departureDestination}
                         onChangeText={setDepartureDestination}
@@ -185,6 +188,7 @@ const Flight: React.FC<Props> = ({ navigation }) => {
                                 departureDestination
                             )
                         }
+                        style={styles.inputSearch}
                     >
                         <Text>Search</Text>
                     </TouchableOpacity>
@@ -212,7 +216,7 @@ const Flight: React.FC<Props> = ({ navigation }) => {
                 <Text style={styles.subheading}>Arrival Destination</Text>
                 <View style={{ flexDirection: "row" }}>
                     <TextInput
-                        style={styles.input}
+                        style={[styles.input, { width: screenWidth * 0.7 }]}
                         placeholder="Enter arrival destination (e.g. Kuala Lumpur)"
                         value={arrivalDestination}
                         onChangeText={setArrivalDestination}
@@ -224,6 +228,7 @@ const Flight: React.FC<Props> = ({ navigation }) => {
                                 arrivalDestination
                             )
                         }
+                        style={styles.inputSearch}
                     >
                         <Text>Search</Text>
                     </TouchableOpacity>
@@ -471,6 +476,18 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#ccc",
         padding: 10,
+        marginBottom: 10,
+        borderRadius: 8,
+        backgroundColor: "#fff",
+    },
+    inputSearch: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        borderWidth: 1,
+        borderColor: "#ccc",
+        // padding: 10,
+        marginLeft: 20,
         marginBottom: 10,
         borderRadius: 8,
         backgroundColor: "#fff",
