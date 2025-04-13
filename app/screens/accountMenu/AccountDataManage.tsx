@@ -43,7 +43,7 @@ const AccountDataManageScreen: React.FC<Props> = ({ navigation }) => {
                 // console.log('User:', res.data);
                 setName(res.data.data.name);
                 setEmail(res.data.data.email);
-                setPassword(res.data.data.gender);
+                setPassword(res.data.data.password);
             })
             .catch((error) => {
                 Alert.alert(`${error.response?.data || error.message}`);

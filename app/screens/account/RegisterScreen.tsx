@@ -60,6 +60,10 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
                 throw new Error("Email is not valid");
             }
 
+            if (gender !== "Male" && gender !== "Female") {
+                throw new Error("Gender not correct");
+            }
+
             const userData = {
                 name: name,
                 gender: gender,
@@ -102,7 +106,7 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
                     />
 
                     {/* <Text style={styles.inputLabel}>Gender</Text> */}
-                    <View
+                    {/* <View
                         style={[styles.inputBox, { justifyContent: "center" }]}
                     >
                         <Picker
@@ -118,9 +122,16 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
                             <Picker.Item label="Female" value="Female" />
                             <Picker.Item label="Other" value="Other" />
                         </Picker>
-                    </View>
+                    </View> */}
+                    <TextInput
+                        keyboardType="email-address"
+                        placeholder="Enter your gender (Female/Male)"
+                        placeholderTextColor="#C37BC3"
+                        style={styles.inputBox}
+                        value={gender}
+                        onChangeText={setGender}
+                    />
 
-                    {/* <Text style={styles.inputLabel}>Email</Text> */}
                     <TextInput
                         keyboardType="email-address"
                         placeholder="Enter your email"
@@ -130,7 +141,6 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
                         onChangeText={(text) => setEmail(text)}
                     />
 
-                    {/* <Text style={styles.inputLabel}>Password</Text> */}
                     <TextInput
                         keyboardType="visible-password"
                         placeholder="Enter your password"
@@ -141,7 +151,6 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
                         secureTextEntry={true}
                     />
 
-                    {/* <Text style={styles.inputLabel}>Re-Password</Text> */}
                     <TextInput
                         keyboardType="visible-password"
                         placeholder="Re-Enter your password"
@@ -177,7 +186,6 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
                     <Text style={styles.buttonText}>Register</Text>
                 </TouchableOpacity>
 
-                {/* {message && <Text>{message}</Text>} */}
                 <View>
                     <Text style={{ fontFamily: "Itim-Regular" }}>
                         Already have an account?

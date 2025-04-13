@@ -46,6 +46,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
 
     const loginAccount = async () => {
         try {
+            console.log("logging in");
             if (!email || !password) {
                 throw new Error("Missing login details");
             }
@@ -55,28 +56,20 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
                 password: password,
             };
 
+            console.log("posting data");
+            console.log(email);
+            console.log(password);
             const response = await axios.post(
                 "http://10.0.2.2:3000/login",
                 userData
             );
+            console.log("data retrieved");
 
             saveSession(response.data.data._id);
             navigation.navigate("Menu");
         } catch (error: any) {
-            let errorMessage = "Something went wrong";
-
-            if (
-                error.response &&
-                error.response.data &&
-                error.response.data.error
-            ) {
-                errorMessage = error.response.data.error;
-            } else if (error.message) {
-                errorMessage = error.message;
-            }
-
-            console.log("Login error:", errorMessage);
-            Alert.alert("Login Failed", errorMessage);
+            console.log("Login error:", error);
+            Alert.alert(error);
         }
     };
 
