@@ -63,28 +63,56 @@ const CategoryDetails: React.FC<Props> = ({ navigation, route }) => {
     };
 
     const handleDeleteExpenses = async (detailsId: any) => {
-        setModalVisible(false);
+        try {
+            setModalVisible(false);
+            Alert.alert(
+                "Are you sure to delete this expenses?",
+                "You will not be able to recover the expenses once it is deleted.",
+                [
+                    {
+                        text: "Cancel",
+                        onPress: () => console.log("Cancel Pressed"),
+                        style: "cancel",
+                    },
+                    {
+                        text: "Yes",
+                        onPress: async () => {
+                            console.log("Delete Expenses");
 
-        const session = await getSession();
-        if (!session || !session.userId) {
-            Alert.alert("No user session data. Please log in");
-            navigation.navigate("Cover");
-            return;
+                            const session = await getSession();
+                            if (!session || !session.userId) {
+                                Alert.alert(
+                                    "No user session data. Please log in"
+                                );
+                                navigation.navigate("Cover");
+                                return;
+                            }
+
+                            const { userId: userId } = session;
+
+                            axios
+                                .delete(
+                                    `http://192.168.1.12:3000/expenses/${userId}/${budgetName}/${categoryName}/${detailsId}`
+                                )
+                                .then((res) => {
+                                    Alert.alert("Expenses Deleted");
+                                    loadData();
+                                })
+                                .catch((error) => {
+                                    Alert.alert(
+                                        `${
+                                            error.response?.data ||
+                                            error.message
+                                        }`
+                                    );
+                                });
+                        },
+                    },
+                ]
+            );
+        } catch (error) {
+            Alert.alert(`${error}`);
         }
-
-        const { userId: userId } = session;
-
-        axios
-            .delete(
-                `http://192.168.1.12:3000/expenses/${userId}/${budgetName}/${categoryName}/${detailsId}`
-            )
-            .then((res) => {
-                Alert.alert("Expenses Deleted");
-                loadData();
-            })
-            .catch((error) => {
-                Alert.alert(`${error.response?.data || error.message}`);
-            });
     };
 
     useFocusEffect(

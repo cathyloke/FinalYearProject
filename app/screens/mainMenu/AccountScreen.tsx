@@ -95,30 +95,15 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
 
                         <View style={styles.infoText}>
                             <Text style={styles.infoLabel}>Name</Text>
-                            <TextInput
-                                style={styles.infoLabel}
-                                editable={false}
-                            >
-                                {name}
-                            </TextInput>
+                            <Text style={styles.infoLabel}>{name}</Text>
                         </View>
                         <View style={styles.infoText}>
                             <Text style={styles.infoLabel}>Gender</Text>
-                            <TextInput
-                                style={styles.infoLabel}
-                                editable={false}
-                            >
-                                {gender}
-                            </TextInput>
+                            <Text style={styles.infoLabel}>{gender}</Text>
                         </View>
                         <View style={styles.infoText}>
                             <Text style={styles.infoLabel}>Email</Text>
-                            <TextInput
-                                style={styles.infoLabel}
-                                editable={false}
-                            >
-                                {email}
-                            </TextInput>
+                            <Text style={styles.infoLabel}>{email}</Text>
                         </View>
                     </View>
                 </View>

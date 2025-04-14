@@ -24,6 +24,7 @@ type Props = {
 
 const AccountDataManageScreen: React.FC<Props> = ({ navigation }) => {
     const [name, setName] = useState("");
+    const [gender, setGender] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -42,6 +43,7 @@ const AccountDataManageScreen: React.FC<Props> = ({ navigation }) => {
             .then((res) => {
                 // console.log('User:', res.data);
                 setName(res.data.data.name);
+                setGender(res.data.data.gender);
                 setEmail(res.data.data.email);
                 setPassword(res.data.data.password);
             })
@@ -61,39 +63,63 @@ const AccountDataManageScreen: React.FC<Props> = ({ navigation }) => {
     };
 
     const saveData = async () => {
-        const session = await getSession();
-        if (!session || !session.userId) {
-            Alert.alert("No user session data. Please log in");
-            navigation.navigate("Cover");
-            return;
+        try {
+            const session = await getSession();
+            if (!session || !session.userId) {
+                Alert.alert("No user session data. Please log in");
+                navigation.navigate("Cover");
+                return;
+            }
+
+            const { userId: userId } = session;
+
+            if (!name || !gender || !email || !password) {
+                throw new Error("Missing value. Please check your input.");
+            }
+
+            if (gender !== "Male" && gender !== "Female") {
+                throw new Error("Gender not correct.");
+            }
+
+            if (!isValidEmail(email)) {
+                throw new Error("Email is not valid");
+            }
+
+            const userData = {
+                name: name,
+                gender: gender,
+                email: email,
+                password: password,
+            };
+
+            axios
+                .put(`http://192.168.1.12:3000/update/${userId}`, userData)
+                .then((res) => {
+                    console.log("Successfully update user : " + res);
+                    console.log(JSON.stringify(res));
+                    Alert.alert("Data successfully updated");
+                    navigation.navigate("Account");
+                })
+                .catch((error) => {
+                    Alert.alert(`${error.message}`);
+                });
+        } catch (error: any) {
+            let err;
+            if (error.response) {
+                console.log(
+                    "Server responded with:",
+                    error.response.data.message
+                );
+                err = error.response.data.message;
+            } else if (error.request) {
+                console.log("No response received:", error.request);
+                err = error.request;
+            } else {
+                console.log("Error setting up request:", error.message);
+                err = error.message;
+            }
+            Alert.alert(`${err}`);
         }
-
-        const { userId: userId } = session;
-
-        if (!isValidEmail(email)) {
-            throw new Error("Email is not valid");
-        }
-
-        const userData = {
-            name: name,
-            email: email,
-            password: password,
-        };
-
-        axios
-            .put(`http://192.168.1.12:3000/update/${userId}`, userData)
-            .then((res) => {
-                console.log("Successfully update user : " + res);
-                console.log(JSON.stringify(res));
-
-                navigation.navigate("Account");
-            })
-            .catch((error) => {
-                Alert.alert(`${error.message}`);
-            });
-
-        console.log(name);
-        // navigation.navigate('Account')
     };
 
     return (
@@ -111,6 +137,14 @@ const AccountDataManageScreen: React.FC<Props> = ({ navigation }) => {
                         {name}
                     </TextInput>
                 </View>
+                <TextInput
+                    keyboardType="email-address"
+                    placeholder="Enter your gender (Female/Male)"
+                    placeholderTextColor="#C37BC3"
+                    style={styles.inputBox}
+                    value={gender}
+                    onChangeText={setGender}
+                />
                 <View>
                     <Text style={styles.inputLabel}>Email</Text>
                     <TextInput
@@ -131,6 +165,7 @@ const AccountDataManageScreen: React.FC<Props> = ({ navigation }) => {
                         placeholder="Enter your password"
                         placeholderTextColor="#C37BC3"
                         style={styles.inputBox}
+                        secureTextEntry={true}
                     >
                         {password}
                     </TextInput>

@@ -179,18 +179,6 @@ const UpdateExpenses: React.FC<Props> = ({ navigation, route }) => {
         <ScrollView style={styles.container}>
             <SafeAreaView>
                 <View style={styles.inputContainer}>
-                    <View style={styles.headerBox}>
-                        <Text style={styles.header}>Category</Text>
-                    </View>
-
-                    <TextInput
-                        style={styles.input}
-                        value={category}
-                        editable={false}
-                        pointerEvents="none"
-                    ></TextInput>
-                </View>
-                <View style={styles.inputContainer}>
                     <View style={{ flexDirection: "row" }}>
                         <Text style={styles.header}>Date</Text>
                         <Ionicons
@@ -202,24 +190,19 @@ const UpdateExpenses: React.FC<Props> = ({ navigation, route }) => {
                     </View>
                     {DatePickerOS()}
                 </View>
-                {/* <View style={styles.inputContainer}>
+
+                <View style={styles.inputContainer}>
                     <View style={styles.headerBox}>
                         <Text style={styles.header}>Category</Text>
                     </View>
 
-                    <Dropdown
-                        style={styles.dropdown}
-                        data={categories}
-                        labelField="label"
-                        valueField="value"
-                        placeholder="Select Category"
+                    <TextInput
+                        style={styles.input}
                         value={category}
-                        onChange={(item) => {
-                            setCategory(item.value);
-                        }}
-                        placeholderStyle={styles.placeholderText}
-                    ></Dropdown>
-                </View> */}
+                        editable={false}
+                        pointerEvents="none"
+                    ></TextInput>
+                </View>
 
                 <View style={styles.inputContainer}>
                     <View style={styles.headerBox}>

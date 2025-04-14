@@ -207,6 +207,8 @@ const UpdateItinerary: React.FC<Props> = ({ navigation, route }) => {
                                     `http://192.168.1.12:3000/itinerary/${userId}/${itineraryId}`,
                                     updatedData
                                 );
+
+                                Alert.alert("Trip Updated Successfully");
                                 navigation.navigate("Itinerary");
                             },
                         },
@@ -234,6 +236,8 @@ const UpdateItinerary: React.FC<Props> = ({ navigation, route }) => {
                 `http://192.168.1.12:3000/itinerary/${userId}/${itineraryId}`,
                 updatedData
             );
+
+            Alert.alert("Trip Updated Successfully");
             navigation.navigate("Itinerary");
         } catch (error) {
             Alert.alert(`${error}`);

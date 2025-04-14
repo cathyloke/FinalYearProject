@@ -74,7 +74,7 @@ const Flight: React.FC<Props> = ({ navigation }) => {
                         break;
                 }
             }
-        } catch (error) {
+        } catch (error: any) {
             console.error("Error fetching destinations:", error);
         } finally {
             // setLoading(false);
@@ -143,8 +143,8 @@ const Flight: React.FC<Props> = ({ navigation }) => {
             setFlightDestinations(response.data.data.flightOffers);
             setLoading(false);
         } catch (error) {
-            Alert.alert(`${error}`);
             setLoading(false);
+            Alert.alert(`${error}`);
         }
     };
 

@@ -47,14 +47,20 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
                     setBudgets(budgetsData);
 
                     const errorMessages = budgetsData
-                        .filter(
-                            (budget: any) =>
-                                budget.budgetAmount <= budget.expensesAmount
-                        )
-                        .map(
-                            (budget: any) =>
-                                `Your budget "${budget.name}" has been fully used or exceeded. Please check your pocket.`
-                        );
+                        .map((budget: any) => {
+                            const { name, budgetAmount, expensesAmount } =
+                                budget;
+                            const usageRatio = expensesAmount / budgetAmount;
+
+                            if (usageRatio >= 1) {
+                                return `Your budget "${name}" has been fully used or exceeded. Please check your pocket.`;
+                            } else if (usageRatio >= 0.8) {
+                                return `Your budget "${name}" is over 80% used. You're approaching your limit.`;
+                            }
+
+                            return null;
+                        })
+                        .filter(Boolean);
 
                     setErrors(errorMessages);
                 })

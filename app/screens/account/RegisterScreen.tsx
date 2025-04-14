@@ -52,16 +52,26 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
 
     const registerAccount = async () => {
         try {
+            if (!name || !gender || !email || !password || !repassword) {
+                throw new Error("Missing value. Please check your input.");
+            }
+
             if (password !== repassword) {
-                throw new Error("Password not the same");
+                throw new Error("Password not the same.");
+            }
+
+            if (!isChecked) {
+                throw new Error(
+                    "Please check the terms and conditions before register account."
+                );
             }
 
             if (!isValidEmail(email)) {
-                throw new Error("Email is not valid");
+                throw new Error("Email is not valid.");
             }
 
             if (gender !== "Male" && gender !== "Female") {
-                throw new Error("Gender not correct");
+                throw new Error("Gender not correct.");
             }
 
             const userData = {
@@ -78,8 +88,22 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
             saveSession(response.data.data._id);
 
             navigation.navigate("Menu");
-        } catch (error) {
-            Alert.alert(`${error}`);
+        } catch (error: any) {
+            let err;
+            if (error.response) {
+                console.log(
+                    "Server responded with:",
+                    error.response.data.message
+                );
+                err = error.response.data.message;
+            } else if (error.request) {
+                console.log("No response received:", error.request);
+                err = error.request;
+            } else {
+                console.log("Error setting up request:", error.message);
+                err = error.message;
+            }
+            Alert.alert(`${err}`);
         }
     };
 
@@ -105,24 +129,6 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
                         onChangeText={(text) => setName(text)}
                     />
 
-                    {/* <Text style={styles.inputLabel}>Gender</Text> */}
-                    {/* <View
-                        style={[styles.inputBox, { justifyContent: "center" }]}
-                    >
-                        <Picker
-                            selectedValue={gender}
-                            // style={styles.inputBox}
-                            onValueChange={(itemValue, itemIndex) =>
-                                setGender(itemValue)
-                            }
-                            itemStyle={{ textAlign: "center" }}
-                        >
-                            <Picker.Item label="Select Gender" value="" />
-                            <Picker.Item label="Male" value="Male" />
-                            <Picker.Item label="Female" value="Female" />
-                            <Picker.Item label="Other" value="Other" />
-                        </Picker>
-                    </View> */}
                     <TextInput
                         keyboardType="email-address"
                         placeholder="Enter your gender (Female/Male)"

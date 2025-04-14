@@ -177,7 +177,7 @@ const PreferencesScreen: React.FC<Props> = ({ navigation }) => {
                 .then((res) => {
                     console.log("Successfully update user : " + res);
                     console.log(JSON.stringify(res));
-
+                    Alert.alert(`Data successfully updated`);
                     navigation.navigate("Account");
                 })
                 .catch((error) => {
@@ -197,7 +197,7 @@ const PreferencesScreen: React.FC<Props> = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
             <View>
-                <Text style={styles.info}>My preferences is</Text>
+                <Text style={styles.info}>My preferred travel mode</Text>
             </View>
             <FlatList
                 data={travelModes}
@@ -265,6 +265,8 @@ const styles = StyleSheet.create({
         backgroundColor: "#F7EFE5",
     },
     checkboxlist: {
+        flex: 1,
+        alignItems: "center",
         flexDirection: "row",
         padding: 2,
         paddingHorizontal: 20,

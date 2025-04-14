@@ -54,8 +54,8 @@ const Hotel: React.FC<Props> = ({ navigation }) => {
             console.log(JSON.stringify(fetchedData));
             setLoading(false);
         } catch (error) {
-            Alert.alert(`${error}`);
             setLoading(false);
+            Alert.alert(`${error}`);
         }
     };
 

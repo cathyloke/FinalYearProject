@@ -502,14 +502,15 @@ const AIItinerary = ({
                 }
             );
             if (saveTrip) {
+                Alert.alert("Success", "Itinerary saved successfully!");
                 navigation.navigate("ViewItinerary", {
                     itineraryId: saveTrip.data.data._id.toString(),
                 });
             }
             setLoading(false);
         } catch (error) {
-            Alert.alert(`${error}`);
             setLoading(false);
+            Alert.alert(`${error}`);
         }
     };
 

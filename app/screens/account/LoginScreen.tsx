@@ -44,11 +44,21 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
         retrieveSessionData();
     }, []);
 
+    const isValidEmail = (email: any) => {
+        // Regular expression for basic email validation
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        return emailRegex.test(email);
+    };
+
     const loginAccount = async () => {
         try {
             console.log("logging in");
             if (!email || !password) {
                 throw new Error("Missing login details");
+            }
+
+            if (!isValidEmail(email)) {
+                throw new Error("Email is not valid.");
             }
 
             const userData = {
@@ -64,8 +74,21 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
             saveSession(response.data.data._id);
             navigation.navigate("Menu");
         } catch (error: any) {
-            console.log("Login error:", error);
-            Alert.alert(error);
+            let err;
+            if (error.response) {
+                console.log(
+                    "Server responded with:",
+                    error.response.data.message
+                );
+                err = error.response.data.message;
+            } else if (error.request) {
+                console.log("No response received:", error.request);
+                err = error.request;
+            } else {
+                console.log("Error setting up request:", error.message);
+                err = error.message;
+            }
+            Alert.alert(`${err}`);
         }
     };
 

@@ -10,7 +10,7 @@ import {
     NativeSyntheticEvent,
     NativeScrollEvent,
     Modal,
-    FlatList
+    FlatList,
 } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../assets/Types";
@@ -66,8 +66,8 @@ const AttractionDetails: React.FC<Props> = ({ navigation, route }) => {
             setPhotos(attractionDet.photos.map((photo: any) => photo.small));
             setLoading(false);
         } catch (error) {
-            Alert.alert(`${error}`);
             setLoading(false);
+            Alert.alert(`${error}`);
         }
     };
 
