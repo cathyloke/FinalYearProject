@@ -33,13 +33,6 @@ type ExpenseCategoryDetail = {
     payer: string;
 };
 
-type ExpenseCategory = {
-    _id: string;
-    expensesCategoryName: string;
-    expensesCategoryAmount: number;
-    expensesCategoryDetail: ExpenseCategoryDetail[];
-};
-
 const CategoryDetails: React.FC<Props> = ({ navigation, route }) => {
     const { budgetName, categoryName } = route.params;
 
@@ -47,8 +40,6 @@ const CategoryDetails: React.FC<Props> = ({ navigation, route }) => {
     const [selectedExpensesDetailsId, setSelectedExpensesDetailsId] =
         useState("");
 
-    const [expensesCategory, setExpensesCategory] =
-        useState<ExpenseCategory[]>();
     const [expenseCategoryDetail, setExpensesCategoryDetail] =
         useState<ExpenseCategoryDetail[]>();
 
@@ -92,7 +83,7 @@ const CategoryDetails: React.FC<Props> = ({ navigation, route }) => {
 
                             axios
                                 .delete(
-                                    `http://192.168.1.12:3000/expenses/${userId}/${budgetName}/${categoryName}/${detailsId}`
+                                    `http://192.168.1.18:3000/expenses/${userId}/${budgetName}/${categoryName}/${detailsId}`
                                 )
                                 .then((res) => {
                                     Alert.alert("Expenses Deleted");
@@ -133,11 +124,9 @@ const CategoryDetails: React.FC<Props> = ({ navigation, route }) => {
 
         axios
             .get(
-                `http://192.168.1.12:3000/expenses/${userId}/${budgetName}/${categoryName}`
+                `http://192.168.1.18:3000/expenses/${userId}/${budgetName}/${categoryName}`
             )
             .then((res) => {
-                console.log(res.data.data);
-                setExpensesCategory(res.data.data);
                 setExpensesCategoryDetail(res.data.data.expensesCategoryDetail);
             })
             .catch((error) => {

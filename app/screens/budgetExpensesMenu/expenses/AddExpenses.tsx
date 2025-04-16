@@ -108,8 +108,6 @@ const AddExpenses: React.FC<Props> = ({ navigation, route }) => {
         }
     };
 
-    // const [expensesData, setExpensesData] = useState({})
-
     const addExpenses = async () => {
         try {
             const session = await getSession();
@@ -127,17 +125,22 @@ const AddExpenses: React.FC<Props> = ({ navigation, route }) => {
                 return;
             }
 
+            if (!category || !name || !amount || !date) {
+                Alert.alert("Missing value. Please check your input.");
+                return;
+            }
+
+            const data = {
+                category: category,
+                name: name,
+                amount: amount,
+                payer: payer,
+                date: date,
+            };
+
             const response = await axios.post(
-                `http://192.168.1.12:3000/expenses/${userId}/${budgetName}`,
-                {
-                    expensesData: {
-                        category: category,
-                        name: name,
-                        amount: Number(amount),
-                        payer: payer,
-                        date: date,
-                    },
-                }
+                `http://192.168.1.18:3000/expenses/${userId}/${budgetName}`,
+                data
             );
 
             if (response) {

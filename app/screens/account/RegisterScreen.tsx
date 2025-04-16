@@ -82,9 +82,10 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
             };
 
             const response = await axios.post(
-                "http://192.168.1.12:3000/register",
+                "http://192.168.1.18:3000/register",
                 userData
             );
+           
             saveSession(response.data.data._id);
 
             navigation.navigate("Menu");

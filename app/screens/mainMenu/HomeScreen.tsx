@@ -41,8 +41,9 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
             const { userId: userId } = session;
 
             axios
-                .get(`http://192.168.1.12:3000/read/${userId}`)
+                .get(`http://192.168.1.18:3000/read/${userId}`)
                 .then((res) => {
+                    
                     const budgetsData = res.data.data.budgets;
                     setBudgets(budgetsData);
 

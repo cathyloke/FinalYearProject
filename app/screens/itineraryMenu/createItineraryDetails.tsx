@@ -72,7 +72,7 @@ const CreateItineraryDetails: React.FC<Props> = ({ navigation, route }) => {
             const { userId: userId } = session;
 
             const response = await axios.get(
-                `http://192.168.1.12:3000/itinerary/${userId}/${itineraryId}`
+                `http://192.168.1.18:3000/itinerary/${userId}/${itineraryId}`
             );
             setTripDays(response.data.data.days);
             setStartDate(response.data.data.startDate);
@@ -163,10 +163,9 @@ const CreateItineraryDetails: React.FC<Props> = ({ navigation, route }) => {
 
             const { userId: userId } = session;
             console.log("the final itinerary to submit is ");
-            console.log(JSON.stringify(itinerary));
 
             const response = await axios.put(
-                `http://192.168.1.12:3000/itinerary/details/${userId}/${itineraryId}`,
+                `http://192.168.1.18:3000/itinerary/details/${userId}/${itineraryId}`,
                 { itinerary }
             );
 

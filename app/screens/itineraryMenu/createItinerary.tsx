@@ -101,24 +101,18 @@ const ManualItinerary = ({
         try {
             console.log("loading data");
             const travelModeRes = await axios.get(
-                `http://192.168.1.12:3000/preferences/travelMode`
+                `http://192.168.1.18:3000/preferences/travelMode`
             );
 
-            // console.log(travelModeRes.data.data);
             const travelModeData = travelModeRes.data.data;
             setTravelModes(travelModeData);
 
             const interestRes = await axios.get(
-                `http://192.168.1.12:3000/preferences/interest`
+                `http://192.168.1.18:3000/preferences/interest`
             );
 
-            // console.log(interestRes.data.data);
             const interestData = interestRes.data.data;
             setInterests(interestData);
-
-            // console.log("interest");
-
-            // console.log(interests);
         } catch (error) {
             Alert.alert(`${error}`);
         }
@@ -127,7 +121,6 @@ const ManualItinerary = ({
     const [startDate, setStartDate] = useState<Date | null>(null);
     const [endDate, setEndDate] = useState<Date | null>(null);
 
-    const [itineraryId, setItineraryId] = useState("");
     const [name, setName] = useState("");
     const [destination, setDestination] = useState("");
 
@@ -167,9 +160,9 @@ const ManualItinerary = ({
             }
 
             const tripDays = calculateDuration();
-            console.log(tripDays);
+            // console.log(tripDays);
             const response: any = await axios.post(
-                `http://192.168.1.12:3000/itinerary/${userId}`,
+                `http://192.168.1.18:3000/itinerary/${userId}`,
                 {
                     newItinerary: {
                         name: name,
@@ -186,11 +179,6 @@ const ManualItinerary = ({
             );
 
             if (response) {
-                console.log("yuhjmhmghjghj");
-                console.log(response);
-                console.log(response.data.data._id.toString());
-                setItineraryId(response.data.data._id.toString());
-
                 Alert.alert("Trip Created Successfully");
                 navigation.navigate("CreateItineraryDetails", {
                     itineraryId: response.data.data._id.toString(),
@@ -394,24 +382,18 @@ const AIItinerary = ({
         try {
             console.log("loading data");
             const travelModeRes = await axios.get(
-                `http://192.168.1.12:3000/preferences/travelMode`
+                `http://192.168.1.18:3000/preferences/travelMode`
             );
 
-            // console.log(travelModeRes.data.data);
             const travelModeData = travelModeRes.data.data;
             setTravelModes(travelModeData);
 
             const interestRes = await axios.get(
-                `http://192.168.1.12:3000/preferences/interest`
+                `http://192.168.1.18:3000/preferences/interest`
             );
 
-            // console.log(interestRes.data.data);
             const interestData = interestRes.data.data;
             setInterests(interestData);
-
-            // console.log("interest");
-
-            // console.log(interests);
         } catch (error) {
             Alert.alert(`${error}`);
         }
@@ -486,7 +468,7 @@ const AIItinerary = ({
             // const parsedResult = JSON.parse(result);
 
             const saveTrip = await axios.post(
-                `http://192.168.1.12:3000/itinerary/${userId}`,
+                `http://192.168.1.18:3000/itinerary/${userId}`,
                 {
                     newItinerary: {
                         name: name,

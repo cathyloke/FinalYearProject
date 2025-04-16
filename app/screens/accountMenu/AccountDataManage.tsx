@@ -39,7 +39,7 @@ const AccountDataManageScreen: React.FC<Props> = ({ navigation }) => {
 
         const { userId: userId } = session;
         axios
-            .get(`http://192.168.1.12:3000/read/${userId}`)
+            .get(`http://192.168.1.18:3000/read/${userId}`)
             .then((res) => {
                 // console.log('User:', res.data);
                 setName(res.data.data.name);
@@ -91,12 +91,12 @@ const AccountDataManageScreen: React.FC<Props> = ({ navigation }) => {
                 email: email,
                 password: password,
             };
-
+            console.log(JSON.stringify(userData));
             axios
-                .put(`http://192.168.1.12:3000/update/${userId}`, userData)
+                .put(`http://192.168.1.18:3000/update/${userId}`, userData)
                 .then((res) => {
                     console.log("Successfully update user : " + res);
-                    console.log(JSON.stringify(res));
+                    console.log(JSON.stringify(res.data));
                     Alert.alert("Data successfully updated");
                     navigation.navigate("Account");
                 })
