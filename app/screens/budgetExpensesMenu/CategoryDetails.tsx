@@ -83,7 +83,7 @@ const CategoryDetails: React.FC<Props> = ({ navigation, route }) => {
 
                             axios
                                 .delete(
-                                    `http://192.168.1.18:3000/expenses/${userId}/${budgetName}/${categoryName}/${detailsId}`
+                                    `http://172.20.10.2:3000/expenses/${userId}/${budgetName}/${categoryName}/${detailsId}`
                                 )
                                 .then((res) => {
                                     Alert.alert("Expenses Deleted");
@@ -124,7 +124,7 @@ const CategoryDetails: React.FC<Props> = ({ navigation, route }) => {
 
         axios
             .get(
-                `http://192.168.1.18:3000/expenses/${userId}/${budgetName}/${categoryName}`
+                `http://172.20.10.2:3000/expenses/${userId}/${budgetName}/${categoryName}`
             )
             .then((res) => {
                 setExpensesCategoryDetail(res.data.data.expensesCategoryDetail);

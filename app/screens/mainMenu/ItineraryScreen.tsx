@@ -63,7 +63,7 @@ const ItineraryScreen: React.FC<Props> = ({ navigation }) => {
                             const { userId: userId } = session;
 
                             const res = await axios.delete(
-                                `http://192.168.1.18:3000/itinerary/${userId}/${itineraryId}`
+                                `http://172.20.10.2:3000/itinerary/${userId}/${itineraryId}`
                             );
 
                             await loadData();
@@ -98,9 +98,9 @@ const ItineraryScreen: React.FC<Props> = ({ navigation }) => {
             const { userId: userId } = session;
 
             const response = await axios.get(
-                `http://192.168.1.18:3000/itinerary/${userId}`
+                `http://172.20.10.2:3000/itinerary/${userId}`
             );
-            
+
             setPlans(response.data.data);
             console.log(response.data.data);
         } catch (error) {
