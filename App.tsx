@@ -1,17 +1,14 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import AppNavigator from './app/navigations/AppNavigator';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useFonts } from 'expo-font';
-import { MenuProvider } from 'react-native-popup-menu';
-import React from 'react';
+import { NavigationContainer } from "@react-navigation/native";
+import AppNavigator from "./app/navigations/AppNavigator";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useFonts } from "expo-font";
+import { MenuProvider } from "react-native-popup-menu";
+import React from "react";
 
 export default function App() {
-
     const [fontsLoaded] = useFonts({
-        'Itim-Regular': require('./app/assets/fonts/Itim-Regular.ttf'),
-        'Roboto': require('./app/assets/fonts/Roboto.ttf'),
+        "Itim-Regular": require("./app/assets/fonts/Itim-Regular.ttf"),
+        Roboto: require("./app/assets/fonts/Roboto.ttf"),
     });
 
     if (!fontsLoaded) {
@@ -25,7 +22,6 @@ export default function App() {
                     <AppNavigator></AppNavigator>
                 </NavigationContainer>
             </MenuProvider>
-
         </SafeAreaView>
     );
 }
