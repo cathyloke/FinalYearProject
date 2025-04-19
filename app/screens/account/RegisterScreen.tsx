@@ -70,19 +70,25 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
                 throw new Error("Email is not valid.");
             }
 
-            if (gender !== "Male" && gender !== "Female") {
+            const formattedGender =
+                gender.charAt(0).toUpperCase() + gender.slice(1).toLowerCase();
+
+            if (
+                formattedGender !== "Male" &&
+                formattedGender !== "Female" &&
+                formattedGender !== "Other"
+            ) {
                 throw new Error("Gender not correct.");
             }
-
             const userData = {
                 name: name,
-                gender: gender,
-                email: email,
+                gender: formattedGender,
+                email: email.toLowerCase(),
                 password: password,
             };
 
             const response = await axios.post(
-                "http://172.20.10.2:3000/register",
+                "http://192.168.1.18:3000/register",
                 userData
             );
 
@@ -132,7 +138,7 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
 
                     <TextInput
                         keyboardType="email-address"
-                        placeholder="Enter your gender (Female/Male)"
+                        placeholder="Enter your gender (Female/Male/Other)"
                         placeholderTextColor="#C37BC3"
                         style={styles.inputBox}
                         value={gender}

@@ -1,11 +1,8 @@
 import React from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
 import { RootStackParamList } from "../assets/Types";
 
-import HomeScreen from "../screens/mainMenu/HomeScreen";
 import BudgetNavigator from "./BudgetNavigator";
 import AccountNavigator from "./AccountNavigator";
 import ItineraryNavigator from "./ItineraryNavigator";

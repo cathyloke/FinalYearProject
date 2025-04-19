@@ -74,7 +74,7 @@ const UpdateItineraryDetails: React.FC<Props> = ({ navigation, route }) => {
             const { userId: userId } = session;
 
             const response = await axios.get(
-                `http://172.20.10.2:3000/itinerary/${userId}/${itineraryId}`
+                `http://192.168.1.18:3000/itinerary/${userId}/${itineraryId}`
             );
             setTripDays(response.data.data.days);
             setStartDate(response.data.data.startDate);
@@ -107,12 +107,17 @@ const UpdateItineraryDetails: React.FC<Props> = ({ navigation, route }) => {
         setItinerary((prevItinerary) =>
             prevItinerary.map((day, index) => {
                 if (index === dayIndex) {
-                    const updatedActivities = [...day.activities, activity];
+                    const updatedActivities = [
+                        ...day.activities,
+                        {
+                            ...activity,
+                            time: formatTo24HourString(activity.time),
+                        }, // ⬅️ format here
+                    ];
 
-                    // Sort activities by time
                     updatedActivities.sort(
                         (a, b) =>
-                            convertTo24Hour(a.time) - convertTo24Hour(b.time)
+                            convertToMinutes(a.time) - convertToMinutes(b.time)
                     );
 
                     return { ...day, activities: updatedActivities };
@@ -120,26 +125,53 @@ const UpdateItineraryDetails: React.FC<Props> = ({ navigation, route }) => {
                 return day;
             })
         );
+    };
 
-        const convertTo24Hour = (time: string) => {
-            const [_, hours, minutes, period] =
-                time.match(/(\d+):(\d+)\s?(AM|PM)/i) || [];
+    const formatTo24HourString = (time: string): string => {
+        const match = time.trim().match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
 
-            if (!hours || !minutes || !period) return 0; // Fallback for invalid time
+        if (!match) {
+            console.warn("Invalid time format:", time);
+            return time;
+        }
 
-            let hourNum = parseInt(hours, 10);
-            let minuteNum = parseInt(minutes, 10);
+        let [_, hourStr, minuteStr, period] = match;
+        let hour = parseInt(hourStr, 10);
+        const minute = parseInt(minuteStr, 10);
 
-            if (period.toUpperCase() === "PM" && hourNum !== 12) {
-                hourNum += 12;
-            } else if (period.toUpperCase() === "AM" && hourNum === 12) {
-                hourNum = 0;
-            }
+        if (period.toUpperCase() === "PM" && hour !== 12) {
+            hour += 12;
+        } else if (period.toUpperCase() === "AM" && hour === 12) {
+            hour = 0;
+        }
 
-            return hourNum * 60 + minuteNum; // Convert time to minutes for sorting
-        };
-        console.log("now is ");
-        console.log(JSON.stringify(itinerary));
+        const hourFormatted = hour.toString().padStart(2, "0");
+        const minuteFormatted = minute.toString().padStart(2, "0");
+
+        return `${hourFormatted}:${minuteFormatted}`; // e.g., "20:00"
+    };
+
+    const convertToMinutes = (time: string): number => {
+        const [hourStr, minuteStr] = formatTo24HourString(time).split(":");
+        return parseInt(hourStr) * 60 + parseInt(minuteStr);
+    };
+
+    const convertTo24Hour = (time: string) => {
+        const [_, hours, minutes, period] =
+            time.match(/(\d+):(\d+)\s?(AM|PM)/i) || [];
+
+        if (!hours || !minutes || !period) return 0; // Fallback for invalid time
+
+        let hourNum = parseInt(hours, 10);
+        let minuteNum = parseInt(minutes, 10);
+
+        if (period.toUpperCase() === "PM" && hourNum !== 12) {
+            hourNum += 12;
+        } else if (period.toUpperCase() === "AM" && hourNum === 12) {
+            hourNum = 0;
+        }
+        console.log("the time converted is ", hourNum * 60 + minuteNum);
+        return hourNum * 60 + minuteNum; // Convert time to minutes for sorting
     };
 
     const removeActivity = (dayIndex: number, activityIndex: number) => {
@@ -169,7 +201,7 @@ const UpdateItineraryDetails: React.FC<Props> = ({ navigation, route }) => {
             const { userId: userId } = session;
 
             const response = await axios.put(
-                `http://172.20.10.2:3000/itinerary/details/${userId}/${itineraryId}`,
+                `http://192.168.1.18:3000/itinerary/details/${userId}/${itineraryId}`,
                 { itinerary }
             );
 

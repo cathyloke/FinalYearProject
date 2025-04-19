@@ -39,7 +39,7 @@ const AccountDataManageScreen: React.FC<Props> = ({ navigation }) => {
 
         const { userId: userId } = session;
         axios
-            .get(`http://172.20.10.2:3000/read/${userId}`)
+            .get(`http://192.168.1.18:3000/read/${userId}`)
             .then((res) => {
                 // console.log('User:', res.data);
                 setName(res.data.data.name);
@@ -77,7 +77,14 @@ const AccountDataManageScreen: React.FC<Props> = ({ navigation }) => {
                 throw new Error("Missing value. Please check your input.");
             }
 
-            if (gender !== "Male" && gender !== "Female") {
+            const formattedGender =
+                gender.charAt(0).toUpperCase() + gender.slice(1).toLowerCase();
+            
+            if (
+                formattedGender !== "Male" &&
+                formattedGender !== "Female" &&
+                formattedGender !== "Other"
+            ) {
                 throw new Error("Gender not correct.");
             }
 
@@ -87,13 +94,13 @@ const AccountDataManageScreen: React.FC<Props> = ({ navigation }) => {
 
             const userData = {
                 name: name,
-                gender: gender,
-                email: email,
+                gender: formattedGender,
+                email: email.toLowerCase(),
                 password: password,
             };
             console.log(JSON.stringify(userData));
             axios
-                .put(`http://172.20.10.2:3000/update/${userId}`, userData)
+                .put(`http://192.168.1.18:3000/update/${userId}`, userData)
                 .then((res) => {
                     console.log("Successfully update user : " + res);
                     console.log(JSON.stringify(res.data));
@@ -139,7 +146,7 @@ const AccountDataManageScreen: React.FC<Props> = ({ navigation }) => {
                 </View>
                 <TextInput
                     keyboardType="email-address"
-                    placeholder="Enter your gender (Female/Male)"
+                    placeholder="Enter your gender (Female/Male/Other)"
                     placeholderTextColor="#C37BC3"
                     style={styles.inputBox}
                     value={gender}

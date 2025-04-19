@@ -1,10 +1,8 @@
 import React from "react";
 import { RootStackParamList } from "../assets/Types";
-
 import { createStackNavigator } from "@react-navigation/stack";
 
 import ItineraryScreen from "../screens/mainMenu/ItineraryScreen";
-
 import CreateItinerary from "../screens/itineraryMenu/createItinerary";
 import ViewItinerary from "../screens/itineraryMenu/viewItinerary";
 import UpdateItinerary from "../screens/itineraryMenu/updateItinerary";
@@ -20,6 +18,7 @@ const ItineraryNavigator = () => {
                 headerShown: true,
                 headerStyle: {
                     backgroundColor: "#E2BFD9",
+                    height: 65,
                 },
                 headerTintColor: "#fff",
                 headerTitleStyle: {

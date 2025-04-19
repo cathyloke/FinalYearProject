@@ -14,6 +14,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { RouteProp, useFocusEffect } from "@react-navigation/native";
 import { getSession } from "../../assets/asyncStorageData";
 import axios from "axios";
+import { Entypo } from "@expo/vector-icons";
 
 type CategoryDetailsScreenNavigationProp = StackNavigationProp<
     RootStackParamList,
@@ -83,7 +84,7 @@ const CategoryDetails: React.FC<Props> = ({ navigation, route }) => {
 
                             axios
                                 .delete(
-                                    `http://172.20.10.2:3000/expenses/${userId}/${budgetName}/${categoryName}/${detailsId}`
+                                    `http://192.168.1.18:3000/expenses/${userId}/${budgetName}/${categoryName}/${detailsId}`
                                 )
                                 .then((res) => {
                                     Alert.alert("Expenses Deleted");
@@ -124,7 +125,7 @@ const CategoryDetails: React.FC<Props> = ({ navigation, route }) => {
 
         axios
             .get(
-                `http://172.20.10.2:3000/expenses/${userId}/${budgetName}/${categoryName}`
+                `http://192.168.1.18:3000/expenses/${userId}/${budgetName}/${categoryName}`
             )
             .then((res) => {
                 setExpensesCategoryDetail(res.data.data.expensesCategoryDetail);
@@ -136,6 +137,26 @@ const CategoryDetails: React.FC<Props> = ({ navigation, route }) => {
 
     return (
         <SafeAreaView style={styles.container}>
+            {expenseCategoryDetail && expenseCategoryDetail.length === 0 && (
+                <View
+                    style={{
+                        flex: 1,
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: 20,
+                    }}
+                >
+                    <Text style={styles.info}>
+                        There is no expenses in category {categoryName}
+                    </Text>
+                    <TouchableOpacity
+                        onPress={() => navigation.goBack()}
+                        style={styles.modalButton}
+                    >
+                        <Text style={styles.modalButtonText}>Go Back</Text>
+                    </TouchableOpacity>
+                </View>
+            )}
             <FlatList
                 // style={styles.infoBar}
                 data={expenseCategoryDetail}

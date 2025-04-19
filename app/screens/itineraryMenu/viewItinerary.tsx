@@ -77,7 +77,7 @@ const ViewItinerary: React.FC<Props> = ({ navigation, route }) => {
             const { userId: userId } = session;
 
             const response = await axios.get(
-                `http://172.20.10.2:3000/itinerary/${userId}/${itineraryId}`
+                `http://192.168.1.18:3000/itinerary/${userId}/${itineraryId}`
             );
 
             console.log(JSON.stringify(response.data.data));
@@ -128,7 +128,7 @@ const ViewItinerary: React.FC<Props> = ({ navigation, route }) => {
                     }}
                     style={{ position: "absolute", right: 10, top: 10 }}
                 >
-                    <Ionicons name="create" size={25} color="black" />
+                    <Ionicons name="create" size={25} color="#3789BB" />
                 </TouchableOpacity>
 
                 <View style={styles.iconText}>
@@ -180,13 +180,13 @@ const ViewItinerary: React.FC<Props> = ({ navigation, route }) => {
                 </View>
 
                 <View style={styles.iconText}>
-                    <Ionicons
-                        name="heart"
-                        size={18}
-                        color="black"
-                        style={{ marginRight: 5 }}
-                    />
                     <Text style={styles.headerData}>
+                        <Ionicons
+                            name="heart"
+                            size={18}
+                            color="black"
+                            style={{ marginRight: 5 }}
+                        />
                         {plan?.interests
                             ?.map(
                                 (interest) =>
@@ -329,6 +329,8 @@ const styles = StyleSheet.create({
     iconText: {
         flexDirection: "row",
         alignItems: "center",
+        flexWrap: "wrap",
+        width: "100%",
     },
 });
 

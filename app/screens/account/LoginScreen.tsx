@@ -62,12 +62,12 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
             }
 
             const userData = {
-                email: email,
+                email: email.toLowerCase(),
                 password: password,
             };
 
             const response = await axios.post(
-                "http://172.20.10.2:3000/login",
+                "http://192.168.1.18:3000/login",
                 userData
             );
             saveSession(response.data.data._id);

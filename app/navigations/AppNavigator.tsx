@@ -1,6 +1,5 @@
 import React from "react";
-import { RootStackParamList } from '../assets/Types';
-
+import { RootStackParamList } from "../assets/Types";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import CoverScreen from "../screens/cover/CoverScreen";
@@ -17,49 +16,49 @@ const AppNavigator = () => {
     return (
         <Stack.Navigator>
             <Stack.Screen
-            name="Cover"
-            component={CoverScreen}
-            options={{ headerShown: false }}
+                name="Cover"
+                component={CoverScreen}
+                options={{ headerShown: false }}
             />
             <Stack.Screen
-            name="Login"
-            component={LoginScreen}
-            options={{ headerShown: false }}
+                name="Login"
+                component={LoginScreen}
+                options={{ headerShown: false }}
             />
             <Stack.Screen
-            name="Logout"
-            component={LogoutScreen}
-            options={{ headerShown: false }}
+                name="Logout"
+                component={LogoutScreen}
+                options={{ headerShown: false }}
             />
             <Stack.Screen
-            name="Register"
-            component={RegisterScreen}
-            options={{ headerShown: false }}
+                name="Register"
+                component={RegisterScreen}
+                options={{ headerShown: false }}
             />
             <Stack.Screen
-            name="TNC"
-            component={TNCScreen}
-            options={{ 
-                headerShown: true,
-                title: 'Terms & Conditions',
-                headerStyle: {
-                    backgroundColor: '#E2BFD9', 
-                },
-                headerTintColor: '#fff',
-                headerTitleStyle: {
-                    fontFamily: 'Itim-Regular',
-                    fontSize: 25,
-                },
-                headerBackTitleVisible: false
-            }}
+                name="TNC"
+                component={TNCScreen}
+                options={{
+                    headerShown: true,
+                    title: "Terms & Conditions",
+                    headerStyle: {
+                        backgroundColor: "#E2BFD9",
+                    },
+                    headerTintColor: "#fff",
+                    headerTitleStyle: {
+                        fontFamily: "Itim-Regular",
+                        fontSize: 25,
+                    },
+                    headerBackTitleVisible: false,
+                }}
             />
             <Stack.Screen
-            name="Menu"
-            component={BottomTabNavigator}
-            options={{ headerShown: false }}
+                name="Menu"
+                component={BottomTabNavigator}
+                options={{ headerShown: false }}
             />
         </Stack.Navigator>
     );
-}
+};
 
 export default AppNavigator;

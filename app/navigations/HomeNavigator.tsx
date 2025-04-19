@@ -1,6 +1,5 @@
 import React from "react";
 import { RootStackParamList } from "../assets/Types";
-
 import { createStackNavigator } from "@react-navigation/stack";
 
 import Weather from "../screens/home/Weather";
@@ -22,6 +21,7 @@ const HomeNavigator = () => {
                 headerShown: true,
                 headerStyle: {
                     backgroundColor: "#E2BFD9",
+                    height: 65,
                 },
                 headerTintColor: "#fff",
                 headerTitleStyle: {
@@ -38,17 +38,35 @@ const HomeNavigator = () => {
                     headerShown: false,
                 }}
             />
-            <Stack.Screen name="Weather" component={Weather} />
+            <Stack.Screen name="Weather" component={Weather} options={{}} />
             <Stack.Screen name="Attraction" component={Attraction} />
             <Stack.Screen
                 name="AttractionDetails"
                 component={AttractionDetails}
             />
             <Stack.Screen name="Hotel" component={Hotel} />
-            <Stack.Screen name="HotelListings" component={HotelListings} />
-            <Stack.Screen name="HotelDetails" component={HotelDetails} />
+            <Stack.Screen
+                name="HotelListings"
+                component={HotelListings}
+                options={{
+                    title: "Hotel Listings",
+                }}
+            />
+            <Stack.Screen
+                name="HotelDetails"
+                component={HotelDetails}
+                options={{
+                    title: "Hotel Details",
+                }}
+            />
             <Stack.Screen name="Flight" component={Flight} />
-            <Stack.Screen name="FlightDetails" component={FlightDetails} />
+            <Stack.Screen
+                name="FlightDetails"
+                component={FlightDetails}
+                options={{
+                    title: "Flight Details",
+                }}
+            />
         </Stack.Navigator>
     );
 };

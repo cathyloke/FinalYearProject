@@ -139,7 +139,7 @@ const AddExpenses: React.FC<Props> = ({ navigation, route }) => {
             };
 
             const response = await axios.post(
-                `http://172.20.10.2:3000/expenses/${userId}/${budgetName}`,
+                `http://192.168.1.18:3000/expenses/${userId}/${budgetName}`,
                 data
             );
 

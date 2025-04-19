@@ -63,7 +63,7 @@ const ItineraryScreen: React.FC<Props> = ({ navigation }) => {
                             const { userId: userId } = session;
 
                             const res = await axios.delete(
-                                `http://172.20.10.2:3000/itinerary/${userId}/${itineraryId}`
+                                `http://192.168.1.18:3000/itinerary/${userId}/${itineraryId}`
                             );
 
                             await loadData();
@@ -98,7 +98,7 @@ const ItineraryScreen: React.FC<Props> = ({ navigation }) => {
             const { userId: userId } = session;
 
             const response = await axios.get(
-                `http://172.20.10.2:3000/itinerary/${userId}`
+                `http://192.168.1.18:3000/itinerary/${userId}`
             );
 
             setPlans(response.data.data);
@@ -206,16 +206,44 @@ const ItineraryScreen: React.FC<Props> = ({ navigation }) => {
                                                 item._id.toString()
                                             );
                                         }}
-                                        text="Edit Trip"
-                                    />
+                                    >
+                                        <View
+                                            style={{
+                                                flexDirection: "row",
+                                                alignItems: "center",
+                                            }}
+                                        >
+                                            <Entypo
+                                                name="edit"
+                                                size={18}
+                                                color="#3789BB"
+                                                style={{ marginRight: 8 }}
+                                            />
+                                            <Text>Edit Trip</Text>
+                                        </View>
+                                    </MenuOption>
                                     <MenuOption
                                         onSelect={() =>
                                             handleDeleteTrip(
                                                 item._id.toString()
                                             )
                                         }
-                                        text="Delete Trip"
-                                    />
+                                    >
+                                        <View
+                                            style={{
+                                                flexDirection: "row",
+                                                alignItems: "center",
+                                            }}
+                                        >
+                                            <Entypo
+                                                name="trash"
+                                                size={18}
+                                                color="#D14D37"
+                                                style={{ marginRight: 8 }}
+                                            />
+                                            <Text>Delete Trip</Text>
+                                        </View>
+                                    </MenuOption>
                                 </MenuOptions>
                             </Menu>
                         </View>

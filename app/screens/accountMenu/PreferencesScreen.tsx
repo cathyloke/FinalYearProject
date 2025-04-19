@@ -106,7 +106,7 @@ const PreferencesScreen: React.FC<Props> = ({ navigation }) => {
         try {
             console.log("loading data");
             const travelModeRes = await axios.get(
-                `http://172.20.10.2:3000/preferences/travelMode`
+                `http://192.168.1.18:3000/preferences/travelMode`
             );
 
             // console.log(travelModeRes.data.data);
@@ -114,7 +114,7 @@ const PreferencesScreen: React.FC<Props> = ({ navigation }) => {
             setTravelModes(travelModeData);
 
             const interestRes = await axios.get(
-                `http://172.20.10.2:3000/preferences/interest`
+                `http://192.168.1.18:3000/preferences/interest`
             );
 
             // console.log(interestRes.data.data);
@@ -130,7 +130,7 @@ const PreferencesScreen: React.FC<Props> = ({ navigation }) => {
             const { userId: userId } = session;
 
             const userRes = await axios.get(
-                `http://172.20.10.2:3000/read/${userId}`
+                `http://192.168.1.18:3000/read/${userId}`
             );
             console.log(userRes.data.data);
             const data = userRes.data.data.preferences;
@@ -173,7 +173,7 @@ const PreferencesScreen: React.FC<Props> = ({ navigation }) => {
             };
 
             axios
-                .put(`http://172.20.10.2:3000/update/${userId}`, updateData)
+                .put(`http://192.168.1.18:3000/update/${userId}`, updateData)
                 .then((res) => {
                     console.log("Successfully update user : " + res);
                     console.log(JSON.stringify(res));
