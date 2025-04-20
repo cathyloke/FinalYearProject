@@ -1,85 +1,173 @@
-import React from "react";
-import { TouchableOpacity, TextInput, Text, View, Image, StyleSheet, TouchableNativeFeedback } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+    TouchableOpacity,
+    TextInput,
+    Text,
+    View,
+    Linking,
+    StyleSheet,
+    TouchableNativeFeedback,
+    Alert,
+} from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from '../../assets/Types';
+import { RootStackParamList } from "../../assets/Types";
 import { ScrollView } from "react-native-gesture-handler";
+import * as MailComposer from "expo-mail-composer";
 
-type FeedbackScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Feedback'>;
+type FeedbackScreenNavigationProp = StackNavigationProp<
+    RootStackParamList,
+    "Feedback"
+>;
 
 type Props = {
     navigation: FeedbackScreenNavigationProp;
 };
 
 const FeedbackScreen: React.FC<Props> = ({ navigation }) => {
+    const [content, setContent] = useState("");
+    const [isAvailable, setIsAvailable] = useState(false);
+
+    useEffect(() => {
+        async function checkAvailability() {
+            const isMailAvailable = await MailComposer.isAvailableAsync();
+            setIsAvailable(isMailAvailable);
+
+            if (!isMailAvailable) {
+                // console.error(
+                //     "MailComposer is not available. Likely running in Expo Go on iOS."
+                // );
+                Alert.alert(
+                    "MailComposer is not available. Likely running in Expo Go on iOS."
+                );
+            }
+        }
+
+        checkAvailability();
+        console.log(isAvailable);
+    }, []);
+
+    const sendMail = () => {
+        MailComposer.composeAsync({
+            subject: "Feedback for Ferio Holiday Planner Application",
+            body: content,
+            recipients: ["catloke963@gmail.com", "2103237@1utar.my"],
+        });
+    };
+
     return (
         <ScrollView style={styles.container}>
             <View style={styles.content}>
                 <Text style={styles.feedbackHeader}>What's your Feedback?</Text>
-                <Text style={[styles.feedbackHeader, { fontSize: 20 }]}>Write it down!</Text>
+                <Text style={[styles.feedbackHeader, { fontSize: 20 }]}>
+                    Write it down!
+                </Text>
                 <TextInput
                     multiline={true}
-                    keyboardType='email-address'
-                    placeholder='Write your comment'
+                    keyboardType="email-address"
+                    placeholder="Write your comment"
                     placeholderTextColor="grey"
-                    selectionColor={'#C37BC3'}
+                    selectionColor={"#C37BC3"}
                     style={styles.feedbackInput}
+                    onChangeText={setContent}
                 ></TextInput>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => navigation.navigate('Account')}
-                >
-                    <Text style={styles.buttonText}>Submit Feedback</Text>
-                </TouchableOpacity>
+
+                {isAvailable ? (
+                    <View>
+                        <TouchableOpacity
+                            style={styles.button}
+                            onPress={() => {
+                                sendMail();
+                                navigation.navigate("Account");
+                            }}
+                        >
+                            <Text style={styles.buttonText}>
+                                Submit Feedback
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                ) : (
+                    <View
+                        style={{
+                            alignItems: "center",
+                            justifyContent: "center",
+                        }}
+                    >
+                        <Text
+                            style={[
+                                styles.header,
+                                {
+                                    fontSize: 20,
+                                    color: "red",
+                                    textAlign: "justify",
+                                    marginHorizontal: 10,
+                                },
+                            ]}
+                        >
+                            You device not supported to send email. Please
+                            directly click on the below button to send the
+                            email.
+                        </Text>
+                        <TouchableOpacity
+                            style={styles.button}
+                            onPress={() =>
+                                Linking.openURL(
+                                    "mailto:catloke963@gmail.com?subject=FeedbackFromFerio&body=Description"
+                                )
+                            }
+                        >
+                            <Text style={styles.buttonText}>Send Feedback</Text>
+                        </TouchableOpacity>
+                    </View>
+                )}
             </View>
         </ScrollView>
-
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F7EFE5',
+        backgroundColor: "#F7EFE5",
     },
     upperTab: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
         padding: 15,
-        backgroundColor: '#E2BFD9',
+        backgroundColor: "#E2BFD9",
         height: 85,
     },
-    greetingText: {
-        fontSize: 48,
-        color: 'black',
-        fontFamily: 'Itim-Regular',
+    header: {
+        marginTop: 10,
+        fontSize: 30,
+        fontFamily: "Itim-Regular",
+        color: "black",
     },
-
     content: {
-        alignItems: 'center',
-        justifyContent: 'center',
+        alignItems: "center",
+        justifyContent: "center",
     },
     feedbackHeader: {
         marginTop: 10,
         fontSize: 30,
-        fontFamily: 'Itim-Regular',
-        color: 'black',
+        fontFamily: "Itim-Regular",
+        color: "black",
     },
     feedbackInput: {
-        fontFamily: 'Itim-Regular',
+        fontFamily: "Itim-Regular",
         fontSize: 18,
         marginTop: 10,
         padding: 10,
         borderWidth: 1.5,
         borderRadius: 8,
-        width: '90%',
+        width: "90%",
         height: 300,
-        textAlignVertical: 'top',
+        textAlignVertical: "top",
     },
     button: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#C37BC3',
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "#C37BC3",
         width: 200,
         height: 50,
         marginTop: 20,
@@ -87,13 +175,12 @@ const styles = StyleSheet.create({
         borderWidth: 1.5,
     },
     buttonText: {
-        fontFamily: 'Itim-Regular',
-        justifyContent: 'center',
-        color: 'white',
-        alignSelf: 'center',
+        fontFamily: "Itim-Regular",
+        justifyContent: "center",
+        color: "white",
+        alignSelf: "center",
         fontSize: 20,
     },
-
 });
 
 export default FeedbackScreen;
