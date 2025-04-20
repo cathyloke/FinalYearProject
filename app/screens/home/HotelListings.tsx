@@ -123,10 +123,9 @@ const HotelListings: React.FC<Props> = ({ navigation, route }) => {
                                     </Text>
                                     <Text style={styles.cityHotels}>
                                         Price: $
-                                        {
-                                            property.priceBreakdown.grossPrice
-                                                .value
-                                        }{" "}
+                                        {property.priceBreakdown.grossPrice.value.toFixed(
+                                            2
+                                        )}{" "}
                                         USD
                                     </Text>
                                     <Text style={styles.cityHotels}>

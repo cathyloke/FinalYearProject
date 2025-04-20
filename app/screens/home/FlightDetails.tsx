@@ -63,9 +63,9 @@ const FlightDetails: React.FC<Props> = ({ navigation, route }) => {
             // console.log(response.data.data.segments);
 
             setLoading(false);
-       } catch (error) {
-           setLoading(false);
-           Alert.alert(`${error}`);
+        } catch (error) {
+            setLoading(false);
+            Alert.alert(`${error}`);
         }
     };
 
@@ -92,6 +92,17 @@ const FlightDetails: React.FC<Props> = ({ navigation, route }) => {
                     </View>
                 </Modal>
                 <Text style={styles.heading}>Flights Details</Text>
+
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    <Text style={styles.sectionDirection}>
+                        {
+                            flightDetails?.segments?.[0]?.departureAirport
+                                .cityName
+                        }{" "}
+                        -{" "}
+                        {flightDetails?.segments?.[0]?.arrivalAirport.cityName}
+                    </Text>
+                </View>
 
                 <Text style={styles.sectionTitle}>Departure</Text>
                 <Text style={styles.details}>
@@ -172,6 +183,22 @@ const FlightDetails: React.FC<Props> = ({ navigation, route }) => {
                 )}
 
                 {/* return */}
+                <View style={{ flexDirection: "row" }}>
+                    <Text style={styles.sectionDirection}>
+                        {
+                            flightDetails?.segments?.[
+                                flightDetails.segments.length - 1
+                            ]?.departureAirport.cityName
+                        }{" "}
+                        -{" "}
+                        {
+                            flightDetails?.segments?.[
+                                flightDetails.segments.length - 1
+                            ]?.arrivalAirport.cityName
+                        }
+                    </Text>
+                </View>
+
                 <Text style={styles.sectionTitle}>Departure</Text>
                 <Text style={styles.details}>
                     {
@@ -340,8 +367,14 @@ const styles = StyleSheet.create({
         fontFamily: "Itim-Regular",
         fontSize: 20,
         fontWeight: "600",
-        marginTop: 16,
+        marginTop: 14,
         borderBottomWidth: 1,
+    },
+    sectionDirection: {
+        fontFamily: "Itim-Regular",
+        fontSize: 20,
+        fontWeight: "600",
+        marginTop: 16,
     },
 });
 

@@ -43,6 +43,7 @@ const AppNavigator = () => {
                     title: "Terms & Conditions",
                     headerStyle: {
                         backgroundColor: "#E2BFD9",
+                        height: 65,
                     },
                     headerTintColor: "#fff",
                     headerTitleStyle: {

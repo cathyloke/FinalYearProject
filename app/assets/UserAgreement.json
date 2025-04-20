@@ -1,12 +1,8 @@
 {
-    "userAgreement" : {
+    "userAgreement": {
         "Effective Date": "2024-08-29",
         "1. Acceptance of Terms": "By downloading, installing, or using the App, you agree to comply with and be bound by this User Agreement. If you do not agree to this Agreement, do not use the App.",
-        "2. Use of the App": {
-          "Eligibility": "You must be at least 13 years old to use the App. By using the App, you represent that you meet this requirement.",
-          "Account Registration": "You may be required to create an account to access the application. You agree to provide accurate and complete information and to keep your account information updated.",
-          "Prohibited Conduct": "You agree not to use the App for any unlawful purpose or in a manner that could damage, disable, overburden, or impair the App."
-        },
+        "2. Use of the App": "To use the App, you must be at least 13 years old, and by accessing the App, you confirm that you meet this age requirement. Account registration may be required to access certain features, and you agree to provide accurate, complete, and up-to-date information. Additionally, you agree not to use the App for any unlawful purpose or in a way that could damage, disable, overburden, or impair its functionality.",
         "3. Intellectual Property": "All content and materials within the App, including text, graphics, logos, and software, are the property of Your Company Name and are protected by intellectual property laws. You agree not to reproduce, distribute, or create derivative works from any part of the App without prior written permission.",
         "4. Payments": "Certain features of the App may require payment. You agree to provide accurate payment information and authorize us to charge your payment method for any fees due.",
         "5. Refunds": "All payments are non-refundable unless otherwise stated in this Agreement or required by law.",

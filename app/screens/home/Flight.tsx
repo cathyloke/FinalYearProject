@@ -178,6 +178,7 @@ const Flight: React.FC<Props> = ({ navigation }) => {
                     <TextInput
                         style={[styles.input, { width: screenWidth * 0.7 }]}
                         placeholder="Enter departure destination (e.g. Kuala Lumpur)"
+                        placeholderTextColor="#C37BC3"
                         value={departureDestination}
                         onChangeText={setDepartureDestination}
                     />
@@ -218,6 +219,7 @@ const Flight: React.FC<Props> = ({ navigation }) => {
                     <TextInput
                         style={[styles.input, { width: screenWidth * 0.7 }]}
                         placeholder="Enter arrival destination (e.g. Kuala Lumpur)"
+                        placeholderTextColor="#C37BC3"
                         value={arrivalDestination}
                         onChangeText={setArrivalDestination}
                     />
@@ -235,24 +237,22 @@ const Flight: React.FC<Props> = ({ navigation }) => {
                 </View>
 
                 {arrivalSuggestions.map((item) => (
-                    <View>
-                        <TouchableOpacity
-                            key={item.id}
-                            style={styles.item}
-                            onPress={() => handldArrivalSelect(item)}
-                        >
-                            <Image
-                                source={{ uri: item.photoUri }}
-                                style={styles.thumbnail}
-                            />
-                            <View style={{ marginLeft: 10 }}>
-                                <Text style={styles.name}>{item.name}</Text>
-                                <Text style={styles.details}>
-                                    {item.regionName}, {item.countryName}
-                                </Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
+                    <TouchableOpacity
+                        key={item.id}
+                        style={styles.item}
+                        onPress={() => handldArrivalSelect(item)}
+                    >
+                        <Image
+                            source={{ uri: item.photoUri }}
+                            style={styles.thumbnail}
+                        />
+                        <View style={{ marginLeft: 10 }}>
+                            <Text style={styles.name}>{item.name}</Text>
+                            <Text style={styles.details}>
+                                {item.regionName}, {item.countryName}
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
                 ))}
 
                 <TouchableOpacity style={styles.button} onPress={fetchFlights}>
@@ -261,7 +261,7 @@ const Flight: React.FC<Props> = ({ navigation }) => {
 
                 {flightDestinations.length > 0 && (
                     <View>
-                        <Text style={[styles.heading, { marginTop: 10 }]}>
+                        <Text style={[styles.heading, { marginVertical: 10 }]}>
                             Search Results
                         </Text>
 
@@ -558,7 +558,7 @@ const styles = StyleSheet.create({
     subheading: { fontSize: 15, fontWeight: "bold", marginVertical: 10 },
     item: {
         flexDirection: "row",
-        // padding: 10,
+        padding: 10,
         borderBottomWidth: 1,
         borderColor: "#ccc",
     },

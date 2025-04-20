@@ -8,22 +8,22 @@
         },
         "3. User Responsibilities": {
             "text": [
-                "You must be at least 12 years old to use our app.",
-                "You agree to provide accurate and up-to-date information when creating an account.",
-                "You are responsible for maintaining the confidentiality of your account and password."
+                "• You must be at least 12 years old to use our app.",
+                "• You agree to provide accurate and up-to-date information when creating an account.",
+                "• You are responsible for maintaining the confidentiality of your account and password."
             ]
         },
         "4. Prohibited Activities": {
             "text": [
                 "You agree not to:",
-                "Use the app for any illegal purposes.",
-                "Attempt to gain unauthorized access to our systems.",
-                "Distribute any harmful software, such as viruses or malware.",
-                "Engage in any activity that could harm the app or its users."
+                "• Use the app for any illegal purposes.",
+                "• Attempt to gain unauthorized access to our systems.",
+                "• Distribute any harmful software, such as viruses or malware.",
+                "• Engage in any activity that could harm the app or its users."
             ]
         },
         "5. Intellectual Property": {
-            "text": "All content, features, and functionality on Ferio are the exclusive property of [Your Company Name] or its licensors. This includes, but is not limited to, text, images, logos, and software."
+            "text": "All content, features, and functionality on Ferio are the exclusive property of Ferio Sdn Bhd or its licensors. This includes, but is not limited to, text, images, logos, and software."
         },
         "6. Privacy": {
             "text": "Your privacy is important to us. Please review our Privacy Policy to understand how we collect, use, and protect your personal information."
@@ -35,7 +35,7 @@
             "text": "We may update these Terms and Conditions from time to time. Any changes will be posted within the app, and your continued use of the app constitutes acceptance of the updated terms."
         },
         "9. Contact Information": {
-            "text": "If you have any questions or concerns about these Terms and Conditions, please contact us at [Your Contact Information]."
+            "text": "If you have any questions or concerns about these Terms and Conditions, please contact us at 'catloke963@gmail.com'."
         }
     }
 }

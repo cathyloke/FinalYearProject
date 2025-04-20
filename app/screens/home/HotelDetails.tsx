@@ -42,14 +42,16 @@ const HotelDetails: React.FC<Props> = ({ navigation, route }) => {
                     <Text style={styles.sectionTitle}>💵 Pricing</Text>
                     <Text>
                         Original: $
-                        {hotel.priceBreakdown?.strikethroughPrice?.value || ' - '}
+                        {hotel.priceBreakdown?.strikethroughPrice?.value ||
+                            " - "}
                     </Text>
                     <Text>
-                        Discounted: ${hotel.priceBreakdown?.grossPrice?.value}
+                        Discounted: $
+                        {hotel.priceBreakdown?.grossPrice?.value.toFixed(2)}
                     </Text>
                     <Text>
                         Taxes & Charges: $
-                        {hotel.priceBreakdown?.excludedPrice?.value}
+                        {hotel.priceBreakdown?.excludedPrice?.value.toFixed(2)}
                     </Text>
                     <Text style={styles.deal}>
                         🔖 {hotel.priceBreakdown?.benefitBadges?.[0]?.text}
