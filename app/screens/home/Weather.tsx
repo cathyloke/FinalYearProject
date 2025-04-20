@@ -7,6 +7,7 @@ import {
     StyleSheet,
     Modal,
     ActivityIndicator,
+    Alert,
 } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../assets/Types";
@@ -79,7 +80,6 @@ const Weather: React.FC<Props> = ({ navigation }) => {
     const [seasonalSummary, setSeasonalSummary] = useState<
         SeasonSummary[] | null
     >(null);
-    const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 
     const getSeason = (dateStr: string): string => {
@@ -197,6 +197,13 @@ const Weather: React.FC<Props> = ({ navigation }) => {
     const fetchWeather = async () => {
         try {
             setLoading(true);
+
+            if (!location) {
+                throw new Error(
+                    "Missing location name. Please enter your location name."
+                );
+            }
+
             const geoRes = await axios.get(
                 `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
                     location
@@ -210,8 +217,9 @@ const Weather: React.FC<Props> = ({ navigation }) => {
             );
 
             if (!geoRes.data.length) {
-                setError("Location not found.");
-                return;
+                throw new Error(
+                    "Location not found. Please enter your location name."
+                );
             }
 
             const { lat, lon } = geoRes.data[0];
@@ -221,7 +229,6 @@ const Weather: React.FC<Props> = ({ navigation }) => {
             );
 
             setWeather(weatherRes.data);
-            setError("");
 
             const currentYear = new Date().getFullYear();
             const previousYear = currentYear - 1;
@@ -248,9 +255,9 @@ const Weather: React.FC<Props> = ({ navigation }) => {
 
             setLoading(false);
         } catch (err) {
-            console.error(err);
+            // console.error(err);
             setLoading(false);
-            setError("Something went wrong. Try again.");
+            Alert.alert(`${err}`);
         }
     };
 
@@ -392,8 +399,6 @@ const Weather: React.FC<Props> = ({ navigation }) => {
                     onChangeText={(text) => setLocation(text)}
                 />
 
-                {error ? <Text style={styles.error}>{error}</Text> : null}
-
                 <TouchableOpacity
                     style={styles.button}
                     onPress={() => {
@@ -403,7 +408,7 @@ const Weather: React.FC<Props> = ({ navigation }) => {
                     <Text style={styles.buttonText}>Find Weather</Text>
                 </TouchableOpacity>
 
-                {weather && !error && (
+                {weather && (
                     <View style={styles.weatherCard}>
                         <Text style={styles.cityName}>{location}</Text>
 
@@ -472,7 +477,7 @@ const Weather: React.FC<Props> = ({ navigation }) => {
                     </View>
                 )}
 
-                {seasonalSummary && !error && (
+                {seasonalSummary && (
                     <View>
                         <Text style={styles.heading}>Historical Weather</Text>
                         <View style={styles.weatherCard}>
@@ -555,11 +560,6 @@ const styles = StyleSheet.create({
         color: "white",
         alignSelf: "center",
         fontSize: 20,
-    },
-    error: {
-        color: "red",
-        textAlign: "center",
-        marginTop: 20,
     },
     weatherCard: {
         marginVertical: 20,

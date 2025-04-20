@@ -43,6 +43,24 @@ const HotelListings: React.FC<Props> = ({ navigation, route }) => {
 
             setLoading(true);
 
+            if (!dest_id) {
+                throw new Error(
+                    "Missing location input. Please enter the location name."
+                );
+            }
+
+            if (!search_type) {
+                throw new Error("Missing input. Please check your input.");
+            }
+
+            if (!departure_date) {
+                throw new Error("Missing start date. Please check your input.");
+            }
+
+            if (!arrival_date) {
+                throw new Error("Missing end date. Please check your input.");
+            }
+
             const url = `https://booking-com15.p.rapidapi.com/api/v1/hotels/searchHotels?dest_id=${dest_id}&search_type=${search_type}&arrival_date=${arrival_date}&departure_date=${departure_date}&room_qty=1&page_number=${pageNum}&languagecode=en-us&currency_code=USD`;
 
             const options = {

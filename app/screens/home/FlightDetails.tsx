@@ -42,8 +42,13 @@ const FlightDetails: React.FC<Props> = ({ navigation, route }) => {
     const loadData = async () => {
         try {
             setLoading(true);
-            console.log("token");
-            console.log(token);
+
+            if (!token) {
+                throw new Error(
+                    "Missing token. Please search the flight again."
+                );
+            }
+
             const url = `https://booking-com15.p.rapidapi.com/api/v1/flights/getFlightDetails?token=${token}&currency_code=USD`;
             const options = {
                 method: "GET",
@@ -66,6 +71,7 @@ const FlightDetails: React.FC<Props> = ({ navigation, route }) => {
         } catch (error) {
             setLoading(false);
             Alert.alert(`${error}`);
+            navigation.goBack();
         }
     };
 

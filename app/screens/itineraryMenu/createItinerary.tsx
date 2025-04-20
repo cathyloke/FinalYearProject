@@ -319,15 +319,7 @@ const ManualItinerary = ({
                         ))}
                     </View>
                 </ScrollView>
-
-                {/* <Text style={{ marginTop: 20, fontSize: 16 }}>
-                    Selected: {selectedInterests.join(", ") || "None"}
-                </Text> */}
             </View>
-
-            {/* <View style={styles.multiSelect}>
-                <Text style={styles.inputLabel}>Itineraries</Text>
-            </View> */}
 
             <View style={styles.buttonContainer}>
                 <TouchableOpacity

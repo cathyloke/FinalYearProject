@@ -44,6 +44,12 @@ const AttractionDetails: React.FC<Props> = ({ navigation, route }) => {
             setLoading(true);
             setProducts([]);
 
+            if (!productSlug) {
+                throw new Error(
+                    "Missing data. Please browse the attraction again."
+                );
+            }
+
             const url = `https://booking-com15.p.rapidapi.com/api/v1/attraction/getAttractionDetails?slug=${productSlug}&currency_code=USD`;
             const options = {
                 method: "GET",
@@ -68,6 +74,7 @@ const AttractionDetails: React.FC<Props> = ({ navigation, route }) => {
         } catch (error) {
             setLoading(false);
             Alert.alert(`${error}`);
+            navigation.goBack();
         }
     };
 

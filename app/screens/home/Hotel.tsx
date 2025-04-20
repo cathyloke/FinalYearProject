@@ -37,6 +37,12 @@ const Hotel: React.FC<Props> = ({ navigation }) => {
             setLoading(true);
             setHotelDestinations([]);
 
+            if (!destination) {
+                throw new Error(
+                    "Missing location input. Please enter the location name."
+                );
+            }
+
             const url = `https://booking-com15.p.rapidapi.com/api/v1/hotels/searchDestination?query=${destination}`;
             const options = {
                 method: "GET",
