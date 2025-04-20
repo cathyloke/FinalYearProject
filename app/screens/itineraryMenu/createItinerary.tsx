@@ -419,13 +419,11 @@ const AIItinerary = ({
                 !selectedTravelMode ||
                 !selectedInterests
             ) {
-                Alert.alert("Please check the missing details");
-                return;
+                throw new Error("Please check the missing details");
             }
 
             if (endDate < startDate) {
-                Alert.alert("End date must be later than start date.");
-                return;
+                throw new Error("End date must be later than start date.");
             }
 
             const tripDays = calculateDuration();
