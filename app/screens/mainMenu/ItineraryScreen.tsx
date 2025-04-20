@@ -102,7 +102,6 @@ const ItineraryScreen: React.FC<Props> = ({ navigation }) => {
             );
 
             setPlans(response.data.data);
-            console.log(response.data.data);
         } catch (error) {
             Alert.alert(`${error}`);
         }

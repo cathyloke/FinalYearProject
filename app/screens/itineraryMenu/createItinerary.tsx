@@ -1,11 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
 import {
-    Button,
     TextInput,
     Text,
     View,
-    Platform,
-    Image,
     StyleSheet,
     TouchableOpacity,
     Alert,
@@ -138,7 +135,6 @@ const ManualItinerary = ({
                 navigation.navigate("Cover");
                 return;
             }
-
             const { userId: userId } = session;
 
             if (
@@ -153,14 +149,12 @@ const ManualItinerary = ({
                 Alert.alert("Please check the missing details");
                 return;
             }
-
             if (endDate < startDate) {
                 Alert.alert("End date must be later than start date.");
                 return;
             }
 
             const tripDays = calculateDuration();
-            // console.log(tripDays);
             const response: any = await axios.post(
                 `http://192.168.1.18:3000/itinerary/${userId}`,
                 {
@@ -428,34 +422,29 @@ const AIItinerary = ({
 
             const tripDays = calculateDuration();
 
-            const url = "https://ai-trip-planner.p.rapidapi.com/detailed-plan";
-            const options = {
-                method: "POST",
-                headers: {
-                    "x-rapidapi-key":
-                        "a230c9ccd7mshb07ccda32616866p1f0411jsn819da13c3d68",
-                    "x-rapidapi-host": "ai-trip-planner.p.rapidapi.com",
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    days: tripDays,
-                    destination: destination,
-                    interests: selectedInterests,
-                    budget: budget,
-                    travelMode: selectedTravelMode.toLowerCase(),
-                }),
+            const data = {
+                days: tripDays,
+                destination: destination,
+                interests: selectedInterests,
+                budget: budget,
+                travelMode: selectedTravelMode.toLowerCase(),
             };
 
-            const response = await fetch(url, options);
-            const result = await response.json();
+            const url = "https://ai-trip-planner.p.rapidapi.com/detailed-plan";
 
+            const headers = {
+                "x-rapidapi-key":
+                    "a230c9ccd7mshb07ccda32616866p1f0411jsn819da13c3d68",
+                "x-rapidapi-host": "ai-trip-planner.p.rapidapi.com",
+                "Content-Type": "application/json",
+            };
+
+            const result = (await axios.post(url, data, { headers })).data;
             console.log(result);
 
             if (!result) {
                 throw new Error(`Error in calling AI travel planner API`);
             }
-
-            // const parsedResult = JSON.parse(result);
 
             const saveTrip = await axios.post(
                 `http://192.168.1.18:3000/itinerary/${userId}`,

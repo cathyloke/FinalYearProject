@@ -34,11 +34,9 @@ const HomeNavigator = () => {
             <Stack.Screen
                 name="Home"
                 component={HomeScreen}
-                options={{
-                    headerShown: false,
-                }}
+                options={{ headerShown: false }}
             />
-            <Stack.Screen name="Weather" component={Weather} options={{}} />
+            <Stack.Screen name="Weather" component={Weather} />
             <Stack.Screen name="Attraction" component={Attraction} />
             <Stack.Screen
                 name="AttractionDetails"
@@ -48,24 +46,18 @@ const HomeNavigator = () => {
             <Stack.Screen
                 name="HotelListings"
                 component={HotelListings}
-                options={{
-                    title: "Hotel Listings",
-                }}
+                options={{ title: "Hotel Listings" }}
             />
             <Stack.Screen
                 name="HotelDetails"
                 component={HotelDetails}
-                options={{
-                    title: "Hotel Details",
-                }}
+                options={{ title: "Hotel Details" }}
             />
             <Stack.Screen name="Flight" component={Flight} />
             <Stack.Screen
                 name="FlightDetails"
                 component={FlightDetails}
-                options={{
-                    title: "Flight Details",
-                }}
+                options={{ title: "Flight Details" }}
             />
         </Stack.Navigator>
     );

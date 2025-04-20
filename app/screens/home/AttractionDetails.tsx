@@ -63,12 +63,7 @@ const AttractionDetails: React.FC<Props> = ({ navigation, route }) => {
             const response = await axios.get(url, options);
             const attractionDet = response.data?.data || [];
             setAttractionDetails(attractionDet);
-
-            console.log("Attraction Details");
-            console.log(JSON.stringify(attractionDet));
-
             setReviews(attractionDet.reviews.reviews);
-
             setPhotos(attractionDet.photos.map((photo: any) => photo.small));
             setLoading(false);
         } catch (error) {

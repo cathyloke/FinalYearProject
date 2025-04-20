@@ -62,11 +62,6 @@ const FlightDetails: React.FC<Props> = ({ navigation, route }) => {
             const response = await axios.get(url, options);
             setFlightDetails(response.data.data);
 
-            console.log("response");
-            console.log(response.data.data);
-            // console.log("here is the segment");
-            // console.log(response.data.data.segments);
-
             setLoading(false);
         } catch (error) {
             setLoading(false);

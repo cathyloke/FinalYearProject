@@ -127,25 +127,21 @@ const Flight: React.FC<Props> = ({ navigation }) => {
                     "Missing departure location input. Please search the departure location first."
                 );
             }
-
             if (!arrivalId) {
                 throw new Error(
                     "Missing arrival location input. Please search the arrival location first."
                 );
             }
-
             if (!startDate) {
                 throw new Error(
                     "Missing start date. Please choose the start date first."
                 );
             }
-
             if (!endDate) {
                 throw new Error(
                     "Missing end date. Please choose the end date first."
                 );
             }
-
             const departure_date = startDate.toISOString().split("T")[0];
             const arrival_date = endDate.toISOString().split("T")[0];
 

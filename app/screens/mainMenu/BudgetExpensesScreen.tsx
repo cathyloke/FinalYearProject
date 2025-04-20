@@ -111,7 +111,6 @@ const BudgetExpensesScreen: React.FC<Props> = ({ navigation }) => {
         }
 
         const { userId: userId } = session;
-        // console.log('user id : ', userId)
 
         axios
             .get(`http://192.168.1.18:3000/read/${userId}`)
