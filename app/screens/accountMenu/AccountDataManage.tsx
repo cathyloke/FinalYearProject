@@ -39,7 +39,7 @@ const AccountDataManageScreen: React.FC<Props> = ({ navigation }) => {
 
         const { userId: userId } = session;
         axios
-            .get(`http://192.168.1.18:3000/read/${userId}`)
+            .get(`http://192.168.1.6:3000/read/${userId}`)
             .then((res) => {
                 // console.log('User:', res.data);
                 setName(res.data.data.name);
@@ -79,7 +79,7 @@ const AccountDataManageScreen: React.FC<Props> = ({ navigation }) => {
 
             const formattedGender =
                 gender.charAt(0).toUpperCase() + gender.slice(1).toLowerCase();
-            
+
             if (
                 formattedGender !== "Male" &&
                 formattedGender !== "Female" &&
@@ -100,7 +100,7 @@ const AccountDataManageScreen: React.FC<Props> = ({ navigation }) => {
             };
             console.log(JSON.stringify(userData));
             axios
-                .put(`http://192.168.1.18:3000/update/${userId}`, userData)
+                .put(`http://192.168.1.6:3000/update/${userId}`, userData)
                 .then((res) => {
                     console.log("Successfully update user : " + res);
                     console.log(JSON.stringify(res.data));

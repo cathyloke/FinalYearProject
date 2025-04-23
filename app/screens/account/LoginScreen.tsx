@@ -67,7 +67,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
             };
 
             const response = await axios.post(
-                "http://192.168.1.18:3000/login",
+                "http://192.168.1.6:3000/login",
                 userData
             );
             saveSession(response.data.data._id);

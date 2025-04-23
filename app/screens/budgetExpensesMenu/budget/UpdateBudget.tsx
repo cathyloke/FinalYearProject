@@ -43,7 +43,7 @@ const UpdateBudget: React.FC<Props> = ({ navigation, route }) => {
         const { userId: userId } = session;
 
         axios
-            .get(`http://192.168.1.18:3000/read/${userId}`)
+            .get(`http://192.168.1.6:3000/read/${userId}`)
             .then((res) => {
                 console.log(res.data.data);
                 const data = res.data.data.budgets.find(
@@ -85,7 +85,7 @@ const UpdateBudget: React.FC<Props> = ({ navigation, route }) => {
         };
 
         axios
-            .put(`http://192.168.1.18:3000/budget/${userId}`, budgetData)
+            .put(`http://192.168.1.6:3000/budget/${userId}`, budgetData)
             .then((res) => {
                 Alert.alert("Budget Updated");
                 navigation.navigate("BudgetExpenses");

@@ -98,14 +98,14 @@ const ManualItinerary = ({
         try {
             console.log("loading data");
             const travelModeRes = await axios.get(
-                `http://192.168.1.18:3000/preferences/travelMode`
+                `http://192.168.1.6:3000/preferences/travelMode`
             );
 
             const travelModeData = travelModeRes.data.data;
             setTravelModes(travelModeData);
 
             const interestRes = await axios.get(
-                `http://192.168.1.18:3000/preferences/interest`
+                `http://192.168.1.6:3000/preferences/interest`
             );
 
             const interestData = interestRes.data.data;
@@ -156,7 +156,7 @@ const ManualItinerary = ({
 
             const tripDays = calculateDuration();
             const response: any = await axios.post(
-                `http://192.168.1.18:3000/itinerary/${userId}`,
+                `http://192.168.1.6:3000/itinerary/${userId}`,
                 {
                     newItinerary: {
                         name: name,
@@ -368,14 +368,14 @@ const AIItinerary = ({
         try {
             console.log("loading data");
             const travelModeRes = await axios.get(
-                `http://192.168.1.18:3000/preferences/travelMode`
+                `http://192.168.1.6:3000/preferences/travelMode`
             );
 
             const travelModeData = travelModeRes.data.data;
             setTravelModes(travelModeData);
 
             const interestRes = await axios.get(
-                `http://192.168.1.18:3000/preferences/interest`
+                `http://192.168.1.6:3000/preferences/interest`
             );
 
             const interestData = interestRes.data.data;
@@ -422,51 +422,69 @@ const AIItinerary = ({
 
             const tripDays = calculateDuration();
 
-            const data = {
-                days: tripDays,
+            // const data = {
+            //     days: tripDays,
+            //     destination: destination,
+            //     interests: selectedInterests,
+            //     budget: budget,
+            //     travelMode: selectedTravelMode.toLowerCase(),
+            // };
+
+            // const url = "https://ai-trip-planner.p.rapidapi.com/detailed-plan";
+
+            // const headers = {
+            //     "x-rapidapi-key":
+            //         "a230c9ccd7mshb07ccda32616866p1f0411jsn819da13c3d68",
+            //     "x-rapidapi-host": "ai-trip-planner.p.rapidapi.com",
+            //     "Content-Type": "application/json",
+            // };
+
+            // const result = (await axios.post(url, data, { headers })).data;
+            // console.log(result);
+
+            // if (!result) {
+            //     throw new Error(`Error in calling AI travel planner API`);
+            // }
+
+            console.log("generating trip using openai");
+            const itineraryData = {
+                startDate: startDate,
+                endDate: endDate,
+                name: name,
                 destination: destination,
+                budgetCategory: budget,
+                travelMode: selectedTravelMode,
                 interests: selectedInterests,
-                budget: budget,
-                travelMode: selectedTravelMode.toLowerCase(),
             };
-
-            const url = "https://ai-trip-planner.p.rapidapi.com/detailed-plan";
-
-            const headers = {
-                "x-rapidapi-key":
-                    "a230c9ccd7mshb07ccda32616866p1f0411jsn819da13c3d68",
-                "x-rapidapi-host": "ai-trip-planner.p.rapidapi.com",
-                "Content-Type": "application/json",
-            };
-
-            const result = (await axios.post(url, data, { headers })).data;
-            console.log(result);
-
-            if (!result) {
-                throw new Error(`Error in calling AI travel planner API`);
-            }
-
-            const saveTrip = await axios.post(
-                `http://192.168.1.18:3000/itinerary/${userId}`,
-                {
-                    newItinerary: {
-                        name: name,
-                        days: tripDays,
-                        startDate: startDate,
-                        endDate: endDate,
-                        destination: destination,
-                        budget: budget,
-                        travelModes: selectedTravelMode,
-                        interests: selectedInterests,
-                        itinerary: result.plan.itinerary,
-                    },
-                }
+            
+            const result = await axios.post(
+                `http://192.168.1.6:3000/generate-itinerary`,
+                itineraryData
             );
-            if (saveTrip) {
-                Alert.alert("Success", "Itinerary saved successfully!");
-                navigation.navigate("ViewItinerary", {
-                    itineraryId: saveTrip.data.data._id.toString(),
-                });
+
+            if (result) {
+                const saveTrip = await axios.post(
+                    `http://192.168.1.6:3000/itinerary/${userId}`,
+                    {
+                        newItinerary: {
+                            name: name,
+                            days: tripDays,
+                            startDate: startDate,
+                            endDate: endDate,
+                            destination: destination,
+                            budget: budget,
+                            travelModes: selectedTravelMode,
+                            interests: selectedInterests,
+                            itinerary: result.data,
+                        },
+                    }
+                );
+                if (saveTrip) {
+                    Alert.alert("Success", "Itinerary saved successfully!");
+                    navigation.navigate("ViewItinerary", {
+                        itineraryId: saveTrip.data.data._id.toString(),
+                    });
+                }
             }
             setLoading(false);
         } catch (error) {
