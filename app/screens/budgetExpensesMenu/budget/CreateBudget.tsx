@@ -66,7 +66,7 @@ const CreateBudget: React.FC<Props> = ({ navigation }) => {
         };
 
         axios
-            .put(`http://172.20.10.2:3000/budget/${userId}`, budget)
+            .put(`http://192.168.1.8:3000/budget/${userId}`, budget)
             .then((res) => {
                 console.log("Successfully create/edit budget : " + res);
                 navigation.navigate("BudgetExpenses");

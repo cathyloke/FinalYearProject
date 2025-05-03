@@ -12,13 +12,80 @@ const BottomTab = createBottomTabNavigator<RootStackParamList>();
 
 const BottomTabNavigator = () => {
     return (
+        // <BottomTab.Navigator
+        //     screenOptions={{
+        //         tabBarStyle: {
+        //             backgroundColor: "#E2BFD9",
+        //             height: 80,
+        //             borderTopLeftRadius: 30,
+        //             borderTopRightRadius: 30,
+        //         },
+        //         headerShown: false,
+        //         tabBarShowLabel: false,
+        //     }}
+        // >
+        //     <BottomTab.Screen
+        //         name="HomeMenu"
+        //         component={HomeNavigator}
+        //         options={{
+        //             tabBarIcon: ({ focused }) => (
+        //                 <MaterialCommunityIcons
+        //                     name="home"
+        //                     size={40}
+        //                     color={focused ? "black" : "#F7EFE5"}
+        //                 />
+        //             ),
+        //         }}
+        //     />
+        //     <BottomTab.Screen
+        //         name="ItineraryMenu"
+        //         component={ItineraryNavigator}
+        //         options={{
+        //             tabBarIcon: ({ focused }) => (
+        //                 <MaterialCommunityIcons
+        //                     name="book"
+        //                     size={35}
+        //                     color={focused ? "black" : "#F7EFE5"}
+        //                 />
+        //             ),
+        //         }}
+        //     />
+        //     <BottomTab.Screen
+        //         name="BudgetMenu"
+        //         component={BudgetNavigator}
+        //         options={{
+        //             tabBarIcon: ({ focused }) => (
+        //                 <MaterialCommunityIcons
+        //                     name="cash"
+        //                     size={40}
+        //                     color={focused ? "black" : "#F7EFE5"}
+        //                 />
+        //             ),
+        //         }}
+        //     />
+        //     <BottomTab.Screen
+        //         name="ProfileMenu"
+        //         component={AccountNavigator}
+        //         options={{
+        //             tabBarIcon: ({ focused }) => (
+        //                 <MaterialCommunityIcons
+        //                     name="account"
+        //                     size={40}
+        //                     color={focused ? "black" : "#F7EFE5"}
+        //                 />
+        //             ),
+        //         }}
+        //     />
+        // </BottomTab.Navigator>
+
         <BottomTab.Navigator
             screenOptions={{
                 tabBarStyle: {
                     backgroundColor: "#E2BFD9",
-                    height: 80,
-                    borderTopLeftRadius: 30,
-                    borderTopRightRadius: 30,
+                    height: 65, // Adjusted height for better icon space
+                    borderTopLeftRadius: 20,
+                    borderTopRightRadius: 20,
+                    paddingBottom: 5, // Ensures icons are not too close to the bottom
                 },
                 headerShown: false,
                 tabBarShowLabel: false,
@@ -31,7 +98,7 @@ const BottomTabNavigator = () => {
                     tabBarIcon: ({ focused }) => (
                         <MaterialCommunityIcons
                             name="home"
-                            size={40}
+                            size={35} // Adjusted size for better fit
                             color={focused ? "black" : "#F7EFE5"}
                         />
                     ),
@@ -44,7 +111,7 @@ const BottomTabNavigator = () => {
                     tabBarIcon: ({ focused }) => (
                         <MaterialCommunityIcons
                             name="book"
-                            size={35}
+                            size={35} // Adjusted size for better fit
                             color={focused ? "black" : "#F7EFE5"}
                         />
                     ),
@@ -57,7 +124,7 @@ const BottomTabNavigator = () => {
                     tabBarIcon: ({ focused }) => (
                         <MaterialCommunityIcons
                             name="cash"
-                            size={40}
+                            size={35} // Adjusted size for better fit
                             color={focused ? "black" : "#F7EFE5"}
                         />
                     ),
@@ -70,7 +137,7 @@ const BottomTabNavigator = () => {
                     tabBarIcon: ({ focused }) => (
                         <MaterialCommunityIcons
                             name="account"
-                            size={40}
+                            size={35} // Adjusted size for better fit
                             color={focused ? "black" : "#F7EFE5"}
                         />
                     ),
