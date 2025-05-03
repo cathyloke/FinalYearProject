@@ -27,7 +27,7 @@ const AccountNavigator = () => {
                     fontFamily: "Itim-Regular",
                     fontSize: 25,
                 },
-                headerBackTitleVisible: false,
+                // headerBackTitleVisible: false,
             }}
         >
             <Stack.Screen

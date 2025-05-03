@@ -28,7 +28,7 @@ const HomeNavigator = () => {
                     fontFamily: "Itim-Regular",
                     fontSize: 25,
                 },
-                headerBackTitleVisible: false,
+                // headerBackTitleVisible: false,
             }}
         >
             <Stack.Screen

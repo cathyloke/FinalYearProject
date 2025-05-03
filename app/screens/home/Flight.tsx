@@ -284,9 +284,9 @@ const Flight: React.FC<Props> = ({ navigation }) => {
                         </Text>
 
                         <ScrollView>
-                            {flightDestinations.map((item) => (
+                            {flightDestinations.map((item, index) => (
                                 <TouchableOpacity
-                                    key={item.id}
+                                    key={item.id || index}
                                     style={styles.item}
                                     onPress={() =>
                                         navigation.navigate("FlightDetails", {

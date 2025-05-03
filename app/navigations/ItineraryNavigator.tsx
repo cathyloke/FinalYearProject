@@ -25,7 +25,7 @@ const ItineraryNavigator = () => {
                     fontFamily: "Itim-Regular",
                     fontSize: 25,
                 },
-                headerBackTitleVisible: false,
+                // headerBackTitleVisible: false,
             }}
         >
             <Stack.Screen
@@ -54,7 +54,6 @@ const ItineraryNavigator = () => {
                 component={ViewItinerary}
                 options={{
                     title: "View Itinerary",
-                    headerBackTitleVisible: false,
                 }}
             />
             <Stack.Screen

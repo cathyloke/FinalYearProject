@@ -98,14 +98,14 @@ const ManualItinerary = ({
         try {
             console.log("loading data");
             const travelModeRes = await axios.get(
-                `http://192.168.1.8:3000/preferences/travelMode`
+                `http://172.20.10.2:3000/preferences/travelMode`
             );
 
             const travelModeData = travelModeRes.data.data;
             setTravelModes(travelModeData);
 
             const interestRes = await axios.get(
-                `http://192.168.1.8:3000/preferences/interest`
+                `http://172.20.10.2:3000/preferences/interest`
             );
 
             const interestData = interestRes.data.data;
@@ -156,7 +156,7 @@ const ManualItinerary = ({
 
             const tripDays = calculateDuration();
             const response: any = await axios.post(
-                `http://192.168.1.8:3000/itinerary/${userId}`,
+                `http://172.20.10.2:3000/itinerary/${userId}`,
                 {
                     newItinerary: {
                         name: name,
@@ -368,14 +368,14 @@ const AIItinerary = ({
         try {
             console.log("loading data");
             const travelModeRes = await axios.get(
-                `http://192.168.1.8:3000/preferences/travelMode`
+                `http://172.20.10.2:3000/preferences/travelMode`
             );
 
             const travelModeData = travelModeRes.data.data;
             setTravelModes(travelModeData);
 
             const interestRes = await axios.get(
-                `http://192.168.1.8:3000/preferences/interest`
+                `http://172.20.10.2:3000/preferences/interest`
             );
 
             const interestData = interestRes.data.data;
@@ -458,13 +458,13 @@ const AIItinerary = ({
             };
 
             const result = await axios.post(
-                `http://192.168.1.8:3000/generate-itinerary`,
+                `http://172.20.10.2:3000/generate-itinerary`,
                 itineraryData
             );
 
             if (result) {
                 const saveTrip = await axios.post(
-                    `http://192.168.1.8:3000/itinerary/${userId}`,
+                    `http://172.20.10.2:3000/itinerary/${userId}`,
                     {
                         newItinerary: {
                             name: name,
