@@ -78,7 +78,7 @@ const ViewItinerary: React.FC<Props> = ({ navigation, route }) => {
             const { userId: userId } = session;
 
             const response = await axios.get(
-                `http://192.168.1.6:3000/itinerary/${userId}/${itineraryId}`
+                `http://192.168.1.8:3000/itinerary/${userId}/${itineraryId}`
             );
 
             console.log(JSON.stringify(response.data.data));

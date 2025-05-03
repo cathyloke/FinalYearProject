@@ -108,6 +108,11 @@ const UpdateExpenses: React.FC<Props> = ({ navigation, route }) => {
                 return;
             }
 
+            if (!category || !name || !amount || !date) {
+                Alert.alert("Missing value. Please check your input.");
+                return;
+            }
+
             const expensesDetails = {
                 id: detailId,
                 name: name,
@@ -118,7 +123,7 @@ const UpdateExpenses: React.FC<Props> = ({ navigation, route }) => {
 
             axios
                 .put(
-                    `http://192.168.1.6:3000/expenses/${userId}/${budgetName}/${categoryName}`,
+                    `http://192.168.1.8:3000/expenses/${userId}/${budgetName}/${categoryName}`,
                     expensesDetails
                 )
                 .then((res) => {
@@ -163,7 +168,7 @@ const UpdateExpenses: React.FC<Props> = ({ navigation, route }) => {
             const { userId: userId } = session;
 
             const response = await axios.get(
-                `http://192.168.1.6:3000/expenses/${userId}/${budgetName}/${categoryName}/${detailId}`
+                `http://192.168.1.8:3000/expenses/${userId}/${budgetName}/${categoryName}/${detailId}`
             );
 
             if (response) {

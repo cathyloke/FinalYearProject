@@ -79,7 +79,7 @@ const UpdateItinerary: React.FC<Props> = ({ navigation, route }) => {
             console.log("Loading data");
 
             const travelModeRes = await axios.get(
-                `http://192.168.1.6:3000/preferences/travelMode`
+                `http://192.168.1.8:3000/preferences/travelMode`
             );
 
             // console.log(travelModeRes.data.data);
@@ -87,7 +87,7 @@ const UpdateItinerary: React.FC<Props> = ({ navigation, route }) => {
             setTravelModes(travelModeData);
 
             const interestRes = await axios.get(
-                `http://192.168.1.6:3000/preferences/interest`
+                `http://192.168.1.8:3000/preferences/interest`
             );
 
             // console.log(interestRes.data.data);
@@ -103,7 +103,7 @@ const UpdateItinerary: React.FC<Props> = ({ navigation, route }) => {
             const { userId: userId } = session;
 
             const response = await axios.get(
-                `http://192.168.1.6:3000/itinerary/${userId}/${itineraryId}`
+                `http://192.168.1.8:3000/itinerary/${userId}/${itineraryId}`
             );
 
             setStartDate(new Date(response.data.data.startDate));
@@ -154,14 +154,14 @@ const UpdateItinerary: React.FC<Props> = ({ navigation, route }) => {
             }
 
             if (endDate < startDate) {
-                Alert.alert("End date must be later than start date.");
+                Alert.alert("End date must be after the start date.");
                 return;
             }
 
             const tripDays = calculateDuration();
 
             const planData = await axios.get(
-                `http://192.168.1.6:3000/itinerary/${userId}/${itineraryId}`
+                `http://192.168.1.8:3000/itinerary/${userId}/${itineraryId}`
             );
 
             if (planData.data.data.itinerary.length > Number(tripDays)) {
@@ -201,7 +201,7 @@ const UpdateItinerary: React.FC<Props> = ({ navigation, route }) => {
                                 };
 
                                 const response = await axios.put(
-                                    `http://192.168.1.6:3000/itinerary/${userId}/${itineraryId}`,
+                                    `http://192.168.1.8:3000/itinerary/${userId}/${itineraryId}`,
                                     updatedData
                                 );
 
@@ -230,7 +230,7 @@ const UpdateItinerary: React.FC<Props> = ({ navigation, route }) => {
             console.log(updatedData);
 
             const response = await axios.put(
-                `http://192.168.1.6:3000/itinerary/${userId}/${itineraryId}`,
+                `http://192.168.1.8:3000/itinerary/${userId}/${itineraryId}`,
                 updatedData
             );
 

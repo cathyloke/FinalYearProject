@@ -98,14 +98,14 @@ const ManualItinerary = ({
         try {
             console.log("loading data");
             const travelModeRes = await axios.get(
-                `http://192.168.1.6:3000/preferences/travelMode`
+                `http://192.168.1.8:3000/preferences/travelMode`
             );
 
             const travelModeData = travelModeRes.data.data;
             setTravelModes(travelModeData);
 
             const interestRes = await axios.get(
-                `http://192.168.1.6:3000/preferences/interest`
+                `http://192.168.1.8:3000/preferences/interest`
             );
 
             const interestData = interestRes.data.data;
@@ -150,13 +150,13 @@ const ManualItinerary = ({
                 return;
             }
             if (endDate < startDate) {
-                Alert.alert("End date must be later than start date.");
+                Alert.alert("End date must be after the start date.");
                 return;
             }
 
             const tripDays = calculateDuration();
             const response: any = await axios.post(
-                `http://192.168.1.6:3000/itinerary/${userId}`,
+                `http://192.168.1.8:3000/itinerary/${userId}`,
                 {
                     newItinerary: {
                         name: name,
@@ -368,14 +368,14 @@ const AIItinerary = ({
         try {
             console.log("loading data");
             const travelModeRes = await axios.get(
-                `http://192.168.1.6:3000/preferences/travelMode`
+                `http://192.168.1.8:3000/preferences/travelMode`
             );
 
             const travelModeData = travelModeRes.data.data;
             setTravelModes(travelModeData);
 
             const interestRes = await axios.get(
-                `http://192.168.1.6:3000/preferences/interest`
+                `http://192.168.1.8:3000/preferences/interest`
             );
 
             const interestData = interestRes.data.data;
@@ -417,7 +417,7 @@ const AIItinerary = ({
             }
 
             if (endDate < startDate) {
-                throw new Error("End date must be later than start date.");
+                throw new Error("End date must be after the start date.");
             }
 
             const tripDays = calculateDuration();
@@ -456,15 +456,15 @@ const AIItinerary = ({
                 travelMode: selectedTravelMode,
                 interests: selectedInterests,
             };
-            
+
             const result = await axios.post(
-                `http://192.168.1.6:3000/generate-itinerary`,
+                `http://192.168.1.8:3000/generate-itinerary`,
                 itineraryData
             );
 
             if (result) {
                 const saveTrip = await axios.post(
-                    `http://192.168.1.6:3000/itinerary/${userId}`,
+                    `http://192.168.1.8:3000/itinerary/${userId}`,
                     {
                         newItinerary: {
                             name: name,

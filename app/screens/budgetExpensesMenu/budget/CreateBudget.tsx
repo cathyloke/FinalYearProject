@@ -14,7 +14,6 @@ import { RootStackParamList } from "../../../assets/Types";
 import { ScrollView } from "react-native-gesture-handler";
 import axios from "axios";
 import { getSession } from "../../../assets/asyncStorageData";
-import { useFocusEffect } from "@react-navigation/native";
 
 type CreateBudgetNavigationProp = StackNavigationProp<
     RootStackParamList,
@@ -67,7 +66,7 @@ const CreateBudget: React.FC<Props> = ({ navigation }) => {
         };
 
         axios
-            .put(`http://192.168.1.6:3000/budget/${userId}`, budget)
+            .put(`http://192.168.1.8:3000/budget/${userId}`, budget)
             .then((res) => {
                 console.log("Successfully create/edit budget : " + res);
                 navigation.navigate("BudgetExpenses");

@@ -88,7 +88,7 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
             };
 
             const response = await axios.post(
-                "http://192.168.1.6:3000/register",
+                "http://192.168.1.8:3000/register",
                 userData
             );
 
