@@ -82,10 +82,10 @@ const BottomTabNavigator = () => {
             screenOptions={{
                 tabBarStyle: {
                     backgroundColor: "#E2BFD9",
-                    height: 65, // Adjusted height for better icon space
+                    height: 70,
                     borderTopLeftRadius: 20,
                     borderTopRightRadius: 20,
-                    paddingBottom: 5, // Ensures icons are not too close to the bottom
+                    paddingBottom: 5,
                 },
                 headerShown: false,
                 tabBarShowLabel: false,

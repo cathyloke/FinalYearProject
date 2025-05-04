@@ -167,7 +167,10 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
                         </TouchableNativeFeedback>
                         <TouchableNativeFeedback
                             onPress={() =>
-                                navigation.navigate("BudgetExpenses")
+                                // navigation.navigate("BudgetExpenses")
+                                navigation.navigate("BudgetMenu", {
+                                    screen: "BudgetExpenses",
+                                })
                             }
                         >
                             <View style={styles.bookingOptionWrapper}>
@@ -180,7 +183,12 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
                             </View>
                         </TouchableNativeFeedback>
                         <TouchableNativeFeedback
-                            onPress={() => navigation.navigate("Itinerary")}
+                            onPress={() =>
+                                // navigation.navigate("Itinerary")
+                                navigation.navigate("ItineraryMenu", {
+                                    screen: "Itinerary",
+                                })
+                            }
                         >
                             <View style={styles.bookingOptionWrapper}>
                                 <MaterialCommunityIcons

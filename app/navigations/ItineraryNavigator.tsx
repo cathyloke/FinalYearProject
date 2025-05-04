@@ -26,6 +26,7 @@ const ItineraryNavigator = () => {
                     fontSize: 25,
                 },
                 // headerBackTitleVisible: false,
+                headerBackTitle: "",
             }}
         >
             <Stack.Screen

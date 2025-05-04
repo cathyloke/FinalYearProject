@@ -51,6 +51,7 @@ const AppNavigator = () => {
                         fontSize: 25,
                     },
                     // headerBackTitleVisible: false,
+                    headerBackTitle: "",
                 }}
             />
             <Stack.Screen
