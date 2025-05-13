@@ -434,7 +434,7 @@ const AIItinerary = ({
 
             // const headers = {
             //     "x-rapidapi-key":
-            //         "YOURBOOKINGCOMAPIKEY",
+            //         "YOURRAPIDAPIKEY",
             //     "x-rapidapi-host": "ai-trip-planner.p.rapidapi.com",
             //     "Content-Type": "application/json",
             // };

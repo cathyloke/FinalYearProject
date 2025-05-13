@@ -47,7 +47,7 @@ const Hotel: React.FC<Props> = ({ navigation }) => {
             const options = {
                 method: "GET",
                 headers: {
-                    "x-rapidapi-key": "YOURBOOKINGCOMAPIKEY",
+                    "x-rapidapi-key": "YOURRAPIDAPIKEY",
                     "x-rapidapi-host": "booking-com15.p.rapidapi.com",
                 },
             };
