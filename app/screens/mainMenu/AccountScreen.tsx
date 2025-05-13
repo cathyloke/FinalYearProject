@@ -50,7 +50,7 @@ const AccountScreen: React.FC<Props> = ({ navigation }) => {
         // console.log('user id : ', userId)
 
         axios
-            .get(`http://192.168.1.8:3000/read/${userId}`)
+            .get(`http://172.20.10.2:3000/read/${userId}`)
             .then((res) => {
                 // console.log('User:', res.data);
                 setName(res.data.data.name);

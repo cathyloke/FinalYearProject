@@ -58,7 +58,7 @@ const BudgetDetails: React.FC<Props> = ({ navigation, route }) => {
         const { userId: userId } = session;
 
         axios
-            .get(`http://192.168.1.8:3000/budget/${userId}/${budgetName}`)
+            .get(`http://172.20.10.2:3000/budget/${userId}/${budgetName}`)
             .then((res) => {
                 // console.log(res.data.data);
                 setBudgetAmount(res.data.data.budgetAmount);
